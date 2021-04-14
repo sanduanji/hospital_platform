@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/html">
+<head>
+  <meta charset="utf-8">
+  <title>医疗大数据互联互通平台</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="">
+  <meta name="author" content="">
+  <!-- styles -->
+  {% load static %}
+  <link href="{% static 'mycss/css/bootstrap.css' %}" rel="stylesheet">
+  <script src="{% static 'mycss/js/jquery.js' %}"></script>
+  <script src="{% static 'mycss/js/bootstrap.js' %}"></script>
+  <link href="{% static 'mycss/css/bootstrap-responsive.css' %}" rel="stylesheet">
+  <link href="{% static 'mycss/css/prettyPhoto.css' %}" rel="stylesheet">
+  <link href="{% static 'mycss/js/google-code-prettify/prettify.css' %}" rel="stylesheet">
+  <link href="{% static 'mycss/css/flexslider.css' %}" rel="stylesheet">
+  <link href="{% static 'mycss/css/style.css' %}" rel="stylesheet">
+  <link href="{% static 'mycss/color/default.css' %}" rel="stylesheet">
+
+  <!-- fav and touch icons -->
+  <link rel="shortcut icon" href="{% static 'mycss/ico/favicon.ico' %}">
+  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="{% static 'mycss/ico/apple-touch-icon-144-precomposed.png' %}">
+  <link rel="apple-touch-icon-precomposed" sizes="114x114" href="{% static 'mycss/ico/apple-touch-icon-114-precomposed.png' %}">
+  <link rel="apple-touch-icon-precomposed" sizes="72x72" href="{% static 'mycss/ico/apple-touch-icon-72-precomposed.png' %}">
+  <link rel="apple-touch-icon-precomposed" href="{% static 'mycss/ico/apple-touch-icon-57-precomposed.png' %}">
+</head>
+<style>
+label
+{
+    width:200px;
+    float:left;
+    text-align: right;
+    {#text-align: center;#}
+    margin-top: 20px;
+    margin-top: 20px;
+    margin-left: 150px;
+    font-size: 0.5cm;
+    {#font: ;#}
+    color: black;
+    {#<font size="5" face="arial" color="black">A paragraph.</font>#}
+}
+
+input
+{
+    padding:1px 1px;
+    border:1px solid #ccc;
+    {#height:16px;#}
+    width: 200px;
+    margin-top: 15px;
+    margin-right: 50px;
+    {#text-align: left;#}
+    {#alignment: left;#}
+}
+
+select.form-control
+{
+    text-align: left;
+    width: 150px;
+    padding:1px 1px;
+    border:1px solid #ccc;
+    margin-top: 15px;
+    margin-right: 50px;
+    {#height: 16px;#}
+}
+</style>
+
+
+
+<body>
+    <body background="{% static 'mycss/img/back3.jpg' %}" style=" background-repeat:no-repeat ;background-size:100% 100%;
+    background-attachment: fixed;">
+  <div id="wrapper">
+    <header>
+      <!-- Navbar
+    ================================================== -->
+      <div class="navbar navbar-static-top">
+{#        <div class="navbar-inner">#}
+          <div class="container">
+            <!-- logo -->
+            <div class="logo">
+                <!--img src="{% static 'mycss/img/fudan.png' %}" alt='' width="80" height="80"/-->
+                <img src="{% static 'mycss/img/dataology.png' %}" alt='' width="200" height="200"/>
+s
+            </div>
+            <!-- end logo -->
+
+            <!-- top menu -->
+            <div class="navigation">
+              <nav>
+                <ul class="nav topnav">
+                  <li class="active">
+                    <a href="{% url 'polls:Home' %}"><i class="icon-home"></i> 主页 </a>
+                  </li>
+                  <li class="dropdown" style="font-size: 0.4cm;">
+                    <a data-toggle="dropdown" href="#" style="font-size: 0.4cm; color: black"><i class="icon-cog"></i> 医院信息注册 <i class="icon-angle-down"></i></a>
+                    <ul class="dropdown-menu">
+                      <li ><a href="{% url 'polls:jieru_list' %}">显示所有医院注册信息</a></li>
+                        <li><a href="{% url 'polls:hospital_zhuce' %}">注册医院接口</a></li>
+{#                      <li><a href="{% url 'polls:view_patient' %}">显示所有病人信息</a></li>#}
+{#                      <li><a href="{% url 'polls:view_report' %}">显示所有诊断报告</a></li>#}
+{#                      <li><a href="{% url 'polls:view_content' %}">显示所有检验报告</a></li>#}
+
+
+                    </ul>
+                  </li>
+                  <li style="font-size: 0.5cm; color: black">
+                    <a href="{% url 'polls:bingren_xinxi' %}" style="font-size: 0.4cm; color: black"><i class="icon-leaf"></i> 病人信息 </a>
+                  </li>
+                 <li style="font-size: 0.5cm; color: black">
+                    <a href="{% url 'polls:jianyan_baogao' %}" style="font-size: 0.4cm; color: black"><i class="icon-camera"></i> 检验报告 </a>
+                  </li>
+
+                 <li style="font-size: 0.5cm; color: black">
+                    <a href="{% url 'polls:zhuyuan_xinxi' %}" style="font-size: 0.4cm; color: black"><i class="icon-camera"></i> 住院报告 </a>
+                  </li>
+{#                  <li class="dropdown">#}
+{#                    <a data-toggle="dropdown" href="#"><i class="icon-briefcase"></i> 检验报告 <i class="icon-angle-down"></i></a>#}
+{#                    <ul class="dropdown-menu">#}
+{#                      <li><a href="{% url 'polls:view_dataset' %}">View Reid Dataset</a></li>#}
+{#                      <li><a href="{% url 'polls:bingli_baogao' %}">Upload Reid Dataset</a></li>#}
+{#                    </ul>#}
+{#                  </li>#}
+{#                  <li class="dropdown" >#}
+{#                    <a data-toggle="dropdown" href="#" style="font-size: 0.5cm; color: black"><i class="icon-signin"></i> 注销 <i class="icon-angle-down"></i></a>#}
+{#                    <ul class="dropdown-menu">#}
+{#                      <li><a href="{% url 'polls:sign_in' %}">Log in</a></li>#}
+{#                      <li><a href="blog-right-sidebar.html">Log out</a></li>#}
+{#                      <li><a href="{% url 'polls:sign_up' %}">Sign up today</a></li>#}
+{#                    </ul>#}
+{#                  </li>#}
+                  <li>
+                    <a href="{% url 'polls:contact' %}" style="font-size: 0.4cm; color: black"><i class="icon-envelope-alt"></i> 联系我们</a>
+                  </li>
+                </ul>
+              </nav>
+            </div>
+            <!-- end menu -->
+
+          </div>
+{#        </div>#}
+      </div>
+    </header>
+
+    <div class="container">
+      <form action="/search_patient/" method="post">
+              {% if message %}
+      <div class="alert alert-warning">{{ message }}</div>
+            {% endif %}
+        {% csrf_token %}
+
+        <center><h3>输入需要查找的病人信息</h3></center>
+
+        <center>
+        <label for="testname">按病人姓名查找</label>
+        <input type="text" name="name" autocomplete="off" style="width: 200px" title="Please set your patient name.">
+        </center>
+
+        <label for="batch" class="#">按病人身份证号查找</label>
+        <center class="form-group" name="batch">
+        <input type="text" name="id" autocomplete="off" style="width: 200px" title="Please set your patient id.">
+
+{#        <center>#}
+{#        <label for="testname">报告编号</label>#}
+{#        <input type="text" name="reportid" autocomplete="off" title="Please set your patient report id.">#}
+{#        </center>#}
+
+{#        <center>#}
+{#        <label for="loss">按就诊时间查找</label>#}
+{#        <div class="form-group" name="database">#}
+{#          <select name="time" class = "form-control">#}
+{#              <option value="yiyue">一月</option>#}
+{#              <option value="eryue" >二月</option>#}
+{#   			  <option value="sanyue">三月</option>#}
+{#   			  <option value="siyue">四月</option>#}
+{#   			  <option value="wuyue">五月</option>#}
+{#   			  <option value="六月">六月</option>#}
+{#              <option value="qiyue">七月</option>#}
+{#              <option value="bayue">八月</option>#}
+{#              <option value="jiuyue">九月</option>#}
+{#              <option value="shiyue">十月</option>#}
+{#              <option value="shiyiyue">十一月</option>#}
+{#              <option value="shieryue">十二月</option>#}
+{#          </select>#}
+{#        </div>#}
+{#        </center>#}
+        <center>
+        <label for="model">按就诊医院查找</label>
+        <div class="form-group" name="database">
+          <select name="hospital" class = "form-control">
+   			<option value="复旦大学附属肿瘤医院" >复旦大学附属肿瘤医院</option>
+   			<option value="复旦大学附属华山医院">复旦大学附属华山医院</option>
+{#   			<option value="inception"></option>#}
+{#   			<option value="xception"></option>#}
+            <option value="all"selected="selected">全部医院</option>
+          </select>
+        </div>
+        </center>
+
+
+        <center>
+        <label for="database">按科室查找</label>
+        <div class="form-group" name="database">
+          <select name = "keshi"class = "form-control" >
+   			<option value="all" selected="selected">全部科室</option>
+            <option value="皮肤科" >皮肤科</option>
+   			<option value="神经内科">神经内科</option>
+   			<option value="感染科">感染科</option>
+          </select>
+        </div>
+        </center>
+
+
+
+
+{##}
+{#        <label for="model">按病症查找</label>#}
+{#        <div class="form-group" name="database">#}
+{#          <select name="modelset" class = "form-control">#}
+{#   			<option value="resnet50" >resnet50</option>#}
+{#   			<option value="resnet101">resnet101</option>#}
+{#   			<option value="inception">inception</option>#}
+{#   			<option value="xception">xception</option>#}
+{#            <option value="shufflenet"selected="selected">发热</option>#}
+{#   			<option value="mudeep">mudeep</option>#}
+{#          </select>#}
+{#        </div>#}
+{#        </center>#}
+
+
+{##}
+{#        <input type="number" onkeyup="if(this.value.length==1){this.value=this.value.replace(/[^1-9]/g,'')}else{this.value=this.value.replace(/\D/g,'')}"#}
+{#               onafterpaste="if(this.value.length==1){this.value=this.value.replace(/[^1-9]/g,'0')}else{this.value=this.value.replace(/\D/g,'')}" name="batchsize" value = '64' autocomplete="off" title="Please input a Positive integer" onfocus="if (value =='64'){value =''}" onblur="if (value ==''){value='64'}" required>#}
+{#        </center>#}
+{##}
+{#        <label for="lr" class="#">Learning rate(Default:0.003)</label>#}
+{#        <center>#}
+{#        <input type="number" name="learningrate" step="0.001" pattern="[-+]?[0-9]*[.,]?[0-9]+" value = '0.003' autocomplete="off" title="Please input a float number." onfocus="if (value =='0.003'){value =''}" onblur="if (value ==''){value='0.003'}" required>#}
+{#        </center>#}
+{##}
+{#        <label for="epochs" class="#">Epoch(Default:50)</label>#}
+{#        <center>#}
+{#        <input type="number" name="epochs" value = '50' autocomplete="off" title="Please input a Positive integer" onkeyup="if(this.value.length==1){this.value=this.value.replace(/[^1-9]/g,'')}else{this.value=this.value.replace(/\D/g,'')}"#}
+{#               onafterpaste="if(this.value.length==1){this.value=this.value.replace(/[^1-9]/g,'0')}else{this.value=this.value.replace(/\D/g,'')}" required>#}
+{#        </center>#}
+
+        <center>
+        <button class="btn btn-lg btn-primary btn-block" type="Start Trainning" style="margin-top: 10px;width: 200px ;">查找</button>
+        </center>
+      </form>
+    </form><!-- /container -->
+  </div>
+  </div>
+</body>
+</html>

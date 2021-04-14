@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="../../static/jquery-3.2.1/jquery-3.2.1.js"></script>
+</head>
+<body>
+
+<h3>INDEX页面</h3>
+
+<hr>
+{% csrf_token %}
+<input type="text" id="num1">+<input type="text" id="num2">=<input type="text" id="ret"><button class="cal">计算</button>
+
+<script>
+
+    // 传参的Ajax请求
+    {#$(".cal").click(function () {#}
+    {#    var num1=$("#num1").val();#}
+    {#    var num2=$("#num2").val();#}
+    {#    $.ajax({#}
+    {#        url: "/ajax_index/",#}
+    {#        type: "post",#}
+    {#        data: {#}
+    {#            num1:num1,#}
+    {#            num2:num2,#}
+    {#            csrfmiddlewaretoken:$("[name='csrfmiddlewaretoken']").val()#}
+    {#        },#}
+    {#        success: function (response) {#}
+    {#            console.log(response);#}
+    {#            $("#ret").val(response)#}
+    {#        }#}
+    {#    })#}
+//    });
+
+
+    //w ajax传参到后台
+
+        var parameter ={
+          name1: 'data',
+          name2: 'data'
+        };
+        $.ajax({
+          url : url,
+          type : 'POST',
+          async : false,
+          contentType : 'application/json;charset=UTF-8',
+          dataType : 'json',
+          data : JSON.stringify(parameter),
+          success : function(data) {
+            console.log(data);
+          },
+          error : function(msg) {
+          }
+        });
+
+        $.ajax({
+          url : url,
+          type : 'POST',
+          dataType : 'json',
+          data : {name1: "aa",name2: "aaa"},
+          success : function(data) {
+            console.log(data);
+          },
+          error : function(msg) {
+          }
+        });
+
+</script>
+
+</body>
+</html>

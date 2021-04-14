@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+<header>
+      <!-- Navbar
+    ================================================== -->
+      <div class="navbar navbar-static-top">
+        <div class="navbar-inner">
+          <div class="container">
+            <!-- logo -->
+            <div class="logo">
+                <!--img src="{% static 'mycss/img/fudan.png' %}" alt='' width="80" height="80"/-->
+                <img src="{% static 'mycss/img/dataology.png' %}" alt='' width="80" height="80"/>
+
+            </div>
+            <!-- end logo -->
+
+            <!-- top menu -->
+            <div class="navigation">
+              <nav>
+                <ul class="nav topnav">
+                  <li class="active">
+                    <a href="{% url 'polls:Home' %}"><i class="icon-home"></i> 主页 </a>
+                  </li>
+                  <li class="dropdown">
+                    <a data-toggle="dropdown" href="#"><i class="icon-cog"></i> 病理报告 <i class="icon-angle-down"></i></a>
+                    <ul class="dropdown-menu">
+                      <li><a href="{% url 'polls:zhenduan_baogao' %}">Train New Model</a></li>
+                      <li><a href="{% url 'polls:zhuyuan_xinxi' %}">Loading CheckPoint Model</a></li>
+                    </ul>
+                  </li>
+                  <li>
+                    <a href="{% url 'polls:jianyan_baogao' %}"><i class="icon-leaf"></i> 诊断报告 </a>
+                  </li>
+                 <li>
+                    <a href="{% url 'polls:detecperson' %}"><i class="icon-camera"></i> 住院报告 </a>
+                  </li>
+                  <li class="dropdown">
+                    <a data-toggle="dropdown" href="#"><i class="icon-briefcase"></i> 检验报告 <i class="icon-angle-down"></i></a>
+                    <ul class="dropdown-menu">
+                      <li><a href="{% url 'polls:view_dataset' %}">View Reid Dataset</a></li>
+                      <li><a href="{% url 'polls:bingli_baogao' %}">Upload Reid Dataset</a></li>
+                    </ul>
+                  </li>
+                  <li class="dropdown">
+                    <a data-toggle="dropdown" href="#"><i class="icon-signin"></i> 注销 <i class="icon-angle-down"></i></a>
+                    <ul class="dropdown-menu">
+                      <li><a href="{% url 'polls:sign_in' %}">Log in</a></li>
+                      <li><a href="blog-right-sidebar.html">Log out</a></li>
+                      <li><a href="{% url 'polls:sign_up' %}">Sign up today</a></li>
+                    </ul>
+                  </li>
+                  <li>
+                    <a href="{% url 'polls:contact' %}"><i class="icon-envelope-alt"></i> 联系我们</a>
+                  </li>
+                </ul>
+              </nav>
+            </div>
+            <!-- end menu -->
+
+          </div>
+        </div>
+      </div>
+    </header>
+
+<style>
+label
+{
+    width:200px;
+    float:left;
+    text-align: right;
+    margin-top: 100px;
+    margin-left: 400px;
+}
+
+input
+{
+    padding:1px 1px;
+    border:1px solid #ccc;
+    height:16px;
+    width: 200px;
+    margin-top: 15px;
+    margin-right: 50px;
+}
+
+select.form-control
+{
+    width: 215px;
+    padding:2px 2px;
+    border:1px solid #ccc;
+    margin-top: 100px;
+    margin-right: 100px;
+}
+</style>
+
+<body>
+    <body background="{% static 'mycss/img/back3.jpg' %}" style=" background-repeat:no-repeat ;background-size:100% 100%;
+    background-attachment: fixed;">
+  <div id="wrapper">
+    <header>
+      <!-- Navbar
+    ================================================== -->
+      <div class="navbar navbar-static-top">
+        <div class="navbar-inner">
+          <div class="container">
+            <!-- logo -->
+            <div class="logo">
+                <img src="{% static 'mycss/img/fudan.png' %}" alt='' width="80" height="80"/>
+            </div>
+            <!-- end logo -->
+
+            <!-- top menu -->
+            <div class="navigation">
+              <nav>
+                <ul class="nav topnav">
+                  <li class="">
+                    <a href="{% url 'polls:Home' %}"><i class="icon-home"></i> Home </a>
+                  </li>
+                  <li class="dropdown">
+                    <a data-toggle="dropdown" href="#"><i class="icon-cog"></i> Model <i class="icon-angle-down"></i></a>
+                    <ul class="dropdown-menu">
+                      <li><a href="{% url 'polls:zhenduan_baogao' %}">Train New Model</a></li>
+                      <li><a href="{% url 'polls:zhuyuan_xinxi' %}">Loading CheckPoint Model</a></li>
+                    </ul>
+                  </li>
+                  <li>
+                    <a href="{% url 'polls:jianyan_baogao' %}"><i class="icon-leaf"></i> Output </a>
+                  </li>
+                  <li class="active dropdown">
+                    <a data-toggle="dropdown" href="#"><i class="icon-briefcase"></i> Dataset <i class="icon-angle-down"></i></a>
+                    <ul class="dropdown-menu">
+                      <li><a href="view_dataset">View Reid Dataset</a></li>
+                      <li><a href="bingli_baogao">Upload Reid Dataset</a></li>
+                    </ul>
+                  </li>
+                  <li class="dropdown">
+                    <a data-toggle="dropdown" href="#"><i class="icon-signin"></i> Log <i class="icon-angle-down"></i></a>
+                    <ul class="dropdown-menu">
+                      <li><a href="{% url 'polls:sign_in' %}">Log in</a></li>
+                      <li><a href="blog-right-sidebar.html">Log out</a></li>
+                      <li><a href="{% url 'polls:sign_up' %}">Sign up today</a></li>
+                    </ul>
+                  </li>
+                  <li>
+                    <a href="contact.html"><i class="icon-envelope-alt"></i> Contact</a>
+                  </li>
+                </ul>
+              </nav>
+            </div>
+            <!-- end menu -->
+
+          </div>
+        </div>
+      </div>
+    </header>
+</div>
+<center>
+
+  <form action="/showdata/" method="post">
+    {% csrf_token %}
+
+<div class="form-group" name="ckpoint">
+    <label for="testname">Chose a dataset</label>
+  <select name="dataset" class = "form-control">
+    {% for obj in lists %}
+    <option value ="{{ obj.dataset }}">{{ obj.dataset }}</option>
+    {% endfor %}
+  </select>
+</div>
+    <div style="margin-top: 100px">
+  <button class="button button-uppercase button-primary " type="submit">Show database sample</button>
+</div>
+  </form>
+</center>
+</body>
+</html>

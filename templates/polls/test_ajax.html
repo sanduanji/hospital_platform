@@ -1,0 +1,125 @@
+{#<!DOCTYPE html>#}
+{#<html lang="en">#}
+{#<head>#}
+{#    <meta charset="UTF-8">#}
+{#    <title>Title</title>#}
+{#</head>#}
+{#<body>#}
+{##}
+{#<input type="button" onclick="AjaxSubmit_set();" value="提交集合">#}
+{##}
+{#<script src="../../static/jquery-3.2.1.min.js"></script>#}
+{##}
+{#<script>#}
+{#    function AjaxSubmit_set() {#}
+{#        var data_list = [#}
+{#            {'name':'james','age':34},#}
+{#            {'name':'durant','age':31},#}
+{#            {'name':'curry','age':30},#}
+{#        ];#}
+{##}
+{#        $.ajax({#}
+{#            url:'/ajax_submit_set/',#}
+{#            type:'POST',#}
+{#            tradition:true,#}
+{#            data:{data:JSON.stringify(data_list)},#}
+{#            success: function (arg) {#}
+{##}
+{#            }#}
+{#        })#}
+{#    }#}
+{#</script>#}
+{##}
+{#</body>#}
+{#</html>#}
+{##}
+{##}
+
+{##}
+{#<!DOCTYPE html>#}
+{#<html lang="en">#}
+{#<head>#}
+{#    <meta charset="UTF-8">#}
+{#    <title>Title</title>#}
+{#</head>#}
+{#<body>#}
+{##}
+{#<input type="button" onclick="AjaxSubmit_set();" value="提交集合">#}
+{##}
+{#<script src="../../static/jquery-3.2.1/jquery-3.2.1.js"></script>#}
+{##}
+{#<script>#}
+{#    function AjaxSubmit_set() {#}
+{#        var data_list = [#}
+{#            {'name':'james','age':34},#}
+{#            {'name':'durant','age':31},#}
+{#            {'name':'curry','age':30},#}
+{#        ];#}
+{##}
+{#        $.ajax({#}
+{#            url:'/ajax_submit_set/',#}
+{#            type:'POST',#}
+{#            tradition:true,#}
+{#            data:{data:JSON.stringify(data_list)},#}
+{#            success: function (arg) {#}
+{##}
+{#            }#}
+{#        })#}
+{#    }#}
+{#</script>#}
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+<input type="button" onclick="AjaxSubmit_set();" value="提交集合">
+
+<script src="../../static/jquery-3.2.1/jquery-3.2.1.js"></script>
+
+<script>
+    function AjaxSubmit_set() {
+
+        var parameter = {
+            name1: 'data',
+            name2: 'data'
+        };
+        $.ajax({
+            url: '/polls/ajax_submit_set/',
+            type: 'POST',
+            async: false,
+            contentType: 'application/json;charset=UTF-8',
+            dataType: 'json',
+            data: JSON.stringify(parameter),
+            success: function (data) {
+                console.log(data);
+            },
+            error: function (msg) {
+            }
+        });
+
+        $.ajax({
+            url: url,
+            type: 'POST',
+            dataType: 'json',
+            data: {name1: "aa", name2: "aaa"},
+            success: function (data) {
+                console.log(data);
+            },
+            error: function (msg) {
+            }
+        });
+    }
+</script>
+
+</body>
+</html>
+
+</body>
+</html>
+
+

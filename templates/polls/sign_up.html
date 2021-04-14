@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  {% load static %}
+  <link href="{% static 'mycss/css/sign_up.css' %}" rel="stylesheet">
+  <link href="{% static 'bootstrap/css/bootstrap.css' %}" rel="stylesheet" type="text/css"/>
+</head>
+<body>
+    <div class="container">
+        {% if error_message %}<center><p class="alert-danger">{{ error_message }}</p></center>{% endif %}
+      <form class="form-signup" action="/realsignup/" method="post">
+        {% csrf_token %}
+        {% if message %}
+      <div class="alert alert-warning">{{ message }}</div>
+        {% endif %}
+        <center><h2 class="form-signup-heading">Please complete</h2></center>
+
+          <label for="username" class="sr-only">Username</label>
+        <input type="text" name="username" class="form-control" placeholder="Username" title="请填写用户名"required autofocus>
+
+          <label for="password" class="sr-only">Password</label>
+        <input type="password" name="password" class="form-control" placeholder="Password" required>
+
+          <label for="repeat_password" class="sr-only">Repeat Password</label>
+        <input type="password" name="repeat_password" class="form-control" placeholder="Repeat Password" required>
+
+          <label for="Email" class="sr-only">E-mail</label>
+        <input type="text" name="Email" class="form-control" style="margin-bottom: 15px; border-top-left-radius: 0;"placeholder="E-mail" required>
+
+          <button class="btn btn-lg btn-primary btn-block" type="submit">Sign up</button>
+      </form>
+      <center><div class="form-signup">
+          <a href="{% url 'polls:Home' %}">{{ 'Go Back' }}</a>
+      </div></center>
+    </div> <!-- /container -->
+</body>
+</html>

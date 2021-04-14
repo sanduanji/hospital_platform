@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+{#  <title>Person Reidentification Trainning Platform</title>#}
+  <title>医疗大数据互联互通平台</title>
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="">
+  <meta name="author" content="">
+  <!-- styles -->
+  {% load static %}
+  <link href="{% static 'mycss/css/bootstrap.css' %}" rel="stylesheet">
+  <script src="{% static 'mycss/js/jquery.js' %}"></script>
+  <script src="{% static 'mycss/js/bootstrap.js' %}"></script>
+  <link href="{% static 'mycss/css/bootstrap-responsive.css' %}" rel="stylesheet">
+  <link href="{% static 'mycss/css/prettyPhoto.css' %}" rel="stylesheet">
+  <link href="{% static 'mycss/js/google-code-prettify/prettify.css' %}" rel="stylesheet">
+  <link href="{% static 'mycss/css/flexslider.css' %}" rel="stylesheet">
+  <link href="{% static 'mycss/css/style.css' %}" rel="stylesheet">
+  <link href="{% static 'mycss/color/default.css' %}" rel="stylesheet">
+
+  <!-- fav and touch icons -->
+  <link rel="shortcut icon" href="{% static 'mycss/ico/favicon.ico' %}">
+  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="{% static 'mycss/ico/apple-touch-icon-144-precomposed.png' %}">
+  <link rel="apple-touch-icon-precomposed" sizes="114x114" href="{% static 'mycss/ico/apple-touch-icon-114-precomposed.png' %}">
+  <link rel="apple-touch-icon-precomposed" sizes="72x72" href="{% static 'mycss/ico/apple-touch-icon-72-precomposed.png' %}">
+  <link rel="apple-touch-icon-precomposed" href="{% static 'mycss/ico/apple-touch-icon-57-precomposed.png' %}">
+  <link href='https://fonts.googleapis.com/css?family=Rock+Salt' rel='stylesheet' type='text/css'>
+
+  <style  type ="text/css" >
+/* spacing */
+
+    table {
+      table-layout: fixed;
+      width: 80%;
+      border-collapse: collapse;
+      border: 3px solid black;
+    }
+
+    thead th:nth-child(1) {
+      width: 30%;
+    }
+
+    thead th:nth-child(2) {
+      width: 20%;
+    }
+
+    thead th:nth-child(3) {
+      width: 15%;
+    }
+
+    thead th:nth-child(4) {
+      width: 35%;
+    }
+
+    th, td {
+      padding: 20px;
+    }
+    label
+    {
+        {#width:150px;#}
+        {#float:left;#}
+        {#text-align: right;#}
+        margin-top: 20px;
+        {#margin-left: 150px;#}
+        {#alignment: center;#}
+        color: black;
+    }
+
+      /* typography */
+
+    html {
+      font-family: 'helvetica neue', helvetica, arial, sans-serif;
+    }
+
+    thead th, tfoot th {
+      font-family: 'Rock Salt', cursive;
+    }
+
+    th {
+      letter-spacing: 2px;
+    }
+
+    td {
+      letter-spacing: 1px;
+    }
+
+    tbody td {
+      text-align: center;
+    }
+
+    tfoot th {
+      text-align: right;
+    }
+</style >
+
+
+
+</head>
+
+
+<body>
+
+    <body background="{% static 'mycss/img/back3.jpg' %}" style=" background-repeat:no-repeat ;background-size:100% 100%;
+    background-attachment: fixed;">
+
+  <div id="wrapper">
+    <header>
+      <!-- Navbar
+    ================================================== -->
+      <div class="navbar navbar-static-top">
+{#        <div class="navbar-inner">#}
+          <div class="container">
+            <!-- logo -->
+            <div class="logo">
+                <!--img src="{% static 'mycss/img/fudan.png' %}" alt='' width="80" height="80"/-->
+                <img src="{% static 'mycss/img/dataology.png' %}" alt='' width="200" height="200"/>
+s
+            </div>
+            <!-- end logo -->
+
+            <!-- top menu -->
+            <div class="navigation">
+              <nav>
+                <ul class="nav topnav">
+                  <li class="active">
+                    <a href="{% url 'polls:Home' %}"><i class="icon-home"></i> 主页 </a>
+                  </li>
+                  <li class="dropdown" style="font-size: 0.4cm; color: black">
+                    <a data-toggle="dropdown" href="#" style="font-size: 0.4cm; color: black"><i class="icon-cog"></i> 医院信息注册 <i class="icon-angle-down"></i></a>
+                    <ul class="dropdown-menu">
+                      <li ><a href="{% url 'polls:jieru_list' %}">显示所有医院注册信息</a></li>
+                        <li><a href="{% url 'polls:hospital_zhuce' %}">注册医院接口</a></li>
+{#                      <li><a href="{% url 'polls:view_patient' %}">显示所有病人信息</a></li>#}
+{#                      <li><a href="{% url 'polls:view_report' %}">显示所有诊断报告</a></li>#}
+{#                      <li><a href="{% url 'polls:view_content' %}">显示所有检验报告</a></li>#}
+
+
+                    </ul>
+                  </li>
+                  <li style="font-size: 0.5cm; color: black">
+                    <a href="{% url 'polls:bingren_xinxi' %}" style="font-size: 0.4cm; color: black"><i class="icon-leaf"></i> 病人信息 </a>
+                  </li>
+                 <li style="font-size: 0.5cm; color: black">
+                    <a href="{% url 'polls:jianyan_baogao' %}" style="font-size: 0.4cm; color: black"><i class="icon-camera"></i> 检验报告 </a>
+                  </li>
+
+                 <li style="font-size: 0.5cm; color: black">
+                    <a href="{% url 'polls:zhuyuan_xinxi' %}" style="font-size: 0.4cm; color: black"><i class="icon-camera"></i> 住院报告 </a>
+                  </li>
+{#                  <li class="dropdown">#}
+{#                    <a data-toggle="dropdown" href="#"><i class="icon-briefcase"></i> 检验报告 <i class="icon-angle-down"></i></a>#}
+{#                    <ul class="dropdown-menu">#}
+{#                      <li><a href="{% url 'polls:view_dataset' %}">View Reid Dataset</a></li>#}
+{#                      <li><a href="{% url 'polls:bingli_baogao' %}">Upload Reid Dataset</a></li>#}
+{#                    </ul>#}
+{#                  </li>#}
+{#                  <li class="dropdown" >#}
+{#                    <a data-toggle="dropdown" href="#" style="font-size: 0.5cm; color: black"><i class="icon-signin"></i> 注销 <i class="icon-angle-down"></i></a>#}
+{#                    <ul class="dropdown-menu">#}
+{#                      <li><a href="{% url 'polls:sign_in' %}">Log in</a></li>#}
+{#                      <li><a href="blog-right-sidebar.html">Log out</a></li>#}
+{#                      <li><a href="{% url 'polls:sign_up' %}">Sign up today</a></li>#}
+{#                    </ul>#}
+{#                  </li>#}
+                  <li>
+                    <a href="{% url 'polls:contact' %}" style="font-size: 0.4cm; color: black"><i class="icon-envelope-alt"></i> 联系我们</a>
+                  </li>
+                </ul>
+              </nav>
+            </div>
+            <!-- end menu -->
+
+          </div>
+{#        </div>#}
+      </div>
+    </header>
+</div>
+<center>
+
+  <form action="/showdata/" method="post" enctype="text/plain">
+    {% csrf_token %}
+
+{#        <table>#}
+{#          <caption>A summary of the UK's most famous punk bands</caption>#}
+{#          <thead>#}
+{#            <tr>#}
+{#              <th scope="col">Band</th>#}
+{#              <th scope="col">Year formed</th>#}
+{#              <th scope="col">No. of Albums</th>#}
+{#              <th scope="col">Most famous song</th>#}
+{#            </tr>#}
+{#          </thead>#}
+{#          <tbody>#}
+{#            <tr>#}
+{#              <th scope="row">Buzzcocks</th>#}
+{#                <td width="120" height="40" bgcolor="white">heihei</td>#}
+{#                <td>9</td>#}
+{#                <td>Ever fallen in love (with someone you shouldn't've)</td>#}
+{#            </tr>#}
+{#            <tr>#}
+{#              <th scope="row">The Clash</th>#}
+{#              <td>1976</td>#}
+{#              <td>6</td>#}
+{#              <td>London Calling</td>#}
+{#            </tr>#}
+{##}
+{#              ... some rows removed for brevity#}
+{##}
+{#            <tr>#}
+{#              <th scope="row">The Stranglers</th>#}
+{#              <td>1974</td>#}
+{#              <td>17</td>#}
+{#              <td>No More Heroes</td>#}
+{#            </tr>#}
+{#          </tbody>#}
+{#          <tfoot>#}
+{#            <tr>#}
+{#              <th scope="row" colspan="2">Total albums</th>#}
+{#              <td colspan="2">77</td>#}
+{#            </tr>#}
+{#          </tfoot>#}
+{#        </table>#}
+
+
+{#      <li>复杂表格</li>#}
+    <table border="2" bordercolor="black" cellspacing="0" cellpadding="5" bgcolor="#faebd7">
+                {% for element in reports %}
+        <tr>
+            <td bgcolor="#faebd7"><font size="3" color="black">姓名</font></td>
+            <td bgcolor="#F6F6F6"><font size="3" color="black" >{{element.name }}</font></td>
+            <td bgcolor="#faebd7"><font size="3" color="black">报告编号</font></td>
+            <td bgcolor="#F6F6F6"><font size="3" color="black" >{{element.report_id }}</font></td>
+            <td bgcolor="#faebd7"><font size="3" color="black">性别</font></td>
+            <td bgcolor="#F6F6F6"><font size="3" color="black" >{{element.gender }}</font></td>
+            <td bgcolor="#faebd7"><font size="3" color="black">身份证</font></td>
+            <td bgcolor="#F6F6F6" style="width: 220px"><font size="3" color="black" >{{element.id }}</font></td>
+        </tr>
+        <tr>
+            <td bgcolor="#faebd7"><font size="3" color="black">科室</font></td>
+            <td bgcolor="#F6F6F6"><font size="3" color="black" >{{element.keshi }}</font></td>
+            <td bgcolor="#faebd7"><font size="3" color="black">病区</font></td>
+            <td bgcolor="#F6F6F6"><font size="3" color="black" >{{element.bingqu}}</font></td>
+            <td bgcolor="#faebd7"><font size="3" color="black">检查日期</font></td>
+            <td bgcolor="#F6F6F6"><font size="3" color="black" >{{element.jianchariqi}}</font></td>
+            <td bgcolor="#faebd7"><font size="3" color="black">床位号</font></td>
+            <td bgcolor="#F6F6F6"><font size="3" color="black" >{{element.chuangweihao }}</font></td>
+        </tr>
+        <tr>
+            <td colspan="8"bgcolor="#faebd7"><font size="3" color="black">病理报告</font></td>
+
+        </tr>
+        <tr>
+            <td colspan="8" height=200px bgcolor="#F6F6F6"><font size="3" color="black" >{{element.binglibaogao }}</font></td>
+        </tr>
+
+
+
+
+        </tr>
+        {% endfor %}
+    </table>
+
+  </form>
+    <div>
+      <a href="javascript:history.go(-1);">
+        <input id="Mybutton" style="margin-left:0px;height:40px;width: 100px" type=button color="red" value="返回上一级" οnclick="window.open('sub1.html')">
+      </a>
+      <a href="{% url 'polls:Home' %}">
+        <input id="Mybutton" style="margin-left:0px;height:40px;width: 100px" type=button color="red" value="返回主界面" οnclick="window.open('sub1.html')">
+      </a>
+    </div>
+
+</center>
+</body>
+</html>

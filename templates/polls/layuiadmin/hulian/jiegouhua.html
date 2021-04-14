@@ -1,0 +1,136 @@
+
+
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>数据表格的重载 - 数据表格</title>
+  <meta name="renderer" content="webkit">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=0">
+  <link rel="stylesheet" href="../../../../static/layuiadmin/layui/css/layui.css" media="all">
+  <link rel="stylesheet" href="../../../../static/layuiadmin/style/admin.css" media="all">
+</head>
+<body>
+
+    <div class="layui-btn-group demoTable" style="margin-bottom: 0px;">
+{#        <button class="layui-btn" data-type="parseTable">立即转化为数据表格</button>#}
+{#        <button class="layui-btn" data-type="parseTable" onclick="convertToTable()">将数据转化为静态表格</button>#}
+{#        <button class="layui-btn" data-type="parseTableToExcel" onclick="exportToExcels()" href="/download/1/">导出结构化报告</button>#}
+        <a href="/download/1/" class="layui-btn jump_refresh_url">导出结构化报告</a>
+
+{#        <a href="/download/1/">下载图片</a>#}
+    </div>
+  <div class="layui-card layadmin-header">
+    <div class="layui-breadcrumb" lay-filter="breadcrumb">
+      <a lay-href="">主页</a>
+      <a><cite>组件</cite></a>
+      <a><cite>数据表格</cite></a>
+      <a><cite>数据表格的重载</cite></a>
+    </div>
+  </div>
+  
+  <div class="layui-fluid">
+    <div class="layui-row layui-col-space15">
+      <div class="layui-col-md12">
+        <div class="layui-card">
+          <div class="layui-card-header">大肠癌病理报告结构化</div>
+          <div class="layui-card-body">
+          
+{#            <div class="test-table-reload-btn" style="margin-bottom: 10px;">#}
+{#              输入病人的姓名或身份证号：#}
+{#              <div class="layui-inline">#}
+{#                <input class="layui-input" name="search" id="test-table-demoReload" autocomplete="off">#}
+{#              </div>#}
+{#              <button class="layui-btn" data-type="reload">搜索</button>#}
+{#            </div>#}
+             
+            <table class="layui-hide" id="test-table-reload" lay-filter="user"></table>
+            <script type="text/html" id="test-table-toolbar-toolbarDemo">
+{#              <div class="layui-btn-container">#}
+{#                <button class="layui-btn layui-btn-sm" lay-event="getCheckData">获取选中行数据</button>#}
+{#                <button class="layui-btn layui-btn-sm" lay-event="getCheckLength">获取选中数目</button>#}
+{#                <button class="layui-btn layui-btn-sm" lay-event="isAll">验证是否全选</button>#}
+{#              </div>#}
+            </script>
+            
+{#            <blockquote class="layui-elem-quote">此处由于是静态模拟数据，所以搜索后重载的结果没变，这并非是 BUG。实际使用时改成真实接口并根据搜索的字段筛选出对应的数据即可。</blockquote>#}
+            
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <script src="../../../../../static/layuiadmin/layui/layui.js"></script>
+  <script>
+  layui.config({
+    base: '../../../../static/layuiadmin/' //静态资源所在路径
+  }).extend({
+    index: 'lib/index' //主入口模块
+  }).use(['index', 'table'], function(){
+    var table = layui.table;
+
+    //方法级渲染
+    table.render({
+      elem: '#test-table-reload'
+      ,id:'table-reload'
+      {#,toolbar: '#test-table-toolbar-toolbarDemo'#}
+
+
+      ,cellMinWidth: 50 //全局定义常规单元格的最小宽度，layui 2.2.1 新增
+
+      ,url: '/jiegouhua_database'
+      ,request: {
+        pageName: 'pageIndex',  // 页码的参数名称，默认：page
+        limitName: 'pageSize'   // 每页数据量的参数名，默认：limit
+      }
+      ,cols: [[
+        {field:'id', title: '报告编号',  align:'center', sort: true, fixed: true}
+        ,{field:'name', title: '姓名',  align:'center', }
+        ,{field:'gender', title: '性别',  align:'center', sort: true}
+        ,{field:'age', title: '年龄',  align:'center', sort: true, }
+        ,{field:'songjian_date', title: '送检日期',  align:'center', sort: true, }
+        ,{field:'zhuyuanhao', title: '住院号',  align:'center', sort: true, }
+        ,{field:'biaoben_type', title: '标本类型',  align:'center', sort: true, }
+        ,{field:'zhongliu_location', title: '肿瘤位置',  align:'center', sort: true, }
+        ,{field:'chuankong', title: '穿孔',  align:'center', sort: true, }
+        ,{field:'ximo', title: '系膜完整',  align:'center', sort: true, }
+        ,{field:'qiechu_length', title: '切除长度',  align:'center', sort: true, }
+
+      ]]
+      {#,page: {#}
+      {#  layout: ['limit', 'count', 'prev', 'page', 'next', 'skip'],     // 自定义分页布局#}
+      {#  curr: 1,      // 设置默认起始页1#}
+      {#  groups: 20,   //只显示10个连续页码,就是说显示10个可见页其他的省略#}
+      {#  first: false, // 不显示首页#}
+      {#  last: false   // 不显示尾页#}
+      {#  }#}
+      ,page:true
+      ,limit: 20
+      ,limits: [5,10,15,20,25]
+      ,height: 650
+    });
+    //});
+//导出Excel
+    function exportToExcels(){
+    //layui.use('table', function () {
+    var table = layui.table;
+    table.exportFile(["昵称", "加入时间", "签名"],[
+    ['贤心1','2016-11-28','人生就像是一场修行 A'],
+    ['贤心2','2019-11-28','人生就像是一场修行 B'],
+    ['贤心3','2016-10-28','人生就像是一场修行 C']
+    ],'本日将到订单列表.xls');
+    // });
+    }
+
+  });
+  </script>
+
+</body>
+</html>
+
+
+
+
+

@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <title>非模块化方式使用layui</title>
+  <link rel="stylesheet" href="../../static/layui/css/layui.css">
+</head>
+<body>
+
+<!-- 你的HTML代码 -->
+{#    <div class="layui-header">#}
+{#        <div class="layui-logo">layui 后台布局</div>#}
+{#        <!-- 头部区域（可配合layui已有的水平导航） -->#}
+{#        <ul class="layui-nav layui-layout-left">#}
+{#            <li class="layui-nav-item"><a href="">控制台</a></li>#}
+{#            <li class="layui-nav-item"><a href="">商品管理</a></li>#}
+{#            <li class="layui-nav-item"><a href="">用户</a></li>#}
+{#            <li class="layui-nav-item">#}
+{#                <a href="javascript:;">其它系统</a>#}
+{#                <dl class="layui-nav-child">#}
+{#                    <dd><a href="">邮件管理</a></dd>#}
+{#                    <dd><a href="">消息管理</a></dd>#}
+{#                    <dd><a href="">授权管理</a></dd>#}
+{#                </dl>#}
+{#            </li>#}
+{#        </ul>#}
+{#        <ul class="layui-nav layui-layout-right">#}
+{#            <li class="layui-nav-item">#}
+{#                <a href="javascript:;">#}
+{#                    <img src="http://t.cn/RCzsdCq" class="layui-nav-img">#}
+{#                    {{request.user.username}}#}
+{#                </a>#}
+{#                <dl class="layui-nav-child">#}
+{#                    <dd><a href="">基本资料</a></dd>#}
+{#                    <dd><a href="">安全设置</a></dd>#}
+{#                </dl>#}
+{#            </li>#}
+{#            <li class="layui-nav-item"><a href="">退了</a></li>#}
+{#        </ul>#}
+{#    </div>#}
+
+<ul class="layui-nav" lay-filter="">
+  <li class="layui-nav-item"><a href="">最新活动</a></li>
+  <li class="layui-nav-item"><a href="">产品</a></li>
+  <li class="layui-nav-item"><a href="">大数据</a></li>
+  <li class="layui-nav-item">
+    <a href="javascript:;">解决方案</a>
+    <dl class="layui-nav-child"> <!-- 二级菜单 -->
+      <dd><a href="">移动模块</a></dd>
+      <dd><a href="">后台模版</a></dd>
+      <dd><a href="">电商平台</a></dd>
+    </dl>
+  </li>
+  <li class="layui-nav-item"><a href="">社区</a></li>
+      <li class="layui-nav-item">
+    <a href="">控制台<span class="layui-badge">9</span></a>
+  </li>
+
+  <li class="layui-nav-item">
+    <a href="">个人中心<span class="layui-badge-dot"></span></a>
+  </li>
+  <li class="layui-nav-item">
+    <a href=""><img src="//t.cn/RCzsdCq" class="layui-nav-img">我</a>
+    <dl class="layui-nav-child">
+      <dd><a href="javascript:;">修改信息</a></dd>
+      <dd><a href="javascript:;">安全管理</a></dd>
+      <dd><a href="javascript:;">退了</a></dd>
+    </dl>
+  </li>
+</ul>
+
+
+<ul class="layui-nav layui-nav-tree" lay-filter="test">
+<!-- 侧边导航: <ul class="layui-nav layui-nav-tree layui-nav-side"> -->
+  <li class="layui-nav-item layui-nav-itemed">
+    <a href="javascript:;">默认展开</a>
+    <dl class="layui-nav-child">
+      <dd><a href="javascript:;">选项1</a></dd>
+      <dd><a href="javascript:;">选项2</a></dd>
+      <dd><a href="">跳转</a></dd>
+    </dl>
+  </li>
+  <li class="layui-nav-item">
+    <a href="javascript:;">解决方案</a>
+    <dl class="layui-nav-child">
+      <dd><a href="">移动模块</a></dd>
+      <dd><a href="">后台模版</a></dd>
+      <dd><a href="">电商平台</a></dd>
+    </dl>
+  </li>
+  <li class="layui-nav-item"><a href="">产品</a></li>
+  <li class="layui-nav-item"><a href="">大数据</a></li>
+</ul>
+{#<script>#}
+{#//注意：导航 依赖 element 模块，否则无法进行功能性操作#}
+{#layui.use('element', function(){#}
+{#  var element = layui.element;#}
+{##}
+{#  //…#}
+{#});#}
+{#</script>#}
+{#    <div class="layui-side layui-bg-black">#}
+{#        <div class="layui-side-scroll">#}
+{#            <!-- 左侧导航区域（可配合layui已有的垂直导航） -->#}
+{#            <ul class="layui-nav layui-nav-tree" lay-filter="test">#}
+{##}
+{#                {% for dic in dict %}#}
+{#                <li class="layui-nav-item">#}
+{#                    <a class="" href="javascript:;">fucking rich</a>#}
+{#                    <dl class="layui-nav-child">#}
+{#                        {% for child in dic.children %}#}
+{#                            <dd><a href="javascript:;" data-id="{{ child.id }}"#}
+{#                                   data-url="{{ child.url }}">{{ child.text }}</a></dd>#}
+{#                        {% endfor %}#}
+{##}
+{#                    </dl>#}
+{#                </li>#}
+{#                {% endfor %}#}
+{##}
+{#            </ul>#}
+{#        </div>#}
+{#    </div>#}
+
+
+<div class="layui-tab layui-tab-card">
+  <ul class="layui-tab-title">
+    <li class="layui-this">网站设置</li>
+    <li>用户管理</li>
+    <li>权限分配</li>
+    <li>商品管理</li>
+    <li>订单管理</li>
+  </ul>
+  <div class="layui-tab-content" style="height: 100px;">
+    <div class="layui-tab-item layui-show">1</div>
+    <div class="layui-tab-item">2</div>
+    <div class="layui-tab-item">3</div>
+    <div class="layui-tab-item">4</div>
+    <div class="layui-tab-item">5</div>
+    <div class="layui-tab-item">6</div>
+  </div>
+</div>
+<script src="../../static/layui/layui.all.js"></script>
+<script>
+//由于模块都一次性加载，因此不用执行 layui.use() 来加载对应模块，直接使用即可：
+;!function(){
+  var layer = layui.layer
+  ,form = layui.form;
+
+  layer.msg('Hello World');
+}();
+</script>
+</body>
+</html>

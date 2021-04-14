@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>数据表格的重载 - 数据表格</title>
+  <meta name="renderer" content="webkit">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=0">
+  <link rel="stylesheet" href="../../../../../static/layuiadmin/layui/css/layui.css" media="all">
+  <link rel="stylesheet" href="../../../../../static/layuiadmin/style/admin.css" media="all">
+</head>
+<body>
+
+  <div class="layui-card layadmin-header">
+    <div class="layui-breadcrumb" lay-filter="breadcrumb">
+      <a lay-href="">主页</a>
+      <a><cite>组件</cite></a>
+      <a><cite>数据表格</cite></a>
+      <a><cite>数据表格的重载</cite></a>
+    </div>
+  </div>
+
+  <div class="layui-fluid">
+    <div class="layui-row layui-col-space15">
+      <div class="layui-col-md12">
+        <div class="layui-card">
+          <div class="layui-card-header" value></div>
+{#            <div class="layui-form-mid layui-word-aux">辅助文字</div>#}
+{#                   <label class="layui-form-label" value={{ data.id }}>选择课程：</label>#}
+
+
+          <div class="layui-card-body">
+
+            <div class="test-table-reload-btn" style="margin-bottom: 10px;">
+              输入病人的姓名或身份证号：
+              <div class="layui-inline">
+                <input class="layui-input" name="search" id="test-table-demoReload" autocomplete="off">
+              </div>
+              <button class="layui-btn" data-type="reload">搜索</button>
+            </div>
+
+            <table class="layui-hide" id="test-table-reload" lay-filter="user"></table>
+            <script type="text/html" id="test-table-operate-barDemo">
+              <a class="layui-btn layui-btn-primary layui-btn-xs" lay-event="detail" lay-href="menzhen_report_layui">查看报告</a>
+{#              <a class="layui-btn layui-btn-xs" lay-event="edit">编辑</a>#}
+{#              <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>#}
+            </script>
+
+{#            <blockquote class="layui-elem-quote">此处由于是静态模拟数据，所以搜索后重载的结果没变，这并非是 BUG。实际使用时改成真实接口并根据搜索的字段筛选出对应的数据即可。</blockquote>#}
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="../../../../../static/layuiadmin/layui/layui.js"></script>
+  <script>
+  layui.config({
+    base: '../../../../../static/layuiadmin/' //静态资源所在路径
+  }).extend({
+    index: 'lib/index' //主入口模块
+  }).use(['index', 'table'], function(){
+    var table = layui.table;
+
+    //方法级渲染
+    table.render({
+      elem: '#test-table-reload'
+      ,id:'table-reload'
+      {#,url: layui.setter.base + 'json/table/user.js'#}
+      {#        设定列宽自动变化#}
+      ,cellMinWidth: 50 //全局定义常规单元格的最小宽度，layui 2.2.1 新增
+
+      ,url: '/search_patient_reports_layui'
+      ,request: {
+        pageName: 'pageIndex',  // 页码的参数名称，默认：page
+        limitName: 'pageSize'   // 每页数据量的参数名，默认：limit
+      }
+      ,cols: [[
+        {checkbox: true, fixed: true}
+        ,{field:'shebao', title: '社保卡号',  sort: true, fixed: true}
+        ,{field:'name', title: '患者姓名', }
+        ,{field:'gender', title: '性别', sort: true}
+        ,{field:'age', title: '年龄', sort: true}
+        ,{field:'report_id', title: '报告编号', sort: true}
+        ,{field:'report_type', title: '报告类型', sort: true}
+        ,{field:'hospital', title: '就诊医院', sort: true}
+        ,{width:178, align:'center', fixed: 'right', toolbar: '#test-table-operate-barDemo'}
+
+      ]]
+      ,page: {
+        layout: ['limit', 'count', 'prev', 'page', 'next', 'skip'],     // 自定义分页布局
+        curr: 1,      // 设置默认起始页1
+        groups: 10,   //只显示10个连续页码,就是说显示10个可见页其他的省略
+        first: false, // 不显示首页
+        last: false   // 不显示尾页
+        }
+      ,limit: 5
+      ,limits: [5,10,15,20,25]
+      ,height: 315
+    });
+
+    var $ = layui.$, active = {
+      reload: function(){
+        var demoReload = $('#test-table-demoReload');
+
+        //执行重载
+        table.reload('table-reload', {
+          url:"/search_layui",
+          page: {
+            curr: 1 //重新从第 1 页开始
+          }
+          ,where: {
+            {#key: {#}
+            {#  hostname: demoReload.val()#}
+
+            hostname: demoReload.val()
+          }
+        },'data');
+      }
+    };
+
+    {#$('.test-table-reload-btn .layui-btn').on('click', function(){#}
+    {#  var type = $(this).data('type');#}
+    {#  active[type] ? active[type].call(this) : '';#}
+    {####}
+
+        //监听行单击事件（单击事件为：rowDouble）
+    table.on('row(test-table-reload)', function(obj){
+      var data = obj.data;
+
+      layer.alert(JSON.stringify(data), {
+        title: '当前行数据：'
+      });
+
+      //标注选中样式
+      obj.tr.addClass('layui-table-click').siblings().removeClass('layui-table-click');
+    });
+
+  });
+  </script>
+</body>
+</html>

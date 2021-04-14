@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>医疗大数据互联互通平台</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="">
+  <meta name="author" content="">
+  <!-- styles -->
+  {% load static %}
+  <link href="{% static 'mycss/css/bootstrap.css' %}" rel="stylesheet">
+  <script src="{% static 'mycss/js/jquery.js' %}"></script>
+  <script src="{% static 'mycss/js/bootstrap.js' %}"></script>
+  <link href="{% static 'mycss/css/bootstrap-responsive.css' %}" rel="stylesheet">
+  <link href="{% static 'mycss/css/prettyPhoto.css' %}" rel="stylesheet">
+  <link href="{% static 'mycss/js/google-code-prettify/prettify.css' %}" rel="stylesheet">
+  <link href="{% static 'mycss/css/flexslider.css' %}" rel="stylesheet">
+  <link href="{% static 'mycss/css/style.css' %}" rel="stylesheet">
+  <link href="{% static 'mycss/css/buttons.css' %}" rel="stylesheet">
+  <link href="{% static 'mycss/color/default.css' %}" rel="stylesheet">
+
+  <!-- fav and touch icons -->
+  <link rel="shortcut icon" href="{% static 'mycss/ico/favicon.ico' %}">
+  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="{% static 'mycss/ico/apple-touch-icon-144-precomposed.png' %}">
+  <link rel="apple-touch-icon-precomposed" sizes="114x114" href="{% static 'mycss/ico/apple-touch-icon-114-precomposed.png' %}">
+  <link rel="apple-touch-icon-precomposed" sizes="72x72" href="{% static 'mycss/ico/apple-touch-icon-72-precomposed.png' %}">
+  <link rel="apple-touch-icon-precomposed" href="{% static 'mycss/ico/apple-touch-icon-57-precomposed.png' %}">
+</head>
+
+<body>
+    <body background="{% static 'mycss/img/back3.jpg' %}" style=" background-repeat:no-repeat ;background-size:100% 100%;
+    background-attachment: fixed;">
+  <div id="wrapper">
+    <header>
+      <!-- Navbar
+    ================================================== -->
+      <div class="navbar navbar-static-top">
+{#        <div class="navbar-inner">#}
+          <div class="container">
+            <!-- logo -->
+            <div class="logo">
+                <!--img src="{% static 'mycss/img/fudan.png' %}" alt='' width="80" height="80"/-->
+                <img src="{% static 'mycss/img/dataology.png' %}" alt='' width="200" height="200"/>
+s
+            </div>
+            <!-- end logo -->
+
+            <!-- top menu -->
+            <div class="navigation">
+              <nav>
+                <ul class="nav topnav">
+                  <li class="active">
+                    <a href="{% url 'polls:Home' %}"><i class="icon-home"></i> 主页 </a>
+                  </li>
+                  <li class="dropdown" style="font-size: 0.4cm; color: black">
+                    <a data-toggle="dropdown" href="#" style="font-size: 0.4cm; color: black"><i class="icon-cog"></i> 医院信息注册 <i class="icon-angle-down"></i></a>
+                    <ul class="dropdown-menu">
+                      <li ><a href="{% url 'polls:jieru_list' %}">显示所有医院注册信息</a></li>
+                        <li><a href="{% url 'polls:hospital_zhuce' %}">注册医院接口</a></li>
+{#                      <li><a href="{% url 'polls:view_patient' %}">显示所有病人信息</a></li>#}
+{#                      <li><a href="{% url 'polls:view_report' %}">显示所有诊断报告</a></li>#}
+{#                      <li><a href="{% url 'polls:view_content' %}">显示所有检验报告</a></li>#}
+
+
+                    </ul>
+                  </li>
+                  <li style="font-size: 0.5cm; color: black">
+                    <a href="{% url 'polls:bingren_xinxi' %}" style="font-size: 0.4cm; color: black"><i class="icon-leaf"></i> 病人信息 </a>
+                  </li>
+                 <li style="font-size: 0.5cm; color: black">
+                    <a href="{% url 'polls:jianyan_baogao' %}" style="font-size: 0.4cm; color: black"><i class="icon-camera"></i> 检验报告 </a>
+                  </li>
+
+                 <li style="font-size: 0.5cm; color: black">
+                    <a href="{% url 'polls:zhuyuan_xinxi' %}" style="font-size: 0.4cm; color: black"><i class="icon-camera"></i> 住院报告 </a>
+                  </li>
+{#                  <li class="dropdown">#}
+{#                    <a data-toggle="dropdown" href="#"><i class="icon-briefcase"></i> 检验报告 <i class="icon-angle-down"></i></a>#}
+{#                    <ul class="dropdown-menu">#}
+{#                      <li><a href="{% url 'polls:view_dataset' %}">View Reid Dataset</a></li>#}
+{#                      <li><a href="{% url 'polls:bingli_baogao' %}">Upload Reid Dataset</a></li>#}
+{#                    </ul>#}
+{#                  </li>#}
+{#                  <li class="dropdown" >#}
+{#                    <a data-toggle="dropdown" href="#" style="font-size: 0.5cm; color: black"><i class="icon-signin"></i> 注销 <i class="icon-angle-down"></i></a>#}
+{#                    <ul class="dropdown-menu">#}
+{#                      <li><a href="{% url 'polls:sign_in' %}">Log in</a></li>#}
+{#                      <li><a href="blog-right-sidebar.html">Log out</a></li>#}
+{#                      <li><a href="{% url 'polls:sign_up' %}">Sign up today</a></li>#}
+{#                    </ul>#}
+{#                  </li>#}
+                  <li>
+                    <a href="{% url 'polls:contact' %}" style="font-size: 0.4cm; color: black"><i class="icon-envelope-alt"></i> 联系我们</a>
+                  </li>
+                </ul>
+              </nav>
+            </div>
+            <!-- end menu -->
+
+          </div>
+{#        </div>#}
+      </div>
+    </header>
+  <style>
+label
+{
+    width:200px;
+    float:left;
+    text-align: right;
+    {#text-align: center;#}
+    margin-top: 20px;
+    margin-top: 20px;
+    margin-left: 150px;
+    font-size: 0.5cm;
+    {#font: ;#}
+    color: black;
+    {#<font size="5" face="arial" color="black">A paragraph.</font>#}
+}
+
+input
+{
+    padding:1px 1px;
+    border:1px solid #ccc;
+    {#height:16px;#}
+    width: 200px;
+    margin-top: 15px;
+    margin-right: 50px;
+    {#text-align: left;#}
+    {#alignment: left;#}
+}
+
+select.form-control
+{
+    text-align: left;
+    width: 150px;
+    padding:1px 1px;
+    border:1px solid #ccc;
+    margin-top: 15px;
+    margin-right: 50px;
+    {#height: 16px;#}
+}
+</style>
+
+    <div class="container">
+      <form action="/parasavemongo/" method="post">
+              {% if message %}
+      <div class="alert alert-warning">{{ message }}</div>
+            {% endif %}
+        {% csrf_token %}
+
+        <center><h3>输入需要查找的住院信息</h3></center>
+
+        <center>
+        <label for="testname">按病人姓名查找</label>
+        <input type="text" name="trainning_name" autocomplete="off" title="Please set your tranning name."required>
+        </center>
+
+        <center>
+        <label for="loss">按入院时间查找</label>
+        <div class="form-group" name="setloss">
+          <select name = "loss"class = "form-control">
+   			<option value="softmax" selected="selected">一月</option>
+   			<option value="triplet">二月</option>
+   			<option value="oim">三月</option>
+          </select>
+        </div>
+        </center>
+
+        <center>
+        <label for="database">按住院区域</label>
+        <div class="form-group" name="database">
+          <select name="dataset" class = "form-control">
+{#          <option value="cuhk03">cuhk03</option>#}
+{#   		  <option value="cuhk01">cuhk01</option>#}
+{#   		  <option value="market1501">market1501</option>#}
+   		  <option value="msmt17">西一区</option>
+          <option value="viper" selected="selected">东一区</option>
+          {% for obj in obj_list %}
+              <option value ="{{ obj.name }}">{{ obj.name }}</option>
+          {% endfor %}
+          </select>
+        </div>
+        </center>
+
+        <center>
+        <label for="model">按出院时间查找</label>
+        <div class="form-group" name="database">
+          <select name="modelset" class = "form-control">
+{#   			<option value="resnet50" >resnet50</option>#}
+{#   			<option value="resnet101">resnet101</option>#}
+{#   			<option value="inception">inception</option>#}
+   			<option value="xception">二月</option>
+            <option value="shufflenet"selected="selected">一月</option>
+{#   			<option value="mudeep">mudeep</option>#}
+          </select>
+        </div>
+        </center>
+          <center>
+        <label for="model">按就诊科室查找</label>
+        <div class="form-group" name="database">
+          <select name="modelset" class = "form-control">
+{#   			<option value="resnet50" >resnet50</option>#}
+{#   			<option value="resnet101">resnet101</option>#}
+   			<option value="inception">皮肤科</option>
+   			<option value="xception">神经内科</option>
+            <option value="shufflenet"selected="selected">外一科</option>
+{#   			<option value="mudeep">mudeep</option>#}
+          </select>
+        </div>
+        </center>
+
+
+        <center>
+        <button class="btn btn-lg btn-primary btn-block" type="Start Trainning" style="margin-top: 10px ;width: 200px">查找</button>
+        </center>
+      </form>
+    </form><!-- /container -->
+  </div>
+</div>
+<center>
+</center>
+</body>
+</html>

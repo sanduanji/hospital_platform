@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+{#  <title>Person Reidentification Trainning Platform</title>#}
+  <title>Medical Big Data Platform</title>
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="">
+  <meta name="author" content="">
+  <!-- styles -->
+  {% load static %}
+  <link href="{% static 'mycss/css/bootstrap.css' %}" rel="stylesheet">
+  <script src="{% static 'mycss/js/jquery.js' %}"></script>
+  <script src="{% static 'mycss/js/bootstrap.js' %}"></script>
+  <link href="{% static 'mycss/css/bootstrap-responsive.css' %}" rel="stylesheet">
+  <link href="{% static 'mycss/css/prettyPhoto.css' %}" rel="stylesheet">
+  <link href="{% static 'mycss/js/google-code-prettify/prettify.css' %}" rel="stylesheet">
+  <link href="{% static 'mycss/css/flexslider.css' %}" rel="stylesheet">
+  <link href="{% static 'mycss/css/style.css' %}" rel="stylesheet">
+  <link href="{% static 'mycss/color/default.css' %}" rel="stylesheet">
+
+  <!-- fav and touch icons -->
+  <link rel="shortcut icon" href="{% static 'mycss/ico/favicon.ico' %}">
+  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="{% static 'mycss/ico/apple-touch-icon-144-precomposed.png' %}">
+  <link rel="apple-touch-icon-precomposed" sizes="114x114" href="{% static 'mycss/ico/apple-touch-icon-114-precomposed.png' %}">
+  <link rel="apple-touch-icon-precomposed" sizes="72x72" href="{% static 'mycss/ico/apple-touch-icon-72-precomposed.png' %}">
+  <link rel="apple-touch-icon-precomposed" href="{% static 'mycss/ico/apple-touch-icon-57-precomposed.png' %}">
+
+  <style  type ="text/css" >
+    body{
+        background-color: #000000;
+    }
+    #container{
+    border: 1px solid #c00;
+    background-color: rgba(212,0,0,0.5);
+    background: #f00\9;
+    filter: alpha(opacity=50);
+    width: 500px;  margin: 40px auto;
+    line-height: 200%;
+    font-size: 14px;
+    padding: 14px;
+    color:  #fff;
+    }
+    #container *{  position: relative;}
+      label
+{
+    width:200px;
+    float:left;
+    text-align: right;
+    {#text-align: center;#}
+    margin-top: 20px;
+    margin-top: 20px;
+    margin-left: 150px;
+    font-size: 0.5cm;
+    {#font: ;#}
+    color: black;
+    {#<font size="5" face="arial" color="black">A paragraph.</font>#}
+}
+</style >
+</head>
+
+
+<body>
+
+    <body background="{% static 'mycss/img/back3.jpg' %}" style=" background-repeat:no-repeat ;background-size:100% 100%;
+    background-attachment: fixed;">
+
+  <div id="wrapper">
+    <header>
+      <!-- Navbar
+    ================================================== -->
+      <div class="navbar navbar-static-top">
+        <div class="navbar-inner">
+          <div class="container">
+            <!-- logo -->
+            <div class="logo">
+                <!--img src="{% static 'mycss/img/fudan.png' %}" alt='' width="80" height="80"/-->
+                <img src="{% static 'mycss/img/dataology.png' %}" alt='' width="80" height="80"/>
+
+            </div>
+            <!-- end logo -->
+
+            <!-- top menu -->
+            <div class="navigation">
+              <nav>
+                <ul class="nav topnav">
+                  <li class="active">
+                    <a href="{% url 'polls:Home' %}"><i class="icon-home"></i> 主页 </a>
+                  </li>
+                  <li class="dropdown">
+                    <a data-toggle="dropdown" href="#"><i class="icon-cog"></i> 医院信息注册 <i class="icon-angle-down"></i></a>
+                    <ul class="dropdown-menu">
+                      <li><a href="{% url 'polls:jieru_list' %}">显示所有医院注册信息</a></li>
+                        <li><a href="{% url 'polls:hospital_zhuce' %}">注册医院接口</a></li>
+
+                    </ul>
+                  </li>
+                  <li>
+                    <a href="{% url 'polls:bingren_xinxi' %}"><i class="icon-leaf"></i> 病人信息 </a>
+                  </li>
+                 <li>
+                    <a href="{% url 'polls:jianyan_baogao' %}"><i class="icon-camera"></i> 检验报告 </a>
+                  </li>
+
+                 <li>
+                    <a href="{% url 'polls:zhuyuan_xinxi' %}"><i class="icon-camera"></i> 住院报告 </a>
+                  </li>
+{#                  <li class="dropdown">#}
+{#                    <a data-toggle="dropdown" href="#"><i class="icon-briefcase"></i> 检验报告 <i class="icon-angle-down"></i></a>#}
+{#                    <ul class="dropdown-menu">#}
+{#                      <li><a href="{% url 'polls:view_dataset' %}">View Reid Dataset</a></li>#}
+{#                      <li><a href="{% url 'polls:bingli_baogao' %}">Upload Reid Dataset</a></li>#}
+{#                    </ul>#}
+{#                  </li>#}
+                  <li class="dropdown">
+                    <a data-toggle="dropdown" href="#"><i class="icon-signin"></i> 注销 <i class="icon-angle-down"></i></a>
+                    <ul class="dropdown-menu">
+                      <li><a href="{% url 'polls:sign_in' %}">Log in</a></li>
+                      <li><a href="blog-right-sidebar.html">Log out</a></li>
+                      <li><a href="{% url 'polls:sign_up' %}">Sign up today</a></li>
+                    </ul>
+                  </li>
+                  <li>
+                    <a href="{% url 'polls:contact' %}"><i class="icon-envelope-alt"></i> 联系我们</a>
+                  </li>
+                </ul>
+              </nav>
+            </div>
+            <!-- end menu -->
+
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <section id="maincontent">
+      <div class="container">
+
+{#        <div class="row">#}
+{#          <div class="span12">#}
+{#            <div class="call-action">#}
+{##}
+{#              <div class="text">#}
+{#                <!--<h2>Web platform to build computer vision</h2-->#}
+{#                  <h2>医疗大数据平台</h2>#}
+{##}
+{#                <p>#}
+{#                  Mainly Focus On Hospital Data#}
+{#                </p>#}
+{#              </div>#}
+{#              <div class="cta">#}
+{#                <a class="active btn btn-large btn-theme" href="{% url 'polls:zhenduan_baogao' %}">#}
+{#                    <i class="icon-plane icon-white"> Get Start </i>#}
+{#                </a>#}
+{#              </div>#}
+{##}
+{#            </div>#}
+{#            <!-- end tagline -->#}
+{#          </div>#}
+{#        </div>#}
+
+          <label style="margin-left:400px;margin-top:300px;height:100px;width: 250px; font-size: 0.5cm">没有该患者相关报告！</label>
+            <a href="{% url 'polls:bingren_xinxi' %}">
+                <input id="Mybutton" style="margin-left:490px;height:40px;width: 100px" type=button color="red" value="返回查找页面" οnclick="window.open('hospital_zhuce.html')" >
+            </a>
+            <a href="{% url 'polls:Home' %}">
+                <input id="Mybutton" style="margin-left:490px;height:40px;width: 100px" type=button color="red" value="返回主页面" οnclick="window.open('sub1.html')">
+            </a>
+{##}
+{#        <div class="row">#}
+{#          <div class="span3 features e_pulse">#}
+{#            <img src="{% static 'mycss/img/icon71.jpg' %}" alt="" />#}
+{#            <div class="box">#}
+{#              <div class="divcenter">#}
+{#                <a href="{% url 'polls:zhenduan_baogao' %}"><i class="icon-circled icon-48 icon-tasks icon"></i></a>#}
+{#                <h4>Model</h4>#}
+{#                  <h4>诊断报告查询</h4>#}
+{#              </div>#}
+{#            </div>#}
+{#          </div>#}
+{##}
+{#          <div class="span3 features e_pulse">#}
+{#            <img src="{% static 'mycss/img/data1.jpg' %}" alt="" />#}
+{#            <div class="box">#}
+{#              <div class="divcenter">#}
+{#                <a href="{% url 'polls:zhuyuan_xinxi' %}"><i class="icon-circled icon-48 icon-cogs icon"></i></a>#}
+{#                <h4>Load</h4>#}
+{#                  <h4>住院信息查询</h4>#}
+{#              </div>#}
+{#            </div>#}
+{#          </div>#}
+
+{#          <div class="span3 features e_pulse">#}
+{#            <img src="{% static 'mycss/img/icon21.jpg' %}" alt="" height="400" width="400"/>#}
+{#            <div class="box">#}
+{#              <div class="divcenter">#}
+{#                <a href="{% url 'polls:jianyan_baogao' %}"><i class="icon-circled icon-48 icon-eye-open icon"></i></a>#}
+{#                <h4>View</h4>#}
+{#                  <h4>检验报告查询</h4>#}
+{#              </div>#}
+{#            </div>#}
+{#          </div>#}
+
+{#          <div class="span3 features e_pulse">#}
+{#            <img src="{% static 'mycss/img/icon31.jpg' %}" alt="" />#}
+{#            <div class="box">#}
+{#              <div class="divcenter">#}
+{#                <a href="{%url 'polls:bingli_baogao'%}"><i class="icon-circled icon-48 icon-upload-alt icon"></i></a>#}
+{#                <h4>Upload</h4>#}
+{#                  <h4>病理报告查询</h4>#}
+{#              </div>#}
+{#            </div>#}
+{#          </div>#}
+        </div>
+      </div>
+    </section>
+  </div>
+</body>
+
+</html>

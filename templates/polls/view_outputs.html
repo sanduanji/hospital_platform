@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  {% load static %}
+  <link href="{% static 'mycss/css/bootstrap.css' %}" rel="stylesheet">
+  <script src="{% static 'mycss/js/jquery.js' %}"></script>
+  <script src="{% static 'mycss/js/bootstrap.js' %}"></script>
+  <link href="{% static 'mycss/css/bootstrap-responsive.css' %}" rel="stylesheet">
+  <link href="{% static 'mycss/css/prettyPhoto.css' %}" rel="stylesheet">
+  <link href="{% static 'mycss/js/google-code-prettify/prettify.css' %}" rel="stylesheet">
+  <link href="{% static 'mycss/css/flexslider.css' %}" rel="stylesheet">
+  <link href="{% static 'mycss/css/style.css' %}" rel="stylesheet">
+  <link href="{% static 'mycss/color/default.css' %}" rel="stylesheet">
+</head>
+
+<body>
+    <body background="{% static 'mycss/img/back3.jpg' %}" style=" background-repeat:no-repeat ;background-size:100% 100%;
+    background-attachment: fixed;">
+<div id="wrapper">
+<header>
+      <!-- Navbar
+    ================================================== -->
+      <div class="navbar navbar-static-top">
+        <div class="navbar-inner">
+          <div class="container">
+            <!-- logo -->
+            <div class="logo">
+                <!--img src="{% static 'mycss/img/fudan.png' %}" alt='' width="80" height="80"/-->
+                <img src="{% static 'mycss/img/dataology.png' %}" alt='' width="80" height="80"/>
+
+            </div>
+            <!-- end logo -->
+
+            <!-- top menu -->
+            <div class="navigation">
+              <nav>
+                <ul class="nav topnav">
+                  <li class="active">
+                    <a href="{% url 'polls:Home' %}"><i class="icon-home"></i> 主页 </a>
+                  </li>
+                  <li class="dropdown">
+                    <a data-toggle="dropdown" href="#"><i class="icon-cog"></i> 医院信息注册 <i class="icon-angle-down"></i></a>
+                    <ul class="dropdown-menu">
+                      <li><a href="{% url 'polls:jieru_list' %}">显示所有医院注册信息</a></li>
+                        <li><a href="{% url 'polls:hospital_zhuce' %}">注册医院接口</a></li>
+
+                    </ul>
+                  </li>
+                  <li>
+                    <a href="{% url 'polls:jianyan_baogao' %}"><i class="icon-leaf"></i> 诊断报告 </a>
+                  </li>
+                 <li>
+                    <a href="{% url 'polls:detecperson' %}"><i class="icon-camera"></i> 住院报告 </a>
+                  </li>
+                  <li class="dropdown">
+                    <a data-toggle="dropdown" href="#"><i class="icon-briefcase"></i> 检验报告 <i class="icon-angle-down"></i></a>
+                    <ul class="dropdown-menu">
+                      <li><a href="{% url 'polls:view_dataset' %}">View Reid Dataset</a></li>
+                      <li><a href="{% url 'polls:bingli_baogao' %}">Upload Reid Dataset</a></li>
+                    </ul>
+                  </li>
+                  <li class="dropdown">
+                    <a data-toggle="dropdown" href="#"><i class="icon-signin"></i> 注销 <i class="icon-angle-down"></i></a>
+                    <ul class="dropdown-menu">
+                      <li><a href="{% url 'polls:sign_in' %}">Log in</a></li>
+                      <li><a href="blog-right-sidebar.html">Log out</a></li>
+                      <li><a href="{% url 'polls:sign_up' %}">Sign up today</a></li>
+                    </ul>
+                  </li>
+                  <li>
+                    <a href="{% url 'polls:contact' %}"><i class="icon-envelope-alt"></i> 联系我们</a>
+                  </li>
+                </ul>
+              </nav>
+            </div>
+            <!-- end menu -->
+
+          </div>
+        </div>
+      </div>
+    </header>
+
+
+    <form method="post">
+        {% csrf_token %}
+        </form>
+
+    <center><table table style="margin-top: 50px">
+        <thead>
+        <tr style="color: black">
+            <th width="200" height="50"><center><h4>Test Name</h4></center></th>
+            <th width="200" height="50"><center><h4>Start time</h4></center></th>
+            <th width="200" height="50"><center><h4>Timecost</h4></center></th>
+            <th width="200" height="50"><center><h4>Model</h4></center></th>
+            <th width="200" height="50"><center><h4>Dataset</h4></center></th>
+            <th width="200" height="50"><center><h4>Epochs</h4></center></th>
+            <th width="200" height="50"><center><h4>Loss</h4></center></th>
+            <th width="200" height="50"><center><h4>Learning rate</h4></center></th>
+            <th width="200" height="50"><center><h4>Accuracy(mAP)</h4></center></th>
+            <th width="200" height="50"><center><h4>Rank1</h4></center></th>
+            <th width="200" height="50"><center><h4>Rank5</h4></center></th>
+            <th width="200" height="50"><center><h4>Rank10</h4></center></th>
+        </tr>
+        {% for element in lists %}
+        <tr>
+            <td width="200" height="40"><center>{{ element.trainname }}</center></td>
+            <td width="200" height="40"><center>{{ element.time }}</center></td>
+            <td width="200" height="40"><center>{{ element.timecost }}</center></td>
+            <td width="200" height="40"><center>{{ element.model}}</center></td>
+            <td width="200" height="40"><center>{{ element.dataset}}</center></td>
+            <td width="200" height="40"><center>{{ element.epochs }}</center></td>
+            <td width="200" height="40"><center>{{ element.loss }}</center></td>
+            <td width="200" height="40"><center>{{ element.lr}}</center></td>
+            <td width="200" height="40"><center>{{ element.mAP}}</center></td>
+            <td width="200" height="40"><center>{{ element.Rank1 }}</center></td>
+            <td width="200" height="40"><center>{{ element.Rank5 }}</center></td>
+            <td width="200" height="40"><center>{{ element.Rank10}}</center></td>
+        </tr>
+        {% endfor %}
+    </table></center>
+</div>
+</body>
+</html>

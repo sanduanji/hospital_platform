@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>监听行事件 - 数据表格</title>
+  <meta name="renderer" content="webkit">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=0">
+  <link rel="stylesheet" href="../../../../../static/layuiadmin/layui/css/layui.css" media="all">
+  <link rel="stylesheet" href="../../../../../static/layuiadmin/style/admin.css" media="all">
+
+  <style>
+    body{margin: 10px;}
+    .demo-carousel{height: 200px; line-height: 200px; text-align: center;}
+  </style>
+</head>
+<body>
+
+<table class="layui-hide" id="demo" lay-filter="test"></table>
+
+<script type="text/html" id="barDemo">
+  <a class="layui-btn layui-btn-primary layui-btn-xs" lay-event="detail">查看</a>
+  <a class="layui-btn layui-btn-xs" lay-event="more">更多</a>
+</script>
+
+<div class="layui-tab layui-tab-brief" lay-filter="demo">
+  <ul class="layui-tab-title">
+    <li class="layui-this">内容1</li>
+    <li>内容2</li>
+    <li>点击行添加tab</li>
+    <li>内容3</li>
+    <li>内容4</li>
+  </ul>
+  <div class="layui-tab-content">
+    <div class="layui-tab-item layui-show">
+      内容1
+    </div>
+    <div class="layui-tab-item">
+      内容2
+    </div>
+    <div class="layui-tab-item">
+      <div class="layui-tab" lay-filter="dynamicTab" lay-allowclose="true">
+        <ul class="layui-tab-title">
+          <li lay-id="22">表格1</li>
+          <li lay-id="33">表格2</li>
+          <li lay-id="44">表格3</li>
+          <li lay-id="55">表格4</li>
+        </ul>
+        <div class="layui-tab-content">
+          <div class="layui-tab-item layui-show">表格1内容1</div>
+          <div class="layui-tab-item">表格2内容2</div>
+          <div class="layui-tab-item">表格3内容3</div>
+          <div class="layui-tab-item">表格4内容4</div>
+          <div class="layui-tab-item">表格5内容5</div>
+        </div>
+      </div>
+
+    </div>
+    <div class="layui-tab-item">
+      内容3
+    </div>
+    <div class="layui-tab-item">
+      内容4
+    </div>
+  </div>
+</div>
+
+
+  <script src="../../../../../static/layuiadmin/layui/layui.js"></script>
+<script>
+layui.config({
+  version: '{{lay.version}}' //为了更新 js 缓存，可忽略
+  ,base: '../../../../../static/layuiadmin/' //静态资源所在路径
+
+});
+
+//加载模块（从layui 2.6 开始，第一个参数不传即代表加载所有内置模块）
+layui.use(function(){ //加载特定模块：layui.use(['layer', 'laydate', function(){
+  //得到各种内置组件
+  var layer = layui.layer //弹层
+  ,laypage = layui.laypage //分页
+  ,table = layui.table //表格
+  ,upload = layui.upload //上传
+  ,element = layui.element //元素操作
+  ,dropdown = layui.dropdown //下拉菜单
+  var $ = layui.$;
+
+  //监听Tab切换
+  element.on('tab(demo)', function(data){
+    layer.tips('切换了 '+ data.index +'：'+ this.innerHTML, this, {
+      tips: 1
+    });
+  });
+
+
+  //执行一个 table 实例
+  table.render({
+    elem: '#demo'
+    ,height: 420
+    ,url: '/search_patient_reports_layui' //数据接口
+    ,title: '用户表'
+    ,page: true //开启分页
+    ,toolbar: 'default' //开启工具栏，此处显示默认图标，可以自定义模板，详见文档
+    ,totalRow: true //开启合计行
+    ,cols: [[ //表头
+        {field:'report_id', title: '报告编号', sort: true}
+        ,{field:'report_type', title: '报告类型', sort: true}
+        ,{field:'hospital', title: '就诊医院', sort: true}
+    ]]
+  });
+//监听行单击事件（双击事件为：rowDouble）
+  table.on('row(test)', function(obj){
+    var data = obj.data;
+
+
+    const id = data.id;
+    const title = data.username;
+    let exist=layui.$("li[lay-id='"+id+"']").length;
+
+    if (exist===0) {
+        element.tabAdd('dynamicTab', {
+          title: title
+          ,content: '内容'+ JSON.stringify(data)
+          ,id: id
+        })
+    }
+    element.tabChange('tabCard',JSON.sringify(id));//切换tab
+
+  });
+
+
+
+  //分页
+  laypage.render({
+    elem: 'pageDemo' //分页容器的id
+    ,count: 100 //总页数
+    ,skin: '#1E9FFF' //自定义选中色值
+    //,skip: true //开启跳页
+    ,jump: function(obj, first){
+      if(!first){
+        layer.msg('第'+ obj.curr +'页', {offset: 'b'});
+      }
+    }
+  });
+
+
+  //底部信息
+  var footerTpl = lay('#footer')[0].innerHTML;
+  lay('#footer').html(layui.laytpl(footerTpl).render({}))
+  .removeClass('layui-hide');
+});
+</script>
+</body>
+</html>

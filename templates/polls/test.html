@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/html">
+<head>
+  <meta charset="utf-8">
+  <title>医疗大数据互联互通平台</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="">
+  <meta name="author" content="">
+  <!-- styles -->
+  {% load static %}
+  <link href="{% static 'mycss/css/bootstrap.css' %}" rel="stylesheet">
+  <script src="{% static 'mycss/js/jquery.js' %}"></script>
+  <script src="{% static 'mycss/js/bootstrap.js' %}"></script>
+  <link href="{% static 'mycss/css/bootstrap-responsive.css' %}" rel="stylesheet">
+  <link href="{% static 'mycss/css/prettyPhoto.css' %}" rel="stylesheet">
+  <link href="{% static 'mycss/js/google-code-prettify/prettify.css' %}" rel="stylesheet">
+  <link href="{% static 'mycss/css/flexslider.css' %}" rel="stylesheet">
+  <link href="{% static 'mycss/css/style.css' %}" rel="stylesheet">
+  <link href="{% static 'mycss/color/default.css' %}" rel="stylesheet">
+
+  <!-- fav and touch icons -->
+  <link rel="shortcut icon" href="{% static 'mycss/ico/favicon.ico' %}">
+  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="{% static 'mycss/ico/apple-touch-icon-144-precomposed.png' %}">
+  <link rel="apple-touch-icon-precomposed" sizes="114x114" href="{% static 'mycss/ico/apple-touch-icon-114-precomposed.png' %}">
+  <link rel="apple-touch-icon-precomposed" sizes="72x72" href="{% static 'mycss/ico/apple-touch-icon-72-precomposed.png' %}">
+  <link rel="apple-touch-icon-precomposed" href="{% static 'mycss/ico/apple-touch-icon-57-precomposed.png' %}">
+</head>
+<style>
+label
+{
+    width:200px;
+    float:left;
+    text-align: right;
+    margin-top: 20px;
+    margin-left: 150px;
+}
+
+input
+{
+    padding:1px 1px;
+    border:1px solid #ccc;
+    height:16px;
+    width: 200px;
+    margin-top: 15px;
+    margin-right: 50px;
+}
+
+select.form-control
+{
+    width: 210px;
+    padding:2px 2px;
+    border:1px solid #ccc;
+    margin-top: 15px;
+    margin-right: 50px;
+}
+</style>
+
+
+<body>
+  <div id="wrapper">
+    <header>
+      <!-- Navbar
+    ================================================== -->
+      <div class="navbar navbar-static-top">
+        <div class="navbar-inner">
+          <div class="container">
+            <!-- logo -->
+            <div class="logo">
+                <img src="{% static 'mycss/img/fudan.png' %}" alt='' width="80" height="80"/>
+            </div>
+            <!-- end logo -->
+
+            <!-- top menu -->
+            <div class="navigation">
+              <nav>
+                <ul class="nav topnav">
+                  <li>
+                    <a href="{% url 'polls:Home' %}"><i class="icon-home"></i> Home </a>
+                  </li>
+                  <li class="active dropdown">
+                    <a data-toggle="dropdown" href="#"><i class="icon-cog"></i> Model <i class="icon-angle-down"></i></a>
+                    <ul class="dropdown-menu">
+                      <li><a href="{% url 'polls:zhenduan_baogao' %}">Train New Model</a></li>
+                      <li><a href="{% url 'polls:Load                                                                                                                                                                                                                                                                                                                                                         _model' %}">Loading CheckPoint Model</a></li>
+                    </ul>
+                  </li>
+                  <li>
+                    <a href="#"><i class="icon-leaf"></i> Output </a>
+                  </li>
+                  <li class="dropdown">
+                    <a data-toggle="dropdown" href="#"><i class="icon-briefcase"></i> Dataset <i class="icon-angle-down"></i></a>
+                    <ul class="dropdown-menu">
+                      <li><a href="portfolio-2cols.html">View Reid Dataset</a></li>
+                      <li><a href="portfolio-3cols.html">Upload Reid Dataset</a></li>
+                    </ul>
+                  </li>
+                  <li class="dropdown">
+                    <a data-toggle="dropdown" href="#"><i class="icon-signin"></i> Log <i class="icon-angle-down"></i></a>
+                    <ul class="dropdown-menu">
+                      <li><a href="blog-left-sidebar.html">Log in</a></li>
+                      <li><a href="blog-right-sidebar.html">Log out</a></li>
+                      <li><a href="#">Sign up today</a></li>
+                    </ul>
+                  </li>
+                  <li>
+                    <a href="contact.html"><i class="icon-envelope-alt"></i> Contact</a>
+                  </li>
+                </ul>
+              </nav>
+            </div>
+            <!-- end menu -->
+
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <div class="container">
+      <form action="#" method="post">
+        {% csrf_token %}
+
+        <center><h3>Please choose the feathers of your model</h3></center>
+
+        <center>
+        <label for="platform">Platform</label>
+        <div class="form-group" name="platfrom">
+          <select class = "form-control">
+            <option>Pytoch</option>
+            <option>Tensorflow</option>
+            <option>Keras</option>
+          </select>
+        </div>
+        </center>
+
+        <center>
+        <label for="loss">Loss function</label>
+        <div class="form-group" name="loss">
+          <select class = "form-control">
+            <option>Softmax</option>
+            <option>Relu</option>
+            <option>Sigmoid</option>
+          </select>
+        </div>
+        </center>
+
+        <center>
+        <label for="database">Loss function</label>
+        <div class="form-group" name="database">
+          <select class = "form-control">
+            <option>Viper</option>
+          </select>
+        </div>
+        </center>
+
+        <center>
+        <label for="model">Model</label>
+        <div class="form-group" name="model">
+          <select class = "form-control">
+            <option>resnet50</option>
+          </select>
+        </div>
+        </center>
+
+        <center>
+        <label for="GPU">Loss function</label>
+        <div class="form-group" name="GPU">
+          <select class = "form-control">
+            <option>0</option>
+            <option>1</option>
+          </select>
+        </div>
+        </center>
+
+        <label for="batch" class="#">Batch size</label>
+        <center>
+        <input type="text" name="batch" value = '64' onfocus="if (value =='64'){value =''}" onblur="if (value ==''){value='64'}">
+        </center>
+
+        <label for="lr" class="#">Learning rate</label>
+        <center>
+        <input type="text" name="lr" value = '0.003' onfocus="if (value =='0.003'){value =''}" onblur="if (value ==''){value='0.003'}">
+        </center>
+
+        <label for="epoch" class="#">Epoch</label>
+        <center>
+        <input type="text" name="epoch" value = '50' onfocus="if (value =='50'){value =''}" onblur="if (value ==''){value='50'}">
+        </center>
+
+        <label for="margin" class="#">Margin  ( Triplet Loss Only )</label>
+        <center>
+        <input type="text" name="margin" value = '0' onfocus="if (value =='0'){value =''}" onblur="if (value ==''){value='0'}">
+        </center>
+
+        <button class="btn btn-lg btn-primary btn-block" type="submit" style="margin-top: 10px">Submit</button>
+      </form>
+    </div><!-- /container -->
+</div>
+</body>
+</html>

@@ -1,0 +1,59 @@
+1608880608433	geckodriver	INFO	Listening on 127.0.0.1:40616
+1608880608443	mozrunner::runner	INFO	Running command: "/home/hulian/firefox/firefox" "--marionette" "--headless" "start-maximized" "-foreground" "-no-remote" "-profile" "/tmp/rust_mozprofileIU2plp"
+*** You are running in headless mode.
+1608880610046	Marionette	INFO	Listening on port 36351
+1608880610058	Marionette	WARN	TLS certificate errors will be ignored for this session
+console.error: BroadcastService: 
+  receivedBroadcastMessage: handler for
+  remote-settings/monitor_changes
+  threw error:
+  Message: Error: Polling for changes failed: NetworkError when attempting to fetch resource..
+  Stack:
+    remoteSettingsFunction/remoteSettings.pollChanges@resource://services-settings/remote-settings.js:721:13
+
+1608880632501	Marionette	INFO	Stopped listening on port 36351
+[Parent 13872, Gecko_IOThread] WARNING: pipe error (59): Connection reset by peer: file /builds/worker/workspace/build/src/ipc/chromium/src/chrome/common/ipc_channel_posix.cc, line 356
+1608884048678	geckodriver	INFO	Listening on 127.0.0.1:44832
+1608884048686	mozrunner::runner	INFO	Running command: "/home/hulian/firefox/firefox" "--marionette" "--headless" "start-maximized" "-foreground" "-no-remote" "-profile" "/tmp/rust_mozprofileMfhmih"
+*** You are running in headless mode.
+1608884051200	Marionette	INFO	Listening on port 38322
+1608884051303	Marionette	WARN	TLS certificate errors will be ignored for this session
+console.error: BroadcastService: 
+  receivedBroadcastMessage: handler for
+  remote-settings/monitor_changes
+  threw error:
+  Message: Error: Polling for changes failed: NetworkError when attempting to fetch resource..
+  Stack:
+    remoteSettingsFunction/remoteSettings.pollChanges@resource://services-settings/remote-settings.js:721:13
+
+1608884074261	Marionette	INFO	Stopped listening on port 38322
+[Parent 16901, Gecko_IOThread] WARNING: pipe error (59): Connection reset by peer: file /builds/worker/workspace/build/src/ipc/chromium/src/chrome/common/ipc_channel_posix.cc, line 356
+1609243826983	geckodriver	INFO	Listening on 127.0.0.1:41246
+1609243827951	mozrunner::runner	INFO	Running command: "/home/hulian/firefox/firefox" "--marionette" "--headless" "start-maximized" "-foreground" "-no-remote" "-profile" "/tmp/rust_mozprofilep2E6ed"
+*** You are running in headless mode.
+1609243830450	Marionette	INFO	Listening on port 36755
+1609243830483	Marionette	WARN	TLS certificate errors will be ignored for this session
+1609243845256	geckodriver	INFO	Listening on 127.0.0.1:40023
+1609243845265	mozrunner::runner	INFO	Running command: "/home/hulian/firefox/firefox" "--marionette" "--headless" "start-maximized" "-foreground" "-no-remote" "-profile" "/tmp/rust_mozprofileFmk9y9"
+*** You are running in headless mode.
+1609243846774	Marionette	INFO	Listening on port 35246
+1609243846873	Marionette	WARN	TLS certificate errors will be ignored for this session
+console.error: BroadcastService: 
+  receivedBroadcastMessage: handler for
+  remote-settings/monitor_changes
+  threw error:
+  Message: Error: Polling for changes failed: NetworkError when attempting to fetch resource..
+  Stack:
+    remoteSettingsFunction/remoteSettings.pollChanges@resource://services-settings/remote-settings.js:721:13
+
+1609243853058	Marionette	INFO	Stopped listening on port 36755
+[Parent 26120, Gecko_IOThread] WARNING: pipe error (59): Connection reset by peer: file /builds/worker/workspace/build/src/ipc/chromium/src/chrome/common/ipc_channel_posix.cc, line 356
+console.error: BroadcastService: 
+  receivedBroadcastMessage: handler for
+  remote-settings/monitor_changes
+  threw error:
+  Message: Error: Polling for changes failed: NetworkError when attempting to fetch resource..
+  Stack:
+    remoteSettingsFunction/remoteSettings.pollChanges@resource://services-settings/remote-settings.js:721:13
+
+1609243870513	Marionette	INFO	Stopped listening on port 35246

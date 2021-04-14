@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <!-- styles -->
+  {% load static %}
+  <link href="{% static 'mycss/css/bootstrap.css' %}" rel="stylesheet">
+  <script src="{% static 'mycss/js/jquery.js' %}"></script>
+  <script src="{% static 'mycss/js/bootstrap.js' %}"></script>
+  <link href="{% static 'mycss/css/bootstrap-responsive.css' %}" rel="stylesheet">
+  <link href="{% static 'mycss/css/prettyPhoto.css' %}" rel="stylesheet">
+  <link href="{% static 'mycss/js/google-code-prettify/prettify.css' %}" rel="stylesheet">
+  <link href="{% static 'mycss/css/flexslider.css' %}" rel="stylesheet">
+  <link href="{% static 'mycss/css/style.css' %}" rel="stylesheet">
+  <link href="{% static 'mycss/color/default.css' %}" rel="stylesheet">
+
+  <!-- fav and touch icons -->
+  <link rel="shortcut icon" href="{% static 'mycss/ico/favicon.ico' %}">
+  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="{% static 'mycss/ico/apple-touch-icon-144-precomposed.png' %}">
+  <link rel="apple-touch-icon-precomposed" sizes="114x114" href="{% static 'mycss/ico/apple-touch-icon-114-precomposed.png' %}">
+  <link rel="apple-touch-icon-precomposed" sizes="72x72" href="{% static 'mycss/ico/apple-touch-icon-72-precomposed.png' %}">
+  <link rel="apple-touch-icon-precomposed" href="{% static 'mycss/ico/apple-touch-icon-57-precomposed.png' %}">
+</head>
+<style>
+label
+{
+    width:200px;
+    float:left;
+    text-align: right;
+    margin-top: 20px;
+    margin-left: 150px;
+}
+
+input
+{
+    padding:1px 1px;
+    border:1px solid #ccc;
+    height:16px;
+    width: 200px;
+    margin-top: 15px;
+    margin-right: 50px;
+}
+
+select.form-control
+{
+    width: 200px;
+    padding:2px 2px;
+    border:1px solid #ccc;
+    margin-top: 15px;
+    margin-right: 50px;
+}
+</style>
+
+<body>
+  <div id="wrapper">
+    <header>
+      <!-- Navbar
+    ================================================== -->
+      <div class="navbar navbar-static-top">
+        <div class="navbar-inner">
+          <div class="container">
+            <!-- logo -->
+            <div class="logo">
+                <img src="{% static 'mycss/img/fudan.png' %}" alt='' width="80" height="80"/>
+            </div>
+            <!-- end logo -->
+
+            <!-- top menu -->
+            <div class="navigation">
+              <nav>
+                <ul class="nav topnav">
+                  <li class="">
+                    <a href="{% url 'polls:Home' %}"><i class="icon-home"></i> Home </a>
+                  </li>
+                  <li class="dropdown">
+                    <a data-toggle="dropdown" href="#"><i class="icon-cog"></i> Model <i class="icon-angle-down"></i></a>
+                    <ul class="dropdown-menu">
+                      <li><a href="{% url 'polls:zhenduan_baogao' %}">Train New Model</a></li>
+                      <li><a href="{% url 'polls:zhuyuan_xinxi' %}">Loading CheckPoint Model</a></li>
+                    </ul>
+                  </li>
+                  <li>
+                    <a href="{% url 'polls:jianyan_baogao' %}"><i class="icon-leaf"></i> Output </a>
+                  </li>
+                  <li class="active dropdown">
+                    <a data-toggle="dropdown" href="#"><i class="icon-briefcase"></i> Dataset <i class="icon-angle-down"></i></a>
+                    <ul class="dropdown-menu">
+                      <li><a href="{% url 'polls:view_dataset' %}">View Reid Dataset</a></li>
+                      <li><a href="{% url 'polls:bingli_baogao' %}">Upload Reid Dataset</a></li>
+                    </ul>
+                  </li>
+                  <li class="dropdown">
+                    <a data-toggle="dropdown" href="#"><i class="icon-signin"></i> Log <i class="icon-angle-down"></i></a>
+                    <ul class="dropdown-menu">
+                      <li><a href="{% url 'polls:sign_in' %}">Log in</a></li>
+                      <li><a href="blog-right-sidebar.html">Log out</a></li>
+                      <li><a href="{% url 'polls:sign_up' %}">Sign up today</a></li>
+                    </ul>
+                  </li>
+                  <li>
+                    <a href="contact.html"><i class="icon-envelope-alt"></i> Contact</a>
+                  </li>
+                </ul>
+              </nav>
+            </div>
+            <!-- end menu -->
+
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <form action="/updetect/" method="post" enctype="multipart/form-data"/>
+    <center style="margin-top: 50px">
+        <p><span>name：</span><input type="text" placeholder="name" autocomplete="off" name="name"></p>
+      <label for="detectimage">train image</label>
+      <div>
+        <input type="file" name="detectimage" multiple="multiple"/>
+      </div>
+        <button class="btn-primary btn-block" type="submit" style="width: 180px;display: inline;margin-left: 50px">Upload</button>
+        <button class="btn-primary btn-block" type="button" name = 'btn' style="width: 180px;display: inline;margin-left: 50px">Detection</button>
+        <input type="submit" class="btn" value="Click" name="print_btn">
+
+    </center>
+    </form>
+
+  </div>
+</body>
+</html>
