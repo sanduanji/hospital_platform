@@ -19,7 +19,8 @@ from django.views.decorators.csrf import csrf_exempt
 # from django.shortcuts import render_to_response
 # 接入MongoDB
 
-connect('hulian', host='127.0.0.1', port =27017)
+connect('hulian', host='111.231.88.241', port =27017, username='root', password= 'mongoadmin', authentication_source='admin')
+
 
 name = '张三'
 

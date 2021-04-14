@@ -6,7 +6,7 @@ from django.db import models
 from django import forms
 from django.forms import fields,widgets
 from mongoengine import connect
-connect('hulian', host='127.0.0.1', port =27017)
+connect('hulian', host='111.231.88.241', port =27017, username='root', password= 'mongoadmin', authentication_source='admin')
 
 
 class Patient(mongoengine.Document):

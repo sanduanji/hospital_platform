@@ -144,8 +144,8 @@
         //console.log(event);
         //let data = event.data;
         const data = JSON.parse(event.data);
-        console.log(data.name);
-        document.getElementById('message').innerHTML = data.name;
+        console.log(data);
+        document.getElementById('message').innerHTML = JSON.stringify(data);
     }, false);
 
     /* 自定义验证规则 */
