@@ -42,86 +42,30 @@
           </div>
         </div>
       </div>
-{#成功tab示例#}
-{#      <div class="layui-col-md8">#}
-{#          <div class="layui-card">#}
-{#            <div class="layui-card-header">动态操作</div>#}
-{#            <div class="layui-card-body">#}
-{#              <div class="layui-tab" lay-filter="demo" lay-allowclose="true">#}
-{#                <ul class="layui-tab-title">#}
-{#                  <li class="layui-this" lay-id="11">网站设置</li>#}
-{#                  <li lay-id="22">用户管理</li>#}
-{#                  <li lay-id="33">权限分配</li>#}
-{#                  <li lay-id="44">商品管理</li>#}
-{#                  <li lay-id="55">订单管理</li>#}
-{#                </ul>#}
-{#                <div class="layui-tab-content">#}
-{#                  <div class="layui-tab-item layui-show">内容1</div>#}
-{#                  <div class="layui-tab-item">内容2</div>#}
-{#                  <div class="layui-tab-item">内容3</div>#}
-{#                </div>#}
-{#              </div>#}
-{#              <div class="layui-btn-container">#}
-{#                <button class="layui-btn site-demo-active" data-type="tabAdd">新增一个项</button>#}
-{#                <button class="layui-btn site-demo-active" data-type="tabDelete">删除：用户管理</button>#}
-{#                <button class="layui-btn site-demo-active" data-type="tabChange">切换到：权限分配</button>#}
-{#              </div>#}
-{#            </div>#}
-{#          </div>#}
-{#      </div>#}
-{#王tab#}
+
       <div class="layui-col-md8">
-        <div class="layui-tab layui-tab-brief" lay-filter="demo">
-          <ul class="layui-tab-title">
-{#            <li class="layui-this">内容1</li>#}
-{#            <li>内容2</li>#}
-            <li>查看报告内容</li>
-{#            <li>内容3</li>#}
-{#            <li>内容4</li>#}
-          </ul>
-          <div class="layui-tab-content">
-{#            <div class="layui-tab-item layui-show">#}
-{#              内容1#}
-{#            </div>#}
+{#        <div class="layui-tab layui-tab-brief" lay-filter="demo">#}
+{#          <ul class="layui-tab-title">#}
+{#            <li>查看报告内容</li>#}
+{#          </ul>#}
+{#          <div class="layui-tab-content">#}
 {#            <div class="layui-tab-item">#}
-{#              内容2#}
-{#            </div>#}
-            <div class="layui-tab-item">
               <div class="layui-tab" lay-filter="dynamicTab" lay-allowclose="true">
                 <ul class="layui-tab-title">
                   <li lay-id="22">页面说明</li>
                 </ul>
-{#                <div class="layui-tab-content">#}
-{#                    <div class="layui-tab-item layui-show">#}
-{#                        <iframe scrolling="no" id="main1" name="main" frameborder="0" src="../../home/console.html" style="width:100%;height:680px;"></iframe>#}
-{#                        <iframe scrolling="no" id="main1" name="main" frameborder="0" style="width:100%;height:680px;">#}
-{#                            <a>点击左侧报告列表的行，标签页自动弹出报告内容</a>#}
-{#                                        <p>你的浏览器不支持iframe标签</p>#}
-{#                        </iframe>#}
-{##}
-{#                    </div>#}
-{#                </div>#}
                 <div class="layui-tab-content">
                     <div class="layui-tab-item layui-show">点击左侧报告列表的行，标签页自动弹出报告内容</div>
 
                 </div>
               </div>
 
-            </div>
-{#            <div class="layui-tab-item">#}
-{#              内容3#}
 {#            </div>#}
-{#            <div class="layui-tab-item">#}
-{#              内容4#}
-{#            </div>#}
-          </div>
-        </div>
+{#          </div>#}
+{#        </div>#}
       </div>
     </div>
     </div>
-{#      <div class="layui-btn-group demoTable" style="margin-top: -100px; alignment: center; margin-left: 600px;">#}
-{#        <a lay-href="layuiad_reload" class="layui-btn jump_refresh_url">返回上一页</a>#}
-{#    </div>#}
   </div>
 
 
@@ -158,9 +102,12 @@
       }
       ,cols: [[
         {#{checkbox: true, fixed: true}#}
-        {field:'report_id', title: '报告编号', sort: true, align: 'center'}
+        {field: 'report_date', title: '报告时间', sort:true, align:'center', }
         ,{field:'report_type', title: '报告类型', sort: true, align: 'center'}
         ,{field:'hospital', title: '就诊医院', sort: true, align: 'center'}
+        ,{field:'report_id', title: '报告编号', sort: true, align: 'center'}
+
+
       ]]
       ,page: {
         layout: ['limit', 'count', 'prev', 'page', 'next', 'skip'],     // 自定义分页布局
@@ -173,6 +120,14 @@
       ,limits: [5,10,15,20,25]
       ,height: 650
       {#,width: 550#}
+      ,parseData: function (res) {
+            return{
+                "code":res.code,
+                "msg":res.msg,
+                "count":res.DataCount,
+                "data":res.data
+            }
+        }
     });
 
     //wtab start
@@ -188,8 +143,8 @@
         const id = data.id;
         const title = data.username;
         //标题改成report_id
-        const report_id = data.report_id
-        const report_type = data.report_tp
+        const report_id = data.report_id;
+        const report_type = data.report_tp;
         let exist=layui.$("li[lay-id='"+report_id+"']").length;
 
 
@@ -205,26 +160,141 @@
                     console.log(result);
                     result = JSON.stringify(result.data);
                     if (exist===0) {
-                        element.tabAdd('dynamicTab', {
-                        title: report_id
-                        {#,content: '内容'+ JSON.stringify(data)#}
-                        ,content:'<iframe src=http://127.0.0.1:8000/polls/zhuce_jiekou width=100% height=650 id=test2></iframe>'
-                        {#,content:'<iframe src=../../jiance_report width=100% height=650></iframe>'#}
-                        ,id: id
-                        });
-                        let child = $('#child');
-                        console.log(child);
-                        child.on('load', function(){
-                            var personInfo= new Object;
-                                // 要发送的数据
-                            personInfo.name='Yuelu';
-                            personInfo.title='Hello';
-                            personInfo.info="World";
-                            var str=JSON.stringify(personInfo);
-                            document.getElementById('test2').contentWindow.postMessage(str, "http://127.0.0.1:8000/polls/zhuce_jiekou")
-                        });
+                        if(data.report_type==='放射报告'){
+                            element.tabAdd('dynamicTab', {
+                            title: report_id,
+                            content:'<iframe src=http://127.0.0.1:8000/polls/fangshe_report width=100% height=650 id=if'+String(report_id)+'></iframe>',
+                            id: report_id
+                            });
+                            //
+                            console.log(result);
+                            let child = $('#child');
+                            let iframe = document.getElementById('if' + String(report_id));
+                            let iframeLoad = function(){
+                                window.setTimeout(function () {
+                                    console.log("iframe加载完毕");
+                                    send_message();
+                                }, 100);
+                                //移除监听器
+                                iframe.removeEventListener("load", iframeLoad, true);
+                                {#window.focus();#}
+                            };
+                            iframe.addEventListener('load', iframeLoad, true);
+                            function send_message(){
+                                let personInfo = {};
+                                //要发送的数据
+                                personInfo.name = 'Yuelu';
+                                personInfo.title = 'Hello';
+                                personInfo.info = 'World';
+                                //let str = JSON.stringify(personInfo);
+                                let str = result;
+                                document.getElementById('if'+String(report_id)).contentWindow.postMessage(str, "http://127.0.0.1:8000/polls/fangshe_report")
+                            }
 
+                            element.tabChange('dynamicTab',report_id)
+                        }
+                        if(data.report_type==='手术报告'){
+                            element.tabAdd('dynamicTab', {
+                            title: report_id,
+                            content:'<iframe src=http://127.0.0.1:8000/polls/shoushu_report width=100% height=650 id=if'+String(report_id)+'></iframe>',
+                            id: report_id
+                            });
 
+                            //
+                            console.log(result);
+                            let child = $('#child');
+                            let iframe = document.getElementById('if' + String(report_id));
+                            let iframeLoad = function(){
+                                window.setTimeout(function () {
+                                    console.log("手术报告加载完毕");
+                                    send_message();
+                                }, 100);
+                                //移除监听器
+                                iframe.removeEventListener("load", iframeLoad, true);
+                            };
+                            iframe.addEventListener('load', iframeLoad, true);
+                            function send_message(){
+                                let personInfo = {};
+                                //要发送的数据
+                                personInfo.name = 'Yuelu';
+                                personInfo.title = 'Hello';
+                                personInfo.info = 'World';
+                                //let str = JSON.stringify(personInfo);
+                                let str = result;
+                                document.getElementById('if'+String(report_id)).contentWindow.postMessage(str, "http://127.0.0.1:8000/polls/shoushu_report")
+                            }
+                            element.tabChange('dynamicTab',report_id)
+
+                        }
+                        if(data.report_type==='处方报告'){
+                            element.tabAdd('dynamicTab', {
+                            title: report_id,
+                            content:'<iframe src=http://127.0.0.1:8000/polls/yaofang_report width=100% height=650 id=if'+String(report_id)+'></iframe>',
+                            id: report_id
+                            });
+
+                            //
+                            console.log(result);
+                            let child = $('#child');
+                            let iframe = document.getElementById('if' + String(report_id));
+                            let iframeLoad = function(){
+                                window.setTimeout(function () {
+                                    console.log("iframe加载完毕");
+                                    send_message();
+                                }, 100);
+                                //移除监听器
+                                iframe.removeEventListener("load", iframeLoad, true);
+                            };
+                            iframe.addEventListener('load', iframeLoad, true);
+                            function send_message(){
+                                let personInfo = {};
+                                //要发送的数据
+                                personInfo.name = 'Yuelu';
+                                personInfo.title = 'Hello';
+                                personInfo.info = 'World';
+                                //let str = JSON.stringify(personInfo);
+                                let str = result;
+                                document.getElementById('if'+String(report_id)).contentWindow.postMessage(str, "http://127.0.0.1:8000/polls/yaofang_report")
+                            }
+                            element.tabChange('dynamicTab',report_id)
+
+                        }
+                        if(data.report_type==='急诊报告'){
+                            element.tabAdd('dynamicTab', {
+                            title: report_id,
+                            content:'<iframe src=http://127.0.0.1:8000/polls/jizhen_report width=100% height=650 id=if'+String(report_id)+'></iframe>',
+                            id: report_id
+                            });
+
+                            //
+                            console.log(result);
+                            let child = $('#child');
+                            let iframe = document.getElementById('if' + String(report_id));
+                            let iframeLoad = function(){
+                                window.setTimeout(function () {
+                                    console.log("急诊报告加载完毕");
+                                    send_message();
+                                }, 100);
+                                //移除监听器
+                                iframe.removeEventListener("load", iframeLoad, true);
+                            };
+                            iframe.addEventListener('load', iframeLoad, true);
+                            function send_message(){
+                                let personInfo = {};
+                                //要发送的数据
+                                personInfo.name = 'Yuelu';
+                                personInfo.title = 'Hello';
+                                personInfo.info = 'World';
+                                //let str = JSON.stringify(personInfo);
+                                let str = result;
+                                document.getElementById('if'+String(report_id)).contentWindow.postMessage(str, "http://127.0.0.1:8000/polls/jizhen_report")
+                            }
+                            element.tabChange('dynamicTab',report_id)
+
+                        }
+                    }
+                    if (exist===1){
+                        element.tabChange('dynamicTab',report_id)
                     }
                 },
                 error: function (result) {
@@ -234,38 +304,7 @@
     });
     //wend
 
-    //w ajax传参到后台
-/*
-        var parameter ={
-          name1: 'data',
-          name2: 'data'
-        };
-        $.ajax({
-          url : url,
-          type : 'POST',
-          async : false,
-          contentType : 'application/json;charset=UTF-8',
-          dataType : 'json',
-          data : JSON.stringify(parameter),
-          success : function(data) {
-            console.log(data);
-          },
-          error : function(msg) {
-          }
-        });
 
-        $.ajax({
-          url : url,
-          type : 'POST',
-          dataType : 'json',
-          data : {name1: "aa",name2: "aaa"},
-          success : function(data) {
-            console.log(data);
-          },
-          error : function(msg) {
-          }
-        });
-*/
 
   });
   </script>

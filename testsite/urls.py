@@ -58,13 +58,19 @@ urlpatterns = [
     path('search_patient_reports_layui/', pviews.search_patient_reports_layui),
     ####mongodb 对接结构化
     path('jiegouhua_database/', pviews.jiegouhua_database),
+    path('search_jiegouhua/', pviews.search_jiegouhua),
     #接受id
     # path('patient_reports_layui/', pviews.patient_reports_layui),
     #接受上传数据
     # 执行上传数据接受
     path('get_layuifile/', pviews.get_layuifile, name='get_layuifile'),
     # 查看已注册接口信息
-    path('data_jiekou_layui/', pviews.jiekou_data_layui, name='data_jiekou_layui')
+    path('data_jiekou_layui/', pviews.jiekou_data_layui, name='data_jiekou_layui'),
+    #插入新注册信息
+    path('get_zhuce/', pviews.get_zhuce, name='get_zhuce'),
+    # url(r'^get_zhuce/$', pviews.get_zhuce),
+    #用户搜索记录
+    path('user_search/',pviews.user_search, name = 'user_search'),
 
     #显示图片
     # url(r'^static/(?P<path>.*)', 'django.views.static.serve', {'document_root':'/Users/saber/Downloads/testsite/static'}),

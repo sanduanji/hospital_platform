@@ -6,6 +6,7 @@ from django.db import models
 from django import forms
 from django.forms import fields,widgets
 from mongoengine import connect
+import json
 connect('hulian', host='127.0.0.1', port =27017)
 
 
@@ -47,7 +48,7 @@ class ReportType(mongoengine.Document):
 
 #报告种类类别03，包含全部的
 
-
+#所有病人信息
 class ReportTypeList(mongoengine.Document):
     _id = mongoengine.StringField()
     id = mongoengine.StringField()
@@ -67,7 +68,8 @@ class ReportTypeList(mongoengine.Document):
     meta = {'collection':'report_type_list'}
 
 
-#所有病人所有类型报告的简要信息汇总
+#所有病人所有报告信息的简要信息汇总
+#用于演示接口
 class ReportList(mongoengine.Document):
     _id = mongoengine.StringField()
     id = mongoengine.StringField()
@@ -374,10 +376,121 @@ class Hospital_Jiekou_Layui(mongoengine.Document):
     system_name = mongoengine.StringField()
     phone = mongoengine.StringField()
     email = mongoengine.StringField()
-    use = mongoengine.StringField()
+    cunchu = mongoengine.StringField()
     gongneng = mongoengine.StringField()
     beizhu = mongoengine.StringField()
+    analysis = mongoengine.StringField()
+    zhenliao = mongoengine.StringField()
+    fenxi = mongoengine.StringField()
+    keyan = mongoengine.StringField()
+
     meta = {'collection':'jiekou_new'}
+
+
+
+
+    ##########
+
+    #iframe 报告
+class HuashanFangshe(mongoengine.Document):
+    _id = mongoengine.StringField()
+    patient_name = mongoengine.StringField()
+    patient_id = mongoengine.StringField()
+    report_id = mongoengine.StringField()
+    jiancha_id = mongoengine.StringField()
+    jiancha_keshi = mongoengine.StringField()
+    jiancha_detail = mongoengine.StringField()
+    huojian_buwei = mongoengine.StringField()
+    doc = mongoengine.StringField()
+    date = mongoengine.StringField()
+
+    def toDict(self):
+        j = self.to_json()
+        dc = json.loads(j)
+        del dc['_id']
+        return dc
+    meta = {'collection':'iframe_fangshe'}
+
+
+
+class HuashanShoushu(mongoengine.Document):
+    _id = mongoengine.StringField()
+    patient_name = mongoengine.StringField()
+    patient_id = mongoengine.StringField()
+    report_id = mongoengine.StringField()
+
+    operation_id = mongoengine.StringField()
+    icd = mongoengine.StringField()
+    diagname = mongoengine.StringField()
+    shoushuname = mongoengine.StringField()
+    doc = mongoengine.StringField()
+    time = mongoengine.StringField()
+    firstassistant = mongoengine.StringField()
+    mazui = mongoengine.StringField()
+    mazui_doc = mongoengine.StringField()
+    shoushujingguo = mongoengine.StringField()
+
+
+    def toDict(self):
+        j = self.to_json()
+        dc = json.loads(j)
+        del dc['_id']
+        return dc
+    meta = {'collection':'iframe_shoushu'}
+
+
+
+class HuashanYaofang(mongoengine.Document):
+    _id = mongoengine.StringField()
+    patient_name = mongoengine.StringField()
+    patient_id = mongoengine.StringField()
+    report_id = mongoengine.StringField()
+
+    chufang_id = mongoengine.StringField()
+    med_type = mongoengine.StringField()
+    med_id = mongoengine.StringField()
+    med_name = mongoengine.StringField()
+    guige = mongoengine.StringField()
+    baozhuangliang = mongoengine.StringField()
+    danwei = mongoengine.StringField()
+    jiliang = mongoengine.StringField()
+    pinci = mongoengine.StringField()
+    tujing = mongoengine.StringField()
+    danjia = mongoengine.StringField()
+
+
+
+    def toDict(self):
+        j = self.to_json()
+        dc = json.loads(j)
+        del dc['_id']
+        return dc
+    meta = {'collection':'iframe_yaofang'}
+
+
+class HuashanJizhen(mongoengine.Document):
+    _id = mongoengine.StringField()
+    patient_name = mongoengine.StringField()
+    patient_id = mongoengine.StringField()
+    report_id = mongoengine.StringField()
+
+
+    icd = mongoengine.StringField()
+    diagname = mongoengine.StringField()
+    diagtime = mongoengine.StringField()
+    diagdoctor = mongoengine.StringField()
+    diag_docid = mongoengine.StringField()
+
+
+
+
+    def toDict(self):
+        j = self.to_json()
+        dc = json.loads(j)
+        del dc['_id']
+        return dc
+    meta = {'collection':'iframe_jizhen'}
+
 #######################
 # 节点类
 # class NavigationProfile(models.Model):

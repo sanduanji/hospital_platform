@@ -102,8 +102,12 @@
                 <cite>控制中心</cite>
               </a>
               <dl class="layui-nav-child">
-                <dd data-name="console" class="layui-this">
+                <dd data-name="console" >
                   <a lay-href="hulian_console">系统信息</a>
+                </dd>
+
+                <dd data-name="console" class="layui-this">
+                  <a lay-href="user_home">用户登录界面</a>
                 </dd>
 {#                <dd data-name="console">#}
 {#                  <a lay-href="layuiad_home1">主页一</a>#}
@@ -307,6 +311,10 @@
                 </dd>
                 <dd><a lay-href="listen_hang">测试行监听</a></dd>
                 <dd><a lay-href="iframe_test">iframe 测试</a></dd>
+                <dd><a lay-href="test_fenye">测试分页</a></dd>
+                <dd><a lay-href="visual_jiegouhua">测试结构化可视化</a></dd>
+
+
 
 
               </dl>
@@ -348,7 +356,11 @@
       <!-- 主体内容 -->
       <div class="layui-body" id="LAY_app_body">
         <div class="layadmin-tabsbody-item layui-show">
+            <!-- 原有显示系统信息的管理员登录界面-->
           <iframe src="hulian_console" frameborder="0" class="layadmin-iframe"></iframe>
+            <!-- 用户登录后的搜索界面-->
+          <iframe src="user_home" frameborder="0" class="layadmin-iframe"></iframe>
+
         </div>
       </div>
 

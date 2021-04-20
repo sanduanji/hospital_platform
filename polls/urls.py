@@ -86,16 +86,23 @@ urlpatterns = [
         path('webroles_layui/', views.webroles_layui),
         path('passswd_layui/', views.passswd_layui),
         path('message_layui/', views.message_layui),
-        path('listen_hang/', views.lisen_hang),
+        path('listen_hang/', views.lisen_hang, name = 'listen_hang'),
         path('quanduan_fuza/', views.quanduan_fuza),
         path('test_tabs/', views.test_tabs),
         path('report_intab/', views.report_intab),
 
-
+        #接收选择病人
+        path('patient_submit_set/', views.patient_submit_set, name = 'patient_submit_set'),
         ##测试ajax
         path('ajax_submit_set/', views.ajax_submit_set, name='ajax_submit_set'),
         path('ajax_index/', views.ajax_index),
         path('cal/', views.cal),
+        #iframe报告显示
+        path('jizhen_report/', views.jizhen_report, name = 'jizhen_report'),
+        path('shoushu_report/', views.shoushu_report, name = 'shoushu_report'),
+        path('fangshe_report/', views.fangshe_report, name = 'fangshe_report'),
+        path('yaofang_report/', views.yaofang_report, name = 'yaofang_report'),
+
 
         #显示结构化结果
         path('show_jiegouhua/', views.show_jiegouhua, name='show_jiegouhua'),
@@ -105,11 +112,19 @@ urlpatterns = [
         path('zhuce_jiekou/', views.zhuce_jiekou, name = 'zhuce_jiekou'),
         #查看已注册接口layui
         path('view_jiekoulist/', views.view_jiekoulist, name = 'view_jiekoulist'),
+        #显示接口图片
+        path('visual_jiegouhua/', views.visual_jiegouhua, name = 'visual_jiegouhua'),
+        #用户登录显示界面
+        path('user_home/', views.user_home, name = 'user_home'),
+        #用户搜索没有相关记录
+        path('user_search_none/', views.user_search_none, name = 'user_search_none'),
 
         # url(r'^$', 'polls.views.ajax_test2', name='ajax_test2'),
         # url(r'^ajax_test/$', 'polls.views.ajax_datatest', name='ajax_datatest'),
         ######iframe test#####3for
         path('iframe_test/', views.iframe_test, name = 'iframe_test'),
-        path('iframe_page/', views.iframe_page, name='iframe_page')
+        path('iframe_page/', views.iframe_page, name='iframe_page'),
+        #测试分页
+        path('test_fenye/', views.test_fenye, name='test_fenye'),
 
 ]

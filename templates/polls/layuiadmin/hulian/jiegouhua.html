@@ -14,13 +14,9 @@
 <body>
 
     <div class="layui-btn-group demoTable" style="margin-bottom: 0px;">
-{#        <button class="layui-btn" data-type="parseTable">立即转化为数据表格</button>#}
-{#        <button class="layui-btn" data-type="parseTable" onclick="convertToTable()">将数据转化为静态表格</button>#}
-{#        <button class="layui-btn" data-type="parseTableToExcel" onclick="exportToExcels()" href="/download/1/">导出结构化报告</button>#}
         <a href="/download/1/" class="layui-btn jump_refresh_url">导出结构化报告</a>
-
-{#        <a href="/download/1/">下载图片</a>#}
     </div>
+
   <div class="layui-card layadmin-header">
     <div class="layui-breadcrumb" lay-filter="breadcrumb">
       <a lay-href="">主页</a>
@@ -35,6 +31,34 @@
       <div class="layui-col-md12">
         <div class="layui-card">
           <div class="layui-card-header">大肠癌病理报告结构化</div>
+        <div class="test-table-reload-btn">
+
+
+          <label class="layui-form-label" style="width: 150px">选取报告日期范围</label>
+          <div class="layui-input-inline">
+            <input type="text" class="layui-input" id="test-table-demoReload" placeholder=" - " width="600" style="width: 300px;">
+          </div>
+
+{#            #}
+{#          <label class="layui-form-label">日期范围</label>#}
+{#          <div class="layui-input-inline">#}
+{#            <input type="text" class="layui-input" id="test-laydate-range-date" placeholder=" - ">#}
+{#          </div>#}
+
+
+{#            <button class="layui-btn" data-type="reload">报告筛选</button>#}
+
+
+{#            <button class="layui-btn" data-type="reload"  lay-filter="rechar_btn" id="rechar_btn" >搜索</button>#}
+{#换成 div#}
+            <div class="layui-btn" data-type="reload"  lay-filter="rechar_btn" id="rechar_btn" >报告筛选</div>
+
+          <div class="layui-btn-group demoTable" style="margin-bottom: 0px;">
+              <a lay-href="visual_jiegouhua" class="layui-btn jump_refresh_url">报告分析</a>
+          </div>
+        </div>
+
+
           <div class="layui-card-body">
           
 {#            <div class="test-table-reload-btn" style="margin-bottom: 10px;">#}
@@ -68,7 +92,7 @@
     base: '../../../../static/layuiadmin/' //静态资源所在路径
   }).extend({
     index: 'lib/index' //主入口模块
-  }).use(['index', 'table'], function(){
+  }).use(['index', 'table','laydate'], function(){
     var table = layui.table;
 
     //方法级渲染
@@ -110,19 +134,116 @@
       ,limit: 20
       ,limits: [5,10,15,20,25]
       ,height: 650
+      ,parseData: function (res) {
+            return{
+                "code":res.code,
+                "msg":res.msg,
+                "count":res.DataCount,
+                "data":res.data
+            }
+        }
     });
     //});
-//导出Excel
-    function exportToExcels(){
-    //layui.use('table', function () {
-    var table = layui.table;
-    table.exportFile(["昵称", "加入时间", "签名"],[
-    ['贤心1','2016-11-28','人生就像是一场修行 A'],
-    ['贤心2','2019-11-28','人生就像是一场修行 B'],
-    ['贤心3','2016-10-28','人生就像是一场修行 C']
-    ],'本日将到订单列表.xls');
-    // });
-    }
+{#//导出Excel#}
+{#    function exportToExcels(){#}
+{#    //layui.use('table', function () {#}
+{#    var table = layui.table;#}
+{#    table.exportFile(["昵称", "加入时间", "签名"],[#}
+{#    ['贤心1','2016-11-28','人生就像是一场修行 A'],#}
+{#    ['贤心2','2019-11-28','人生就像是一场修行 B'],#}
+{#    ['贤心3','2016-10-28','人生就像是一场修行 C']#}
+{#    ],'本日将到订单列表.xls');#}
+{#    // });#}
+{#    }#}
+
+    //报告筛选
+      var $ = layui.$, active = {
+      reload: function(){
+        var demoReload = $('#test-table-demoReload');
+
+        //执行重载
+        table.reload('table-reload', {
+          url:"/search_jiegouhua",
+          page: {
+            curr: 1 //重新从第 1 页开始
+          }
+          ,where: {
+            {#key: {#}
+            {#  hostname: demoReload.val()#}
+
+            hostname: demoReload.val()
+          }
+        },'data');
+      }
+    };
+
+    $('.test-table-reload-btn .layui-btn').on('click', function(){
+      var type = $(this).data('type');
+      active[type] ? active[type].call(this) : '';
+    });
+
+
+    var laydate = layui.laydate;
+
+    //示例代码
+
+    //常规用法
+    laydate.render({
+      elem: '#test-laydate-normal-cn'
+    });
+
+    //国际版
+    laydate.render({
+      elem: '#test-laydate-normal-en'
+      ,lang: 'en'
+    });
+
+    //年选择器
+    laydate.render({
+      elem: '#test-laydate-type-year'
+      ,type: 'year'
+    });
+
+    //年月选择器
+    laydate.render({
+      elem: '#test-laydate-type-month'
+      ,type: 'month'
+    });
+
+    //日期选择器
+    laydate.render({
+      elem: '#test-laydate-type-date'
+      //,type: 'date' //type 默认为 date，所以可不填
+    });
+
+    //时间选择器
+    laydate.render({
+      elem: '#test-laydate-type-time'
+      ,type: 'time'
+    });
+
+    //日期时间选择器
+    laydate.render({
+      elem: '#test-laydate-type-datetime'
+      ,type: 'datetime'
+    });
+
+    //日期范围
+    laydate.render({
+      elem: '#test-table-demoReload'
+      ,range: true
+    });
+
+
+
+
+    //同时绑定多个
+    lay('.test-laydate-item').each(function(){
+      laydate.render({
+        elem: this
+        ,trigger: 'click'
+      });
+    });
 
   });
   </script>

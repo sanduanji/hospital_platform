@@ -95,6 +95,10 @@
         ,{field:'phone', title: '接口负责人手机', sort: true, }
         ,{field:'email', title: '接口负责人邮箱', sort: true, }
         ,{field:'gongneng', title: '接口功能描述', sort: true, }
+        ,{field:'cunchu', title: '是否同意平台存储', sort: true, }
+        ,{field:'analysis', title: '是否同意在线分析', sort: true, }
+        ,{field:'zhenliao', title: '是否用于诊疗', sort: true, }
+        ,{field:'keyan', title: '是否用于科研', sort: true, }
         ,{field:'beizhu', title: '备注', sort: true, }
         {#,{width:178, align:'center', fixed: 'right', toolbar: '#test-table-operate-barDemo',}#}
 
@@ -109,6 +113,14 @@
       ,limit: 10
       ,limits: [5,10,15,20,25]
       ,height: 650
+      ,parseData: function (res) {
+        return{
+            "code":res.code,
+            "msg":res.msg,
+            "count":res.DataCount,
+            "data":res.data
+        }
+      }
     });
     
     var $ = layui.$, active = {

@@ -1,0 +1,171 @@
+
+
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>表单组合</title>
+  <meta name="renderer" content="webkit">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=0">
+  <link rel="stylesheet" href="../../../../static/layuiadmin/layui/css/layui.css" media="all">
+  <link rel="stylesheet" href="../../../../static/layuiadmin/style/admin.css" media="all">
+</head>
+<body>
+<!--
+  <table border="2" bordercolor="black" cellspacing="0" cellpadding="5" bgcolor="#faebd7">
+        <tr>
+            <td bgcolor="#faebd7"><font size="3" color="black">姓名</font></td>
+            <td bgcolor="#F6F6F6" id="test"><font size="3" color="black" id="message4">{{ data.jiancha_id }}</font></td>
+{#            <td bgcolor="#faebd7"><font size="3" color="black">报告编号</font></td>#}
+{#            <td bgcolor="#F6F6F6"><font size="3" color="black" id="message2">{{data.title }}</font></td>#}
+{#            <td bgcolor="#faebd7"><font size="3" color="black">性别</font></td>#}
+{#            <td bgcolor="#F6F6F6"><font size="3" color="black" id="message2">{{data.info }}</font></td>#}
+        </tr>
+  </table>-->
+{#正式表格#}
+    <table border="2" bordercolor="black" width="300" cellspacing="0" cellpadding="5" bgcolor="#faebd7">
+        <tr>
+            <td bgcolor="#faebd7"><font size="3" color="black">姓名</font></td>
+            <td bgcolor="#F6F6F6"><font size="3" color="black" id="message2"></font></td>
+
+            <td bgcolor="#faebd7" ><font size="3" color="black">手术编号</font></td>
+            <td bgcolor="#F6F6F6" style="width: 230px"><font size="3" color="black"id="message4" ></font></td>
+
+            <td bgcolor="#faebd7" style="alignment: center"><font size="3" color="black">手术时间</font></td>
+            <td bgcolor="#F6F6F6" style="width: 200px"><font size="3" color="black" id="message9"></font></td>
+
+              <td bgcolor="#faebd7" style="alignment: center"><font size="3" color="black">病症ICD</font></td>
+            <td bgcolor="#F6F6F6" style="width: 200px"><font size="3" color="black" id="message10"></font></td>
+
+        </tr>
+        <tr>
+            <td bgcolor="#faebd7"><font size="3" color="black">手术医生</font></td>
+            <td bgcolor="#F6F6F6"><font size="3" color="black" id="message8"></font></td>
+
+
+            <td bgcolor="#faebd7"><font size="3" color="black">手术助理</font></td>
+            <td bgcolor="#F6F6F6"><font size="3" color="black" id="message6"></font></td>
+
+            <td bgcolor="#faebd7" ><font size="3" color="black">麻醉方式</font></td>
+            <td bgcolor="#F6F6F6" style="width: 230px"><font size="3" color="black" id="message7"></font></td>
+
+            <td bgcolor="#faebd7" ><font size="3" color="black">麻醉医生</font></td>
+            <td bgcolor="#F6F6F6" style="width: 230px"><font size="3" color="black" id="message13"></font></td>
+        </tr>
+        <tr>
+            <td colspan="8"bgcolor="#faebd7"><font size="3" color="black">手术经过</font></td>
+        </tr>
+        <tr>
+            <td colspan="8" height=200px bgcolor="#F6F6F6"><font size="3" color="black" id="message5">{{data.jiancha_detail }}</font></td>
+        </tr>
+
+    </table>
+
+
+
+<div>
+    <h3>接收消息</h3>
+    <span id="message"></span>
+</div>
+
+
+  <script src="../../../../static/layuiadmin/layui/layui.js"></script>
+  <script>
+  layui.config({
+    base: '../../../../static/layuiadmin/' //静态资源所在路径
+  }).extend({
+    index: 'lib/index' //主入口模块
+  }).use(['index', 'form', 'laydate'], function(){
+    var $ = layui.$
+    ,admin = layui.admin
+    ,element = layui.element
+    ,layer = layui.layer
+    ,laydate = layui.laydate
+    ,form = layui.form;
+
+    form.render(null, 'component-form-group');
+
+    laydate.render({
+      elem: '#LAY-component-form-group-date'
+    });
+
+    window.addEventListener('message',function(event){
+        if(window.parent !== event.source){return}
+        //console.log(event);
+        //let data = event.data;
+        const data = JSON.parse(event.data);
+        const patient_name = data.patient_name;
+        const patient_id = data.patient_id;
+        const report_id = data.report_id;
+
+        const operation_id = data.operation_id;
+        const shoushujingguo = data.shoushujingguo;
+        const firstassistant = data.firstassistant;
+        const mazui = data.mazui;
+        const doc = data.doc;
+        const date = data.date;
+        const icd = data.icd;
+        const diagname = data.diagname;
+        const shoushuname = data.shoushuname;
+        const mazui_doc = data.mazui_doc;
+
+
+        console.log(patient_name);
+        console.log(patient_id);
+        console.log(operation_id);
+        console.log(shoushujingguo);
+        console.log("这里是手术报告页面")
+        document.getElementById("message").innerHTML = JSON.stringify(data);
+        document.getElementById("message2").innerHTML = JSON.parse(JSON.stringify(patient_name));
+        document.getElementById("message3").innerHTML = JSON.parse(JSON.stringify(patient_id));
+        document.getElementById("message4").innerHTML = JSON.parse(JSON.stringify(operation_id));
+        document.getElementById('message5').innerHTML = JSON.parse(JSON.stringify(shoushujingguo));
+        document.getElementById('message6').innerHTML = JSON.parse(JSON.stringify(firstassistant));
+        document.getElementById('message7').innerHTML = JSON.parse(JSON.stringify(mazui));
+        document.getElementById('message8').innerHTML = JSON.parse(JSON.stringify(doc));
+        document.getElementById('message9').innerHTML = JSON.parse(JSON.stringify(date));
+        document.getElementById('message10').innerHTML = JSON.parse(JSON.stringify(icd));
+        document.getElementById('message11').innerHTML = JSON.parse(JSON.stringify(shoushuname));
+        document.getElementById('message12').innerHTML = JSON.parse(JSON.stringify(diagname));
+        document.getElementById('message13').innerHTML = JSON.parse(JSON.stringify(mazui_doc));
+
+
+    }, false);
+
+    /* 自定义验证规则 */
+//    form.verify({
+//      title: function(value){
+//        if(value.length < 5){
+//          return '请输入';
+//        }
+//      }
+//      ,pass: [/(.+){6,12}$/, '密码必须6到12位']
+//      ,content: function(value){
+//        layedit.sync(editIndex);
+//      }
+//    });
+    
+    /* 监听指定开关 */
+    form.on('switch(component-form-switchTest)', function(data){
+      layer.msg('开关checked：'+ (this.checked ? 'true' : 'false'), {
+        offset: '6px'
+      });
+      layer.tips('温馨提示：请注意开关状态的文字可以随意定义，而不仅仅是ON|OFF', data.othis)
+    });
+    
+    /* 监听提交 */
+    form.on('submit(component-form-demo1)', function(data){
+//      parent.layer.alert(JSON.stringify(data.field), {
+//        title: '最终的提交信息'
+//      })
+      return layer.msg('注册成功');
+
+
+
+      {#return false;#}
+    });
+  });
+  </script>
+</body>
+</html>

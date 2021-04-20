@@ -11,6 +11,11 @@ from django.shortcuts import render,HttpResponse
 from django.core.paginator import Paginator,EmptyPage,PageNotAnInteger
 import json
 from django.views.decorators.csrf import csrf_exempt
+from django.forms.models import model_to_dict
+from bson import json_util
+from django.core import serializers
+
+from django.forms.models import model_to_dict
 
 # def index(request):
 #     return HttpResponse("Hello, world. You're at the polls index.")
@@ -609,6 +614,9 @@ def layuiad_reload(request):
 
 
 def reportlist_layui(request):
+    print('前端传过来的wheere testid')
+    testid = request.GET.get("testid")
+    print(testid)
     data = ReportTypeList.objects.all()
     dataCount = data.count()
     pageIndex = request.GET.get("pageIndex")
@@ -626,7 +634,7 @@ def reportlist_layui(request):
     list = []
     res = []
     for item in data:
-        print('字典初始化')
+        # print('字典初始化')
         dict = {}
         dict['id'] = item.id
         dict['name'] = item.name
@@ -638,19 +646,19 @@ def reportlist_layui(request):
         list.append(dict)
     # print('page获得')
     pageInator = Paginator(list,pageSize)
-    print('context获得')
+    # print('context获得')
     context = pageInator.page(pageIndex)
-    print('res获得')
+    # print('res获得')
 
     for item in context:
         res.append(item)
     ###test print####
-    for item in res:
-        print('打印item')
-        print(item)
+    # for item in res:
+    #     print('打印item')
+    #     print(item)
     data = { "code": 0,"msg": "ok","DataCount": dataCount,"data": res }
     return HttpResponse(json.dumps(data))
-
+#表格搜索reload后台操作
 def search_layui(request):
     name = request.GET.get("hostname")
     print('测试get')
@@ -738,6 +746,46 @@ def search_patient_reports_layui(request):
     return HttpResponse(json.dumps(data))
 
 
+################3
+#接受选择的病人是哪个
+def lisen_hang(request):
+    id = request.GET.get("id")
+    print('选择要查看的病人id是')
+    print(id)
+    return render(request, 'polls/layuiadmin/component/table/onrow.html')
+    #formal version
+    # return render(request, 'polls/layuiadmin/iframe_test/onrow.html')
+
+#从listen_hang转到选择病人显示
+@csrf_exempt
+def patient_submit_set(request):
+    # 客户端发送过来的数据
+    if request.method == 'GET':
+        print('its get')
+    elif request.method == 'POST':
+        print('its post')
+    if request.is_ajax():
+        print('收到选择病人ajax信号')
+    print("前端选择病人返回数据")
+    print(request.POST)
+    print(request.POST.get('id'))
+    print(request.GET)
+    id = request.POST.get('id')
+
+    response_data = {
+        "code": 0
+        , "msg": ""
+        , "data": {
+        "id": id
+        }
+    }
+    context ={'id':id}
+    # return render(request, 'polls/layuiadmin/component/table/onrow.html', context)
+
+    return JsonResponse(response_data)
+
+
+
 
 def menzhen_report_layui(request):
     id = '110108201001102205'
@@ -745,12 +793,35 @@ def menzhen_report_layui(request):
     keshi='皮肤科'
     reports = Zhenduan03.objects(id=id,hospital=hospital,keshi=keshi)
     context = {'reports': reports}
-    return render(request, 'polls/layuiadmin/hulian/menzhen_report.html', context)
+    return render(request, 'polls/layuiadmin/hulian/jizhen_report.html', context)
+
+
+##iframe 急诊报告
+def jizhen_report(request):
+    reports = Zhenduan03.objects(id=id)
+    context = {'reports': reports}
+    return render(request, 'polls/layuiadmin/hulian/jizhen_report.html', context=context)
+
+##iframe 手术报告
+def shoushu_report(request):
+    reports = Zhenduan03.objects(id=id)
+    context = {'reports': reports}
+    return render(request, 'polls/layuiadmin/hulian/shoushu_report.html', context=context)
+
+
+##iframe 放射报告
+def fangshe_report(request):
+    # reports = Zhenduan03.objects(id=id)
+    # context = {'reports': reports}
+    return render(request, 'polls/layuiadmin/hulian/fangshe_report.html')
 
 
 
-
-
+##iframe 药房报告
+def yaofang_report(request):
+    reports = Zhenduan03.objects(id=id)
+    context = {'reports': reports}
+    return render(request, 'polls/layuiadmin/hulian/yaofang_report.html', context=context)
 
 
 ############layui模板用户部分##########
@@ -786,13 +857,6 @@ def passswd_layui(request):
 def message_layui(request):
     return render(request, 'polls/layuiadmin/app/message/index.html')
 
-
-################3
-
-def lisen_hang(request):
-    return render(request, 'polls/layuiadmin/component/table/onrow.html')
-    #formal version
-    # return render(request, 'polls/layuiadmin/iframe_test/onrow.html')
 
 
 def quanduan_fuza(request):
@@ -864,11 +928,117 @@ def jiegouhua_database(request):
     data = { "code": 0,"msg": "ok","DataCount": dataCount,"data": res }
     return HttpResponse(json.dumps(data))
 
+#结构化搜索reload后台操作
+def search_jiegouhua(request):
+    date_range = request.GET.get("hostname")
+    print('测试get')
+    print('测试search 结构化')
+    print(request.GET)
+    start_date = date_range.split(' ')[0]
+    end_date = date_range.split(' ')[2]
+    print(start_date)
+    print(end_date)
+
+    start_year = int(start_date.split('-')[0])
+    start_month = int(start_date.split('-')[1])
+    start_day = int(start_date.split('-')[2])
+    end_year = int(end_date.split('-')[0])
+    end_month = int(end_date.split('-')[1])
+    end_day = int(end_date.split('-')[2])
+
+    data = BingliJiegouhua.objects.all()
+    dataCount = data.count()
+    pageIndex = request.GET.get("pageIndex")
+    pageSize = request.GET.get("pageSize")
+
+    if pageIndex is None:
+        print('pageindex none')
+        pageIndex=1
+    if pageSize is None:
+        print('pageindex none')
+        pageSize = 5
+    print("当前索引:{} 当前大小:{}".format(pageIndex,pageSize))
+    print("所有记录:{} 数据总条数:{}".format(data,dataCount))
+
+    list = []
+    res = []
+    flo = 0
+    zheng = str(8)
+    for item in data:
+        if (type(item.songjian_date) == type('sdfadsfasdf')):
+            # print('str送检时间')
+            # print(type(item.songjian_date))
+            # print(item.songjian_date)
+            # continue
+        # print('送检时间')
+        # print(item.songjian_date)
+        # print(type(item.songjian_date))
+            if item.songjian_date == 'nan':
+                print('这条是空的')
+                print(item.songjian_date)
+                flo = flo + 1
+                continue
+            data_year = int(str(item.songjian_date).split('-')[0])
+            data_month = int(str(item.songjian_date).split('-')[1])
+            data_day = int(str(item.songjian_date).split('-')[2])
+            if data_year>= start_year and data_year <= end_year and data_month>=start_month and data_month<= end_month and data_day>= start_month and data_day<=end_day:
+
+                # print('字典初始化')
+                dict = {}
+                dict['id'] = item.bingli_id
+                dict['name'] = item.name
+                dict['gender'] = item.gender
+                dict['songjian_date'] = item.songjian_date
+                dict['age'] = item.age
+                dict['zhuyuanhao'] = item.zhuyuanhao
+                dict['biaoben_type'] = item.biaoben_type
+                dict['zhongliu_location'] = item.zhongliu_location
+                dict['chuankong'] = item.chuankong
+                dict['ximo'] = item.ximo
+                dict['qiechu_length'] = item.qiuchu_length
+                # dict['type'] = item.type
+                list.append(dict)
+            else:
+                continue
+    print('page获得')
+    pageInator = Paginator(list,pageSize)
+    print('context获得')
+    context = pageInator.page(pageIndex)
+    print('按时间范围筛选获得')
+    print(len(list))
+    print('时间不规范报告数')
+    print(flo)
+    print(list)
+
+    test_list = [{
+        "id": "2018-18238",
+        "name": "李华",
+        "gender": "男",
+        "age": 38,
+        "songjian_date": "2018-04-28",
+        "zhuyuanhao": 558405,
+        "biaoben_type": "直肠及肛门切除标本",
+        "zhongliu_location": "直肠（紧邻齿状线）",
+        "chuankong": "否",
+        "ximo": "/",
+        "qiuchu_length": "14   cm"
+    }]
+    # for item in context:
+    #     res.append(item)
+    ###test print####
+    # for item in res:
+    #     print('打印item')
+    #     print(item)
+    data = { "code": 0,"msg": "ok","DataCount": 100 , "data": list}
+    return HttpResponse(json.dumps(data))
+
+def visual_jiegouhua(request):
+    img_path = 'xray1.jpg'
+    context = {'img_path':img_path}
+    return render(request, "polls/layuiadmin/hulian/visual_jiegouhua.html", context)
 
 
-
-
-####################
+########################################################################################################################
 ##ajax 接受
 ###可用 接受行监听事件
 @csrf_exempt
@@ -886,59 +1056,210 @@ def ajax_submit_set(request):
     print(request.GET)
     report_id = request.POST.get('report_id')
     report_type = request.POST.get('report_type')
+    print('接受报告类型')
+    if report_type == '放射报告':
+        print('接受放射报告')
+
+
+        fangshe_detail = HuashanFangshe.objects(report_id = report_id)
+        json_data= fangshe_detail.to_json()
+        json_report= json.loads(json_data)
+
+        print(fangshe_detail)
+        print('json报告细节')
+        print(json_report)
+        patient_name = json_report[0]['patient_name']
+        patient_id = json_report[0]['patient_id']
+        report_id = json_report[0]['report_id']
+        jiancha_id = json_report[0]['jiancha_id']
+        jiancha_keshi = json_report[0]['jiancha_keshi']
+        jiancha_detail = json_report[0]['jiancha_detail']
+        huojian_buwei = json_report[0]['huojian_buwei']
+        doc = json_report[0]['doc']
+        date = json_report[0]['date']
+
+
+        print(patient_name)
+
+        # print(fangshe_detail.jiancha_keshi)
+        # jiancha_keshi = fangshe_detail.
+        response_data = {
+            "code": 0
+            , "msg": ""
+            , "data": {
+                'patient_name':patient_name,
+                'patient_id':patient_id,
+                'report_id':report_id,
+                'jiancha_id':jiancha_id,
+                'jiancha_detail':jiancha_detail,
+                'huojian_buwei':huojian_buwei,
+                'doc':doc,
+                'date': date,
+                'jiancha_keshi':jiancha_keshi,
+            }
+
+        }
+    elif report_type == '急诊报告':
+        print('接受急诊报告')
+
+        fangshe_detail = HuashanJizhen.objects(report_id = report_id)
+        json_data= fangshe_detail.to_json()
+        json_report= json.loads(json_data)
+
+        print(fangshe_detail)
+        print('json报告细节')
+        print(json_report)
+        patient_name = json_report[0]['patient_name']
+        patient_id = json_report[0]['patient_id']
+        report_id = json_report[0]['report_id']
+
+        icd = json_report[0]['icd']
+        diagname = json_report[0]['diagname']
+        diagtime = json_report[0]['diagtime']
+        diagdoctor = json_report[0]['diagdoctor']
+        diag_docid = json_report[0]['diag_docid']
+
+        print(patient_name)
+
+
+        response_data = {
+            "code": 0
+            , "msg": ""
+            , "data": {
+                'patient_name':patient_name,
+                'patient_id':patient_id,
+                'report_id':report_id,
+                'icd':icd,
+                'diagname':diagname,
+                'diagtime':diagtime,
+                'diagdoctor':diagdoctor,
+                'diag_docid': diag_docid,
+            }
+
+        }
+
+    elif report_type == '检验报告':
+        print('检验报告')
+        response_data = {
+            "code": 0
+            , "msg": ""
+            , "data": {
+                "name": "检验报告"
+            }
+        }
+    elif report_type == '手术报告':
+
+        print('接受手术报告')
+        print('手术报告编号')
+        print(report_id)
+
+        fangshe_detail = HuashanShoushu.objects(report_id=report_id)
+        json_data = fangshe_detail.to_json()
+        json_report = json.loads(json_data)
+
+        print(fangshe_detail)
+        print('json报告细节')
+        print(json_report)
+        patient_name = json_report[0]['patient_name']
+        patient_id = json_report[0]['patient_id']
+        report_id = json_report[0]['report_id']
+        operation_id = json_report[0]['operation_id']
+        icd = json_report[0]['icd']
+        diagname = json_report[0]['diagname']
+        shoushuname = json_report[0]['shoushuname']
+        doc = json_report[0]['doc']
+        date = json_report[0]['time']
+        firstassistant = json_report[0]['firstassistant']
+        mazui = json_report[0]['mazui']
+        mazui_doc = json_report[0]['mazui_doc']
+        shoushujingguo = json_report[0]['shoushujingguo']
+
+        print(patient_name)
+
+        # print(fangshe_detail.jiancha_keshi)
+        # jiancha_keshi = fangshe_detail.
+        response_data = {
+            "code": 0
+            , "msg": ""
+            , "data": {
+                'patient_name': patient_name,
+                'patient_id': patient_id,
+                'report_id': report_id,
+                'operation_id': operation_id,
+                'shoushujingguo': shoushujingguo,
+                'firstassistant': firstassistant,
+                'doc': doc,
+                'date': date,
+                'mazui': mazui,
+                'icd':icd,
+                'diagname':diagname,
+                'shoushuname':shoushuname,
+                'mazui_doc':mazui_doc,
+            }
+
+        }
+
+    elif report_type == '处方报告':
+        print('处方报告')
+
+        print('接受手术报告')
+        print('手术报告编号')
+        print(report_id)
+
+        fangshe_detail = HuashanYaofang.objects(report_id=report_id)
+        json_data = fangshe_detail.to_json()
+        json_report = json.loads(json_data)
+
+        print(fangshe_detail)
+        print('json报告细节')
+        print(json_report)
+        patient_name = json_report[0]['patient_name']
+        patient_id = json_report[0]['patient_id']
+        report_id = json_report[0]['report_id']
+
+        chufang_id = json_report[0]['chufang_id']
+        med_type = json_report[0]['med_type']
+        med_id = json_report[0]['med_id']
+        med_name = json_report[0]['med_name']
+        guige = json_report[0]['guige']
+        baozhuangliang = json_report[0]['baozhuangliang']
+        danwei = json_report[0]['danwei']
+        jiliang = json_report[0]['jiliang']
+        pinci = json_report[0]['pinci']
+        tujing = json_report[0]['tujing']
+        danjia = json_report[0]['danjia']
+
+        print(patient_name)
+
+        # print(fangshe_detail.jiancha_keshi)
+        # jiancha_keshi = fangshe_detail.
+        response_data = {
+            "code": 0
+            , "msg": ""
+            , "data": {
+                'patient_name': patient_name,
+                'patient_id': patient_id,
+                'report_id': report_id,
+                'chufang_id': chufang_id,
+                'med_type': med_type,
+                'med_id': med_id,
+                'guige': guige,
+                'baozhuangliang':baozhuangliang,
+                'danwei':danwei,
+                'jiliang':jiliang,
+                'pinci':pinci,
+                'tujing':tujing,
+                'danjia':danjia,
+                'med_name':med_name,
+            }
+
+        }
+
+    print(report_type)
     pid = request.POST.get('id')
     pname = request.POST.get('name')
-    response_data = {
-        "code": 0
-        , "msg": ""
-        , "data": {
-        "src": "http://cdn.layui.com/123.jpg"
-        }
-    }
-    # if type == 'zhenduan':
-    #     reports = Zhenduan03.objects(name=pname, id=pid)
-    #     context = {'reports': reports}
-    #     return render(request, 'polls/03zhenduan_report_list.html', context)
-    # elif type == 'jiance':
-    #     reports = Jiance03.objects(name=pname, id=pid)
-    #     context = {'reports': reports}
-    #     return render(request, 'polls/03jiance_report_list.html', context)
-    # elif type == 'zhuyuan':
-    #     reports = Zhuyuan03.objects(name=pname, id=pid)
-    #     context = {'reports': reports}
-    #     return render(request, 'polls/03zhuyuan_report_list.html', context)
-    # elif type == 'shoushu':
-    #     reports = Shoushu03.objects(name=pname, id=pid)
-    #     context = {'reports': reports}
-    #     return render(request, 'polls/03shoushu_report_list.html', context)
-    #
-    # elif type == 'bingli':
-    #     reports = Binglibaogao03.objects(name=pname, id=pid)
-    #     context = {'reports': reports}
-    #     # return render(request, 'polls/03bingli_report.html', context)
-    #     return render(request, 'polls/03bingli_report_list.html', context)
-    # elif type == 'chuyuan':
-    #     reports = Chuyuan03.objects(name=pname, id=pid)
-    #     context = {'reports': reports}
-    #     return render(request, 'polls/03chuyuan_report_list.html', context)
 
-    # return render(request, 'polls/test_ajax.html')
     return JsonResponse(response_data)
-
-
-#
-# @csrf_exempt
-# def ajax_submit_set(request):
-#     data = request.POST
-#     print(data)
-#     a = data.get('a')
-#     b = data.get('b')
-#     response_data = {}
-#     response_data['result'] = 's'
-#     response_data['message'] = a+b
-#     return JsonResponse(response_data)
-#
-
 
 # Create your views here.
 def ajax_index(request):
@@ -955,17 +1276,7 @@ def cal(request):
     ret = int(num1) + int(num2)
     return HttpResponse(str(ret))
 
-# def ajax_test2(request):
-#     return render('polls/ajax_test2.html', {})
-#
-# def ajax_datatest(request):
-#     if request.is_ajax():
-#         message = "This is ajax"
-#         print(message)
-#     else:
-#         message = "Not ajax"
-#         print(message)
-#     return HttpResponse(message)
+
 
 ####################################################ajax test end##################
 #获取上传文件
@@ -1019,6 +1330,11 @@ def jiekou_data_layui(request):
         # dict['use'] = item.use
         dict['gongneng'] = item.gongneng
         dict['beizhu'] = item.beizhu
+        dict['cunchu'] = item.cunchu
+        dict['analysis'] = item.analysis
+        dict['zhenliao'] = item.zhenliao
+        dict['fenxi'] = item.fenxi
+        dict['keyan'] = item.keyan
         # dict['type'] = item.type
         list.append(dict)
     # print('page获得')
@@ -1041,6 +1357,114 @@ def view_jiekoulist(request):
 
 
 
+
+
+
+############0419新增需求###################
+def user_home(request):
+    return render(request, 'polls/layuiadmin/hulian/user_home.html')
+#用户搜索病人或疾病
+def user_search(request):
+    search = request.POST.get('search')
+    patient_name = ReportTypeList.objects(name=search)
+
+    patient_id = ReportTypeList.objects(id = search)
+
+    json_data = patient_id.to_json()
+    json_report = json.loads(json_data)
+    context = {'report':'110108201001102205'}
+
+    print('按姓名搜索')
+    print(patient_name)
+    print('按id搜索')
+    print(patient_id)
+    print(json_report)
+    print('报告数量')
+    print(len(json_report))
+    if patient_id == None and patient_name == None:
+        print('wrong')
+    # return render(request, 'polls/layuiadmin/hulian/user_search_none.html')
+    return render(request, 'polls/layuiadmin/component/table/reload.html', context)
+
+
+
+def user_search_none(request):
+    return render(request, 'polls/layuiadmin/hulian/user_search_none.html')
+
+
+def get_zhuce(request):
+    if request.method == "POST":
+        print('注册接口post')
+        hospital = request.POST.get('hospital')
+        keshi = request.POST.get('keshi')
+        system_name = request.POST.get('system_name')
+        address = request.POST.get('address')
+        name = request.POST.get('name')
+        phone = request.POST.get('phone')
+        email = request.POST.get('email')
+        cunchu = request.POST.get('cunchu')
+        analysis = request.POST.get('analysis')
+        zhenliao = request.POST.get('zhenliao')
+        fenxi = request.POST.get('fenxi')
+        keyan = request.POST.get('keyan')
+        gongneng = request.POST.get('gongneng')
+        beizhu = request.POST.get('beizhu')
+        print('接口接受信息')
+        print(hospital)
+        print(keshi)
+        print(system_name)
+        print(address)
+        print(name)
+        print(phone)
+        print(email)
+        print(zhenliao)
+        print(fenxi)
+        print(gongneng)
+        print(beizhu)
+        print('是否存储')
+        print(cunchu)
+        print('同意分析')
+        print(analysis)
+        if cunchu=='on':
+            cunchu='是'
+        else:
+            cunchu='否'
+        if analysis=='on':
+            analysis = '是'
+        else:
+            analysis = '否'
+        if zhenliao == 'on':
+            zhenliao = '是'
+        else:
+            zhenliao = '否'
+        if fenxi == 'on':
+            fenxi = '是'
+        else:
+            fenxi = '否'
+        if keyan == 'on':
+            keyan = '是'
+        else:
+            keyan = '否'
+
+
+
+        from pymongo import MongoClient
+
+        mongo_client = MongoClient(host='127.0.0.1', port=27017)
+        mongo_db = mongo_client["hulian"]
+        mongo_col = mongo_db["jiekou_new"]
+
+        jiekou_zhuce = {"hospital":hospital, "keshi":keshi, "system_name":system_name, "address":address, "name":name,
+                        "phone":phone,"email":email, "cunchu":cunchu,"analysis":analysis,"zhenliao":zhenliao,"fenxi":fenxi,
+                        "keyan":keyan,"gongneng":gongneng,"beizhu":beizhu}
+        x = mongo_col.insert_one(jiekou_zhuce)
+    return render(request, 'polls/layuiadmin/hulian/view_jiekou.html')
+
+
+#########################################
+#####测试分页#########
+def test_fenye(request):
+    return render(request, 'polls/layuiadmin/component/table/resetPage.html')
 
 
 #########测试djan下载文件
@@ -1099,33 +1523,3 @@ def iframe_test(request):
 def iframe_page(request):
     return render(request, 'polls/iframe_test/iframepage.html')
     # ######0330测试######
-# def open_index(request):
-#     if request.user.is_authenticated == False:
-#         return HttpResponseRedirect('/account/login/')
-#     else:
-#         navigation = NavigationProfile.objects.all()
-#         dict = []
-#
-#         for nav in navigation:
-#             dic = {}
-#             id = nav.id
-#             dic['id'] = nav.id
-#             dic['text'] = nav.name
-#             dic['url'] = nav.url
-#             dic['iconCls'] = nav.iconCls
-#             dic['nid'] = 0
-#             sub_navigation = NavigationSubProfile.objects.filter(parent_id=id)
-#
-#             sub_dict = []
-#             for sub_nav in sub_navigation:
-#                 sub_dic = {}
-#                 sub_dic['id'] = sub_nav.id
-#                 sub_dic['text'] = sub_nav.name
-#                 sub_dic['url'] = sub_nav.url
-#                 sub_dic['iconCls'] = sub_nav.iconCls
-#                 sub_dic['nid'] = sub_nav.parent_id
-#                 sub_dict.append(sub_dic)
-#
-#             dic["children"] = sub_dict
-#             dict.append(dic)
-#             return render(request,'index.html',{'dict':dict})

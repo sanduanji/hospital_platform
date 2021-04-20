@@ -10,113 +10,137 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=0">
   <link rel="stylesheet" href="../../../../static/layuiadmin/layui/css/layui.css" media="all">
   <link rel="stylesheet" href="../../../../static/layuiadmin/style/admin.css" media="all">
-</head>
-{#<body>#}
+{#    <style>#}
+{#  .layui-input{height:30px;} /* layui-input 默认太高了，这里固定高度*/#}
+{#  label.required:after {   /* 给红色的必填项打红色星号（文字后）如果打前面用before*/#}
+{#        content: ' *';#}
+{#        color: red;#}
+{#    }#}
+{#</style>#}
 
-{#  <div class="layui-fluid">#}
-{#    <div class="layui-card">#}
-{#      <div class="layui-card-header">填写注册接口信息</div>#}
-{#      <div class="layui-card-body" style="padding: 15px;">#}
-{#        <form class="layui-form" action="" lay-filter="component-form-group">#}
-{#          <div class="layui-form-item">#}
-{#            <label class="layui-form-label">医院名称</label>#}
-{#            <div class="layui-input-block">#}
-{#              <input type="text" name="title" lay-verify="title" autocomplete="off" placeholder="请输入医院名称" class="layui-input">#}
-{#            </div>#}
-{#          </div>#}
-{#          <div class="layui-form-item">#}
-{#            <label class="layui-form-label">科室名称</label>#}
-{#            <div class="layui-input-block">#}
-{#              <input type="text" name="username" lay-verify="required" placeholder="请输入" autocomplete="off" class="layui-input">#}
-{#            </div>#}
-{#          </div>#}
-{#          <div class="layui-form-item">#}
-{#            <label class="layui-form-label">接入系统名称</label>#}
-{#            <div class="layui-input-block">#}
-{#              <input type="text" name="username" lay-verify="required" placeholder="请输入" autocomplete="off" class="layui-input">#}
-{#            </div>#}
-{#          </div>#}
-{#          <div class="layui-form-item">#}
-{#            <label class="layui-form-label">接口地址</label>#}
-{#            <div class="layui-input-block">#}
-{#              <input type="text" name="username" lay-verify="required" placeholder="请输入" autocomplete="off" class="layui-input">#}
-{#            </div>#}
-{#          </div>#}
-{#          #}
-{#          <div class="layui-form-item">#}
-{#            <div class="layui-inline">#}
-{#              <label class="layui-form-label">接口负责人姓名</label>#}
-{#              <div class="layui-input-inline">#}
-{#                <input type="tel" name="pname"  lay-verify="required" autocomplete="off" class="layui-input">#}
-{#            </div>#}
-{#            </div>#}
-{#            <div class="layui-inline">#}
-{#              <label class="layui-form-label">接口负责人手机</label>#}
-{#              <div class="layui-input-inline">#}
-{#                <input type="tel" name="phone" lay-verify="required|phone" autocomplete="off" class="layui-input">#}
-{#              </div>#}
-{#            </div>#}
-{#            <div class="layui-inline">#}
-{#              <label class="layui-form-label">接口负责人邮箱</label>#}
-{#              <div class="layui-input-inline">#}
-{#                <input type="text" name="email" lay-verify="email" autocomplete="off" class="layui-input">#}
-{#              </div>#}
-{#            </div>#}
-{#          </div>#}
-{#            #}
-{#          <div class="layui-form-item">#}
-{#            <label class="layui-form-label">接口功能选择</label>#}
-{#            <div class="layui-input-block">#}
-{#              <select name="interest" lay-filter="aihao">#}
-{#                <option value=""></option>#}
-{#                <option value="0">科研</option>#}
-{#                <option value="1" >数据分析</option>#}
-{#                <option value="2" selected="">医院诊疗参考</option>#}
-{#                <option value="3">音乐</option>#}
-{#                <option value="4">旅行</option>#}
-{#              </select>#}
-{#            </div>#}
-{#          </div>#}
-{##}
-{#            #}
-{#          <div class="layui-form-item layui-form-text">#}
-{#            <label class="layui-form-label">接口功能描述</label>#}
-{#            <div class="layui-input-block">#}
-{#              <textarea name="text" placeholder="请输入内容" class="layui-textarea"></textarea>#}
-{#            </div>#}
-{#          </div>#}
-{#          <div class="layui-form-item layui-form-text">#}
-{#            <label class="layui-form-label">备注</label>#}
-{#            <div class="layui-input-block">#}
-{#              <textarea name="text" placeholder="请输入内容" class="layui-textarea"></textarea>#}
-{#            </div>#}
-{#          </div>        #}
-{#          <div class="layui-form-item layui-layout-admin">#}
-{#            <div class="layui-input-block">#}
-{#              <div class="layui-footer" style="left: 0;">#}
-{#                <button class="layui-btn" lay-submit="" lay-filter="component-form-demo1">立即提交</button>#}
-{#                <button type="reset" class="layui-btn layui-btn-primary">重置</button>#}
-{#              </div>#}
-{#            </div>#}
-{#          </div>#}
-{#        </form>#}
-{#      </div>#}
-{#    </div>#}
-{#  </div>#}
-  <table border="2" bordercolor="black" cellspacing="0" cellpadding="5" bgcolor="#faebd7">
-        <tr>
-            <td bgcolor="#faebd7"><font size="3" color="black">姓名</font></td>
-            <td bgcolor="#F6F6F6" id="test"><font size="3" color="black" >aaaa</font></td>
-            <td bgcolor="#faebd7"><font size="3" color="black">报告编号</font></td>
-            <td bgcolor="#F6F6F6"><font size="3" color="black" >{{data.title }}</font></td>
-            <td bgcolor="#faebd7"><font size="3" color="black">性别</font></td>
-            <td bgcolor="#F6F6F6"><font size="3" color="black" >{{data.info }}</font></td>
-        </tr>
-  </table>
-<div>
-    <h3>接收消息</h3>
-    <span id="message"></span>
-</div>
+</head>
+<body>
+
+  <div class="layui-fluid">
+    <div class="layui-card">
+      <div class="layui-card-header">填写注册接口信息</div>
+      <div class="layui-card-body" style="padding: 15px;">
+        <form class="layui-form" action="/get_zhuce/" lay-filter="component-form-group" method="post">
+          {% csrf_token %}
+          <div class="layui-form-item">
+            <label class="layui-form-label">医院名称<span style="color:red; alignment: center">*</span></label>
+            <div class="layui-input-block">
+              <input type="text" name="hospital" lay-verify="title" autocomplete="off" placeholder="请输入医院名称" class="layui-input">
+{#              <input type="text" name="hospital" autocomplete="off" lay-verify="required" placeholder="请输入医院名称" class="layui-input">#}
+
+            </div>
+          </div>
+          <div class="layui-form-item">
+            <label class="layui-form-label">科室名称</label>
+            <div class="layui-input-block">
+              <input type="text" name="keshi" placeholder="请输入" autocomplete="off" class="layui-input">
+            </div>
+          </div>
+          <div class="layui-form-item">
+            <label class="layui-form-label">接入系统名称<span style="color:red; alignment: center">*</span></label>
+            <div class="layui-input-block">
+              <input type="text" name="system_name" lay-verify = "required" placeholder="请输入" autocomplete="off" class="layui-input">
+            </div>
+          </div>
+          <div class="layui-form-item">
+            <label class="layui-form-label">接口地址<span style="color:red; alignment: center">*</span></label>
+            <div class="layui-input-block">
+              <input type="text" name="address"  lay-verify = "required" placeholder="请输入" autocomplete="off" class="layui-input">
+            </div>
+          </div>
+
+          <div class="layui-form-item">
+            <div class="layui-inline">
+              <label class="layui-form-label">接口负责人姓名<span style="color:red; alignment: center">*</span></label>
+              <div class="layui-input-inline">
+                <input type="tel" name="name"  lay-verify="required" autocomplete="off" class="layui-input">
+{#                <input type="tel" name="name"  autocomplete="off" class="layui-input">#}
+
+            </div>
+            </div>
+            <div class="layui-inline">
+              <label class="layui-form-label">接口负责人手机<span style="color:red; alignment: center">*</span></label>
+              <div class="layui-input-inline">
+                <input type="tel" name="phone" lay-verify = "required" autocomplete="off" class="layui-input">
+              </div>
+            </div>
+            <div class="layui-inline">
+              <label class="layui-form-label">接口负责人邮箱</label>
+              <div class="layui-input-inline">
+                <input type="text" name="email" autocomplete="off" class="layui-input">
+              </div>
+            </div>
+          </div>
+
+        <div class="layui-form-item" >
+            <div class="layui-inline">
+                <label class="layui-input-inline">是否同意数据用于平台存储<span style="color:red; alignment: center">*</span></label>
+              <div class="layui-input-inline" style="alignment: center">
+                <input type="checkbox" name="cunchu" lay-skin="switch" style="margin-bottom: 200px;" lay-text="同意|不同意">
+              </div>
+            </div>
+            <div class="layui-inline">
+                <label class="layui-input-inline">是否同意数据用于在线分析<span style="color:red; alignment: center">*</span></label>
+              <div class="layui-input-inline">
+                <input type="checkbox" name="analysis" lay-skin="switch"  lay-text="同意|不同意">
+              </div>
+            </div>
+        </div>
+
+        <div class="layui-form-item">
+            <label class="layui-form-label">接口可允许使用功能选择<span style="color:red; alignment: center">*</span></label>
+            <div class="layui-input-block">
+              <input type="checkbox" name="zhenliao" title="诊疗参考">
+              <input type="checkbox" name="fenxi" title="数据分析" checked="">
+              <input type="checkbox" name="keyan" title="科研">
+            </div>
+        </div>
+
+
+
+          <div class="layui-form-item layui-form-text">
+            <label class="layui-form-label">接口功能描述<span style="color:red; alignment: center">*</span></label>
+            <div class="layui-input-block">
+              <textarea name="gongneng" placeholder="请输入内容" lay-verify = "required"  class="layui-textarea"></textarea>
+            </div>
+          </div>
+          <div class="layui-form-item layui-form-text">
+            <label class="layui-form-label">备注</label>
+            <div class="layui-input-block">
+              <textarea name="beizhu" placeholder="请输入内容" class="layui-textarea"></textarea>
+            </div>
+          </div>
+          <div class="layui-form-item layui-layout-admin">
+            <div class="layui-input-block">
+              <div class="layui-footer" style="left: 0;">
+                <button class="layui-btn" lay-submit="" lay-filter="component-form-demo1">立即提交</button>
+                <button type="reset" class="layui-btn layui-btn-primary">重置</button>
+              </div>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+{#  <table border="2" bordercolor="black" cellspacing="0" cellpadding="5" bgcolor="#faebd7">#}
+{#        <tr>#}
+{#            <td bgcolor="#faebd7"><font size="3" color="black">姓名</font></td>#}
+{#            <td bgcolor="#F6F6F6" id="test"><font size="3" color="black" id="message2">{{ data.name }}</font></td>#}
+{#            <td bgcolor="#faebd7"><font size="3" color="black">报告编号</font></td>#}
+{#            <td bgcolor="#F6F6F6"><font size="3" color="black" >{{data.title }}</font></td>#}
+{#            <td bgcolor="#faebd7"><font size="3" color="black">性别</font></td>#}
+{#            <td bgcolor="#F6F6F6"><font size="3" color="black" >{{data.info }}</font></td>#}
+{#        </tr>#}
+{#  </table>#}
+{#<div>#}
+{#    <h3>接收消息</h3>#}
+{#    <span id="message"></span>#}
+{#</div>#}
 
     
   <script src="../../../../static/layuiadmin/layui/layui.js"></script>
@@ -139,14 +163,7 @@
       elem: '#LAY-component-form-group-date'
     });
 
-    window.addEventListener('message',function(event){
-        if(window.parent !== event.source){return}
-        //console.log(event);
-        //let data = event.data;
-        const data = JSON.parse(event.data);
-        console.log(data.name);
-        document.getElementById('message').innerHTML = data.name;
-    }, false);
+
 
     /* 自定义验证规则 */
 //    form.verify({
@@ -171,9 +188,12 @@
     
     /* 监听提交 */
     form.on('submit(component-form-demo1)', function(data){
-//      parent.layer.alert(JSON.stringify(data.field), {
+        parent.layer.alert('接口注册成功', {
+        title: '注册提示'
+      });
+//        parent.layer.alert(JSON.stringify(data.field), {
 //        title: '最终的提交信息'
-//      })
+//      });
       return layer.msg('注册成功');
 
 
