@@ -1,5 +1,3 @@
-
-
 <!DOCTYPE html>
 <html>
 <head>
@@ -12,11 +10,9 @@
   <link rel="stylesheet" href="../../../../static/layuiadmin/style/admin.css" media="all">
 </head>
 <body>
-
     <div class="layui-btn-group demoTable" style="margin-bottom: 0px;">
         <a href="/download/1/" class="layui-btn jump_refresh_url">导出结构化报告</a>
     </div>
-
   <div class="layui-card layadmin-header">
     <div class="layui-breadcrumb" lay-filter="breadcrumb">
       <a lay-href="">主页</a>
@@ -25,61 +21,26 @@
       <a><cite>数据表格的重载</cite></a>
     </div>
   </div>
-  
   <div class="layui-fluid">
     <div class="layui-row layui-col-space15">
       <div class="layui-col-md12">
         <div class="layui-card">
           <div class="layui-card-header">大肠癌病理报告结构化</div>
         <div class="test-table-reload-btn">
-
-
           <label class="layui-form-label" style="width: 150px">选取报告日期范围</label>
           <div class="layui-input-inline">
             <input type="text" class="layui-input" id="test-table-demoReload" placeholder=" - " width="600" style="width: 300px;">
           </div>
-
-{#            #}
-{#          <label class="layui-form-label">日期范围</label>#}
-{#          <div class="layui-input-inline">#}
-{#            <input type="text" class="layui-input" id="test-laydate-range-date" placeholder=" - ">#}
-{#          </div>#}
-
-
-{#            <button class="layui-btn" data-type="reload">报告筛选</button>#}
-
-
-{#            <button class="layui-btn" data-type="reload"  lay-filter="rechar_btn" id="rechar_btn" >搜索</button>#}
-{#换成 div#}
             <div class="layui-btn" data-type="reload"  lay-filter="rechar_btn" id="rechar_btn" >报告筛选</div>
 
           <div class="layui-btn-group demoTable" style="margin-bottom: 0px;">
               <a lay-href="visual_jiegouhua" class="layui-btn jump_refresh_url">报告分析</a>
           </div>
         </div>
-
-
           <div class="layui-card-body">
-          
-{#            <div class="test-table-reload-btn" style="margin-bottom: 10px;">#}
-{#              输入病人的姓名或身份证号：#}
-{#              <div class="layui-inline">#}
-{#                <input class="layui-input" name="search" id="test-table-demoReload" autocomplete="off">#}
-{#              </div>#}
-{#              <button class="layui-btn" data-type="reload">搜索</button>#}
-{#            </div>#}
-             
             <table class="layui-hide" id="test-table-reload" lay-filter="user"></table>
             <script type="text/html" id="test-table-toolbar-toolbarDemo">
-{#              <div class="layui-btn-container">#}
-{#                <button class="layui-btn layui-btn-sm" lay-event="getCheckData">获取选中行数据</button>#}
-{#                <button class="layui-btn layui-btn-sm" lay-event="getCheckLength">获取选中数目</button>#}
-{#                <button class="layui-btn layui-btn-sm" lay-event="isAll">验证是否全选</button>#}
-{#              </div>#}
             </script>
-            
-{#            <blockquote class="layui-elem-quote">此处由于是静态模拟数据，所以搜索后重载的结果没变，这并非是 BUG。实际使用时改成真实接口并根据搜索的字段筛选出对应的数据即可。</blockquote>#}
-            
           </div>
         </div>
       </div>
@@ -100,8 +61,6 @@
       elem: '#test-table-reload'
       ,id:'table-reload'
       {#,toolbar: '#test-table-toolbar-toolbarDemo'#}
-
-
       ,cellMinWidth: 50 //全局定义常规单元格的最小宽度，layui 2.2.1 新增
 
       ,url: '/jiegouhua_database'
@@ -144,17 +103,7 @@
         }
     });
     //});
-{#//导出Excel#}
-{#    function exportToExcels(){#}
-{#    //layui.use('table', function () {#}
-{#    var table = layui.table;#}
-{#    table.exportFile(["昵称", "加入时间", "签名"],[#}
-{#    ['贤心1','2016-11-28','人生就像是一场修行 A'],#}
-{#    ['贤心2','2019-11-28','人生就像是一场修行 B'],#}
-{#    ['贤心3','2016-10-28','人生就像是一场修行 C']#}
-{#    ],'本日将到订单列表.xls');#}
-{#    // });#}
-{#    }#}
+
 
     //报告筛选
       var $ = layui.$, active = {
@@ -185,65 +134,23 @@
 
     var laydate = layui.laydate;
 
-    //示例代码
-
-    //常规用法
-    laydate.render({
-      elem: '#test-laydate-normal-cn'
-    });
-
-    //国际版
-    laydate.render({
-      elem: '#test-laydate-normal-en'
-      ,lang: 'en'
-    });
-
-    //年选择器
-    laydate.render({
-      elem: '#test-laydate-type-year'
-      ,type: 'year'
-    });
-
-    //年月选择器
-    laydate.render({
-      elem: '#test-laydate-type-month'
-      ,type: 'month'
-    });
-
-    //日期选择器
-    laydate.render({
-      elem: '#test-laydate-type-date'
-      //,type: 'date' //type 默认为 date，所以可不填
-    });
-
-    //时间选择器
-    laydate.render({
-      elem: '#test-laydate-type-time'
-      ,type: 'time'
-    });
-
-    //日期时间选择器
-    laydate.render({
-      elem: '#test-laydate-type-datetime'
-      ,type: 'datetime'
-    });
-
     //日期范围
     laydate.render({
       elem: '#test-table-demoReload'
       ,range: true
     });
 
-
-
-
-    //同时绑定多个
-    lay('.test-laydate-item').each(function(){
-      laydate.render({
-        elem: this
-        ,trigger: 'click'
-      });
-    });
+    //测试页面跳转接受
+      function getParams(key) {
+            var reg = new RegExp("(^|&)" + key + "=([^&]*)(&|$)");
+            var r = window.location.search.substr(1).match(reg);
+            if (r != null) {
+                return unescape(r[2]);
+            }
+            return null;
+        };
+        console.log("参数param1:"+getParams("param1"));//输出aa
+        console.log("参数param2:"+getParams("param2"));//输出bb
 
   });
   </script>

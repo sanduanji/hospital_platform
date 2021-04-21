@@ -29,7 +29,7 @@ layui.define(function(exports) {
     // 值域
     dataRange: {
       itemWidth: 15,
-      color: ['#009688','#e0ffff']
+      color: ['#009688','#DCDCDC']
     },
 
     // 工具箱

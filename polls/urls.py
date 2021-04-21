@@ -102,7 +102,7 @@ urlpatterns = [
         path('shoushu_report/', views.shoushu_report, name = 'shoushu_report'),
         path('fangshe_report/', views.fangshe_report, name = 'fangshe_report'),
         path('yaofang_report/', views.yaofang_report, name = 'yaofang_report'),
-
+        path('jianyan_report/', views.jianyan_report, name='jianyan_report'),
 
         #显示结构化结果
         path('show_jiegouhua/', views.show_jiegouhua, name='show_jiegouhua'),

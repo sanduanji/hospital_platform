@@ -13,57 +13,52 @@
 </head>
 <body>
 
-  <table border="2" bordercolor="black" cellspacing="0" cellpadding="5" bgcolor="#faebd7">
+  <table border="2" bordercolor="black" cellspacing="0" cellpadding="5" bgcolor="#DCDCDC">
         <tr>
-            <td bgcolor="#faebd7"><font size="3" color="black">姓名</font></td>
-            <td bgcolor="#F6F6F6" id="test"><font size="3" color="black" id="message3">{{ data.jiancha_id }}</font></td>
-{#            <td bgcolor="#faebd7"><font size="3" color="black">报告编号</font></td>#}
-{#            <td bgcolor="#F6F6F6"><font size="3" color="black" id="message2">{{data.title }}</font></td>#}
-{#            <td bgcolor="#faebd7"><font size="3" color="black">性别</font></td>#}
-{#            <td bgcolor="#F6F6F6"><font size="3" color="black" id="message2">{{data.info }}</font></td>#}
+            <td bgcolor="#DCDCDC" style="display: none"><font size="3" color="black">姓名</font></td>
+            <td bgcolor="#F6F6F6" id="test" style="display: none"><font size="3" color="black" id="message3">{{ data.jiancha_id }}</font></td>
         </tr>
   </table>
-正式表格
-    <table border="2" bordercolor="black" width="300" cellspacing="0" cellpadding="5" bgcolor="#faebd7">
+    <table border="2" bordercolor="black" width="100%" cellspacing="0" cellpadding="5" bgcolor="#DCDCDC">
         <tr>
-            <td bgcolor="#faebd7"><font size="3" color="black">姓名</font></td>
-            <td bgcolor="#F6F6F6"><font size="3" color="black" id="message2">{{data.report_id }}</font></td>
+            <td bgcolor="#DCDCDC" style="width: 150px" align="center"><font size="3" color="black">姓名</font></td>
+            <td bgcolor="#F6F6F6" style="width: 150px" align="center"><font size="3" color="black" id="message2">{{data.report_id }}</font></td>
 
-            <td bgcolor="#faebd7" ><font size="3" color="black">检查号</font></td>
-            <td bgcolor="#F6F6F6" style="width: 230px"><font size="3" color="black"id="message5" >{{data.jiancha_id }}</font></td>
+            <td bgcolor="#DCDCDC" style="width: 150px" align="center"><font size="3" color="black">检查号</font></td>
+            <td bgcolor="#F6F6F6" style="width: 150px" align="center"><font size="3" color="black"id="message5" >{{data.jiancha_id }}</font></td>
 
-            <td bgcolor="#faebd7" style="alignment: center"><font size="3" color="black">检查时间</font></td>
-            <td bgcolor="#F6F6F6" style="width: 200px"><font size="3" color="black" id="message9">{{data.date }}</font></td>
+            <td bgcolor="#DCDCDC" style="width: 150px" align="center"><font size="3" color="black">检查时间</font></td>
+            <td bgcolor="#F6F6F6" style="width: 150px" align="center"><font size="3" color="black" id="message9">{{data.date }}</font></td>
 
         </tr>
         <tr>
-            <td bgcolor="#faebd7"><font size="3" color="black">就诊科室</font></td>
-            <td bgcolor="#F6F6F6"><font size="3" color="black" id="message4">{{data.jiancha_keshi }}</font></td>
+            <td bgcolor="#DCDCDC" style="width: 150px" align="center"><font size="3" color="black">就诊科室</font></td>
+            <td bgcolor="#F6F6F6" style="width: 150px" align="center"><font size="3" color="black" id="message4">{{data.jiancha_keshi }}</font></td>
 
 
-            <td bgcolor="#faebd7"><font size="3" color="black">检查医生</font></td>
-            <td bgcolor="#F6F6F6"><font size="3" color="black" id="message8">{{data.doc }}</font></td>
+            <td bgcolor="#DCDCDC" style="width: 150px" align="center"><font size="3" color="black">检查医生</font></td>
+            <td bgcolor="#F6F6F6" style="width: 150px" align="center"><font size="3" color="black" id="message8">{{data.doc }}</font></td>
 
-            <td bgcolor="#faebd7" ><font size="3" color="black">检查部位</font></td>
-            <td bgcolor="#F6F6F6" style="width: 230px"><font size="3" color="black" id="message7">{{data.huojian_buwei }}</font></td>
+            <td bgcolor="#DCDCDC" style="width: 150px" align="center"><font size="3" color="black">检查部位</font></td>
+            <td bgcolor="#F6F6F6" style="width: 150px" align="center"><font size="3" color="black" id="message7">{{data.huojian_buwei }}</font></td>
 
 
         </tr>
         <tr>
-            <td colspan="8"bgcolor="#faebd7"><font size="3" color="black">检查细节</font></td>
+            <td colspan="8"bgcolor="#DCDCDC" align="center"><font size="3" color="black">检查细节</font></td>
         </tr>
         <tr>
-            <td colspan="8" height=200px bgcolor="#F6F6F6"><font size="3" color="black" id="message6">{{data.jiancha_detail }}</font></td>
+            <td colspan="8" style="height: 500px" bgcolor="#F6F6F6"><font size="3" color="black" id="message6">{{data.jiancha_detail }}</font></td>
         </tr>
 
     </table>
 
 
 
-<div>
-    <h3>接收消息</h3>
-    <span id="message"></span>
-</div>
+{#<div>#}
+{#    <h3>接收消息</h3>#}
+{#    <span id="message"></span>#}
+{#</div>#}
 
     
   <script src="../../../../static/layuiadmin/layui/layui.js"></script>
@@ -101,7 +96,7 @@
         const doc = data.doc;
         const date = data.date;
         console.log(data.name);
-        document.getElementById('message').innerHTML = JSON.stringify(data);
+        {#document.getElementById('message').innerHTML = JSON.stringify(data);#}
         document.getElementById('message2').innerHTML = JSON.parse(JSON.stringify(patient_name));
         document.getElementById('message3').innerHTML = JSON.parse(JSON.stringify(patient_id));
         document.getElementById('message4').innerHTML = JSON.parse(JSON.stringify(jiancha_keshi));

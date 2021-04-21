@@ -482,6 +482,33 @@ class HuashanJizhen(mongoengine.Document):
     diag_docid = mongoengine.StringField()
 
 
+    def toDict(self):
+        j = self.to_json()
+        dc = json.loads(j)
+        del dc['_id']
+        return dc
+    meta = {'collection':'iframe_jizhen'}
+
+
+
+class HuashanJianyan(mongoengine.Document):
+    _id = mongoengine.StringField()
+    patient_name = mongoengine.StringField()
+    patient_id = mongoengine.StringField()
+    report_id = mongoengine.StringField()
+
+
+    jigan_data = mongoengine.StringField()
+    jigan_range = mongoengine.StringField()
+    jigan_danwei = mongoengine.StringField()
+    lensuanmei_data = mongoengine.StringField()
+    lensuanmei_range = mongoengine.StringField()
+    lensuanmei_danwei = mongoengine.StringField()
+    baidanbai_data = mongoengine.StringField()
+    baidanbai_range = mongoengine.StringField()
+    baidanbai_danwei = mongoengine.StringField()
+
+    date = mongoengine.StringField()
 
 
     def toDict(self):
@@ -489,7 +516,8 @@ class HuashanJizhen(mongoengine.Document):
         dc = json.loads(j)
         del dc['_id']
         return dc
-    meta = {'collection':'iframe_jizhen'}
+    meta = {'collection':'iframe_jianyan'}
+
 
 #######################
 # 节点类

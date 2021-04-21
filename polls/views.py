@@ -719,6 +719,9 @@ def patient_reports_layui(request):
 
 def search_patient_reports_layui(request):
     id = request.GET.get("id")
+    pid =request.GET.get("pid")
+    print("当前页面显示pid")
+    print(pid)
     id = '110108201001102205'
     # id = layui_patient_id
     # report_id = request.GET.get("report_id")
@@ -726,7 +729,7 @@ def search_patient_reports_layui(request):
     list = []
     # print()
     # data = ReportList(id=id)
-    data = ReportList.objects.all().filter(id=id)
+    data = ReportList.objects.all().filter(id=pid)
 
     list = []
     for item in data:
@@ -780,9 +783,9 @@ def patient_submit_set(request):
         }
     }
     context ={'id':id}
-    # return render(request, 'polls/layuiadmin/component/table/onrow.html', context)
+    return render(request, 'polls/layuiadmin/component/table/onrow.html', context)
 
-    return JsonResponse(response_data)
+    # return JsonResponse(response_data)
 
 
 
@@ -824,6 +827,11 @@ def yaofang_report(request):
     return render(request, 'polls/layuiadmin/hulian/yaofang_report.html', context=context)
 
 
+##iframe 检验报告
+def jianyan_report(request):
+    reports = Zhenduan03.objects(id=id)
+    context = {'reports': reports}
+    return render(request, 'polls/layuiadmin/hulian/jianyan_report.html', context=context)
 ############layui模板用户部分##########
 def userinfo_layui(request):
     id = '110108201001102205'
@@ -920,12 +928,15 @@ def jiegouhua_database(request):
     # print('res获得')
 
     for item in context:
+        # print(item)
         res.append(item)
     ###test print####
     # for item in res:
     #     print('打印item')
     #     print(item)
     data = { "code": 0,"msg": "ok","DataCount": dataCount,"data": res }
+
+
     return HttpResponse(json.dumps(data))
 
 #结构化搜索reload后台操作
@@ -939,12 +950,12 @@ def search_jiegouhua(request):
     print(start_date)
     print(end_date)
 
-    start_year = int(start_date.split('-')[0])
-    start_month = int(start_date.split('-')[1])
-    start_day = int(start_date.split('-')[2])
-    end_year = int(end_date.split('-')[0])
-    end_month = int(end_date.split('-')[1])
-    end_day = int(end_date.split('-')[2])
+    start_year = int(start_date.split('-')[0].strip())
+    start_month = int(start_date.split('-')[1].strip())
+    start_day = int(start_date.split('-')[2].strip())
+    end_year = int(end_date.split('-')[0].strip())
+    end_month = int(end_date.split('-')[1].strip())
+    end_day = int(end_date.split('-')[2].strip())
 
     data = BingliJiegouhua.objects.all()
     dataCount = data.count()
@@ -956,9 +967,21 @@ def search_jiegouhua(request):
         pageIndex=1
     if pageSize is None:
         print('pageindex none')
-        pageSize = 5
-    print("当前索引:{} 当前大小:{}".format(pageIndex,pageSize))
-    print("所有记录:{} 数据总条数:{}".format(data,dataCount))
+        pageSize = 20
+    # print("当前索引:{} 当前大小:{}".format(pageIndex,pageSize))
+    # print("所有记录:{} 数据总条数:{}".format(data,dataCount))
+    # print('开始年')
+    # print(start_year)
+    # print('开始月')
+    # print(start_month)
+    # print('开始日')
+    # print(start_day)
+    # print('结束年')
+    # print(end_year)
+    # print('结束月')
+    # print(end_month)
+    # print('结束日')
+    # print(end_day)
 
     list = []
     res = []
@@ -981,9 +1004,16 @@ def search_jiegouhua(request):
             data_year = int(str(item.songjian_date).split('-')[0])
             data_month = int(str(item.songjian_date).split('-')[1])
             data_day = int(str(item.songjian_date).split('-')[2])
-            if data_year>= start_year and data_year <= end_year and data_month>=start_month and data_month<= end_month and data_day>= start_month and data_day<=end_day:
 
-                # print('字典初始化')
+            if data_year>= start_year and data_year <= end_year and data_month>=start_month and data_month<= end_month and data_day>= start_day and data_day<=end_day:
+                print('数据符合')
+            # print('数据年')
+            # print(data_year)
+            # print('数据月')
+            # print(data_month)
+            # print('数据日')
+            # print(data_day)
+            # print('字典初始化')
                 dict = {}
                 dict['id'] = item.bingli_id
                 dict['name'] = item.name
@@ -996,19 +1026,23 @@ def search_jiegouhua(request):
                 dict['chuankong'] = item.chuankong
                 dict['ximo'] = item.ximo
                 dict['qiechu_length'] = item.qiuchu_length
-                # dict['type'] = item.type
+                # print(dict)
                 list.append(dict)
-            else:
-                continue
+                # list.append(item)
+                # else:
+                #     continue
     print('page获得')
     pageInator = Paginator(list,pageSize)
     print('context获得')
     context = pageInator.page(pageIndex)
+    for item in context:
+        print(item)
+        res.append(item)
     print('按时间范围筛选获得')
-    print(len(list))
+    print(len(res))
     print('时间不规范报告数')
     print(flo)
-    print(list)
+    print(res)
 
     test_list = [{
         "id": "2018-18238",
@@ -1017,19 +1051,21 @@ def search_jiegouhua(request):
         "age": 38,
         "songjian_date": "2018-04-28",
         "zhuyuanhao": 558405,
-        "biaoben_type": "直肠及肛门切除标本",
-        "zhongliu_location": "直肠（紧邻齿状线）",
-        "chuankong": "否",
+        "biaoben_type":"直肠及肛门切除标本",
+        "zhongliu_location":"直肠（紧邻齿状线）",
+        "chuankong":"否",
         "ximo": "/",
-        "qiuchu_length": "14   cm"
-    }]
+        "qiechu_length": "14   cm"
+    },
+
+    ]
     # for item in context:
     #     res.append(item)
     ###test print####
     # for item in res:
     #     print('打印item')
     #     print(item)
-    data = { "code": 0,"msg": "ok","DataCount": 100 , "data": list}
+    data = { "code": 0,"msg": "ok","DataCount": len(res), "data": res}
     return HttpResponse(json.dumps(data))
 
 def visual_jiegouhua(request):
@@ -1120,8 +1156,6 @@ def ajax_submit_set(request):
         diag_docid = json_report[0]['diag_docid']
 
         print(patient_name)
-
-
         response_data = {
             "code": 0
             , "msg": ""
@@ -1139,13 +1173,52 @@ def ajax_submit_set(request):
         }
 
     elif report_type == '检验报告':
-        print('检验报告')
+        print('接受检验报告')
+
+        jianyan_detail = HuashanJianyan.objects(report_id = report_id)
+        json_data= jianyan_detail.to_json()
+        json_report= json.loads(json_data)
+
+        print(jianyan_detail)
+        print('json报告细节')
+        print(json_report)
+        patient_name = json_report[0]['patient_name']
+        patient_id = json_report[0]['patient_id']
+        report_id = json_report[0]['report_id']
+
+        jigan_data = json_report[0]['jigan_data']
+        jigan_range = json_report[0]['jigan_range']
+        jigan_danwei = json_report[0]['jigan_danwei']
+
+        lensuanmei_data = json_report[0]['lensuanmei_data']
+        lensuanmei_range = json_report[0]['lensuanmei_range']
+        lensuanmei_danwei = json_report[0]['lensuanmei_danwei']
+        baidanbai_data = json_report[0]['baidanbai_data']
+        baidanbai_range = json_report[0]['baidanbai_range']
+        baidanbai_danwei = json_report[0]['baidanbai_danwei']
+
+        date = json_report[0]['date']
+
+        print(patient_name)
         response_data = {
             "code": 0
             , "msg": ""
             , "data": {
-                "name": "检验报告"
+                'patient_name':patient_name,
+                'patient_id':patient_id,
+                'report_id':report_id,
+                'jigan_data':jigan_data,
+                'jigan_range':jigan_range,
+                'jigan_danwei': jigan_danwei,
+                'lensuanmei_data':lensuanmei_data,
+                'lensuanmei_range':lensuanmei_range,
+                'lensuanmei_danwei': lensuanmei_danwei,
+                'baidanbai_data': baidanbai_data,
+                'baidanbai_range': baidanbai_range,
+                'baidanbai_danwei': baidanbai_danwei,
+                'date':date,
             }
+
         }
     elif report_type == '手术报告':
 
@@ -1460,6 +1533,75 @@ def get_zhuce(request):
         x = mongo_col.insert_one(jiekou_zhuce)
     return render(request, 'polls/layuiadmin/hulian/view_jiekou.html')
 
+
+
+#####按病人报告列表中的时间接口筛选报告
+
+def search_time_report(request):
+    date_range = request.GET.get("hostname")
+    pid = request.GET.get("patid")
+    print('测试get')
+    print('测试search 结构化')
+    print(request.GET)
+    start_date = date_range.split(' ')[0]
+    end_date = date_range.split(' ')[2]
+    print(start_date)
+    print(end_date)
+    print('病人时间列表选择id')
+    print(pid)
+    pageIndex = request.GET.get("pageIndex")
+    pageSize = request.GET.get("pageSize")
+
+
+    start_year = int(start_date.split('-')[0])
+    start_month = int(start_date.split('-')[1])
+    start_day = int(start_date.split('-')[2])
+    end_year = int(end_date.split('-')[0])
+    end_month = int(end_date.split('-')[1])
+    end_day = int(end_date.split('-')[2])
+
+    data = ReportList.objects(id = pid)
+    list = []
+    res = []
+    for item in data:
+        data_year = int(str(item.report_date).split('.')[0])
+        data_month = int(str(item.report_date).split('.')[1])
+        data_day = int(str(item.report_date).split('.')[2])
+        if data_year >= start_year and data_year <= end_year and data_month >= start_month and data_month <= end_month and data_day >= start_day and data_day <= end_day:
+            dict = {}
+            dict['report_id'] = item.report_id
+            dict['report_type'] = item.report_type
+            dict['report_date'] = item.report_date
+            dict['hospital'] = item.hospital
+            print(dict)
+            list.append(dict)
+
+        else:
+            continue
+
+    pageInator = Paginator(list,pageSize)
+    print('context获得')
+    context = pageInator.page(pageIndex)
+    # print('res获得')
+
+    for item in context:
+        # print(item)
+        res.append(item)
+    test_list = [{
+        "report_id": "0032",
+        "report_type": "急诊报告",
+        "report_date": "2020.10.11",
+        "hospital": "华山医院"
+    }]
+    print('按时间搜索出的病人报告列表')
+    print(list)
+    print(res)
+
+    dataCount = len(res)
+    # data = { "code": 0,"msg": "ok","DataCount": 100 , "data": test_list}
+    data = { "code": 0,"msg": "ok","DataCount": dataCount , "data": list}
+
+    return HttpResponse(json.dumps(data))
 
 #########################################
 #####测试分页#########

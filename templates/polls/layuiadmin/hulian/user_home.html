@@ -26,20 +26,28 @@
         <div class="layui-card" style="height: 700px">
           <div class="layui-card-header" value></div>
           <div class="layui-card-body">
-            <form class="layui-form" action="/user_search/" lay-filter="component-form-group" method="post">
-              {% csrf_token %}
+{#            <form class="layui-form" action="/user_search/" lay-filter="component-form-group" method="post">#}
+{#              {% csrf_token %}#}
                 <div class="test-table-reload-btn" style="margin-top: 200px; alignment: center;margin-left: 300px;font-size: 0.4cm; color: black">
                   输入病人的姓名或身份证号或疾病名称：
                   <div class="layui-inline">
                     <input class="layui-input" name="search" id="test-table-demoReload"style="width: 300px" autocomplete="off">
                   </div>
-                  <button class="layui-btn" data-type="reload">按患者搜索</button>
+                  <button class="layui-btn" data-type="reload" lay-href="show_jiegouhua">按患者搜索</button>
                   <button class="layui-btn" data-type="reload">按疾病搜索</button>
+{#                    <button class="layui-icon layui-icon-export" id="withExport"></button>#}
+{#                    <button type="button" class="layui-btn layui-btn-normal" onclick="test();">关闭</button>#}
+
 
                 </div>
-            </form>
+
+
+                </div>
+{#            </form>#}
 
           </div>
+{#                            <dd><a lay-href="show_jiegouhua?param1=aa&param2=bb">结构化报告查看</a></dd>#}
+
         </div>
       </div>
     </div>
@@ -51,7 +59,7 @@
     base: '../../../../../static/layuiadmin/' //静态资源所在路径
   }).extend({
     index: 'lib/index' //主入口模块
-  }).use(['index', 'table'], function(){
+  }).use(['index', 'table', 'layer', 'element', 'jquery'], function(){
     var table = layui.table;
 
     //方法级渲染
@@ -90,6 +98,18 @@
       ,limits: [5,10,15,20,25]
       ,height: 315
     });
+
+    {#$(document).on('click',"#withExport",function(){#}
+    {#        layer.msg("按钮点击");#}
+    {# });#}
+    {#layui.use(['form'], function () {#}
+    {#        var form = layui.form#}
+    {#            , $ = layui.jquery#}
+    {#            , layer = layui.layer;#}
+    {#        window.test=function () {#}
+    {#            layer.msg("1111");#}
+    {#        }#}
+    {#    });#}
 
     var $ = layui.$, active = {
       reload: function(){

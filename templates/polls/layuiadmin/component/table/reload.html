@@ -27,7 +27,7 @@
       <div class="layui-col-md12">
         <div class="layui-card">
 
-            <div name="inputsearch">{{ report }}</div>
+{#            <div name="inputsearch">{{ report }}</div>#}
           <div class="layui-card-header">病人报告查询</div>
           <div class="layui-card-body">
           
@@ -103,7 +103,6 @@
         ,{field:'name', title: '患者姓名', align: 'center'}
         ,{field:'gender', title: '性别', sort: true,align: 'center'}
         ,{field:'age', title: '年龄', sort: true,align: 'center' }
-        {#,{width:178, align:'center', fixed: 'right', toolbar: '#test-table-operate-barDemo',}#}
         ,{fixed: 'right', width: 100, align:'center', toolbar: '#barDemo'},//设置每行的工具栏以及其容器
 
 
@@ -155,28 +154,27 @@
     });
 
     //监听工具条，每行
-        table.on('tool(user)', function (obj) {
-            var data = obj.data;
-            var id = data.id;
-            if (obj.event === 'detail') {//如果event是detail,这里的event名称需要在容器中设置lay-event
-                layer.msg('已经选择查看');
+    table.on('tool(user)', function (obj) {
+        var data = obj.data;
+        var id = data.id;
+        var pname = data.name;
+        {#var pname = JSON.stringify(data.name);#}
+        if (obj.event === 'detail') {//如果event是detail,这里的event名称需要在容器中设置lay-event
+            layer.msg('已经选择查看');
 
-                $.post(//向服务器发送问题id，获取选中问题行的数据
-                    '{% url 'polls:patient_submit_set' %}',
-
-                    {id: data.id},
-                    function (data) {//获取数据后开启弹窗
-                        //layer.alert(JSON.stringify(data));
-                        //window.location.href="http://www.baidu.com";
-                        top.layui.index.openTabsPage("{%url 'polls:listen_hang'%}", "查看患者报告");
-                        {#top.layui.index.openTabsPage("http://127.0.0.1:8000/polls/jizhen_report/#/id="+id, "查看患者报告");#}
-
-
-                    }
-                )
-            }
-        });
-  
+            $.post(//向服务器发送问题id，获取选中问题行的数据
+               '{% url 'polls:patient_submit_set' %}',
+                {id: data.id},
+                function po(data) {//获取数据后开启弹窗
+                    //layer.alert(JSON.stringify(data));
+                    //window.location.href="http://www.baidu.com";
+                    {#top.layui.index.openTabsPage("{%url 'polls:listen_hang'%}", "查看患者报告");#}
+                    top.layui.index.openTabsPage("listen_hang?param1=id&param2="+id+"&param3="+ encodeURI(pname), "查看患者报告");
+                    {#top.layui.index.openTabsPage("http://127.0.0.1:8000/polls/jizhen_report/#/id="+id, "查看患者报告");#}
+                }
+            )
+        }
+    });
   });
   </script>
 </body>

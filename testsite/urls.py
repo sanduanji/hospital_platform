@@ -71,6 +71,8 @@ urlpatterns = [
     # url(r'^get_zhuce/$', pviews.get_zhuce),
     #用户搜索记录
     path('user_search/',pviews.user_search, name = 'user_search'),
+    #病人报告列表上方按时间搜索
+    path('search_time_report/', pviews.search_time_report, name = 'search_time_report')
 
     #显示图片
     # url(r'^static/(?P<path>.*)', 'django.views.static.serve', {'document_root':'/Users/saber/Downloads/testsite/static'}),

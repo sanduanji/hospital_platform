@@ -28,14 +28,34 @@
       <div class="layui-col-md4">
         <div class="layui-card">
           <div class="layui-card-header">患者报告列表</div>
+                <div class="layui-inline">
+                    <div class="test-table-reload-btn">
+                      <label class="layui-form-label">按日期筛选</label>
+                      <div class="layui-input-inline">
+                        <input type="text" class="layui-input" id="test-report-slec" style="width: 300px;" placeholder=" - ">
+                      </div>
+                      <div class="layui-btn" data-type="reload"  lay-filter="rechar_btn" id="rechar_btn" style="margin-left: 170px; margin-top: 10px">报告筛选</div>
+
+                    </div>
+                </div>
+
           <div class="layui-card-body">
             <div class="test-table-reload-btn" style="margin-bottom: 10px;">
-              输入病人的姓名或身份证号：
+              患者姓名：
               <div class="layui-inline">
-                <input class="layui-input" name="search" id="test-table-demoReload" autocomplete="off">
+                  <label id="name">张多多</label>
               </div>
-              <button class="layui-btn" data-type="reload">搜索</button>
             </div>
+            <div class="test-table-reload-btn" style="margin-bottom: 10px;">
+              身份证号：
+              <div class="layui-inline">
+{#                  <input id="patient_id_search" style="border-width: 0px" readonly="readonly"> </input>#}
+{#                  <input id="message" style="border-width: 0px" readonly="readonly"> </input>#}
+                    <span id="message"></span>
+
+              </div>
+            </div>
+
 
             <table class="layui-hide" id="test-table-onrow" lay-filter="test-table-onrow" style="height: 611px"></table>
 
@@ -78,7 +98,7 @@
     base: '../../../../../static/layuiadmin/' //静态资源所在路径
   }).extend({
     index: 'lib/index' //主入口模块
-  }).use(['index', 'table'], function(){
+  }).use(['index', 'table', 'laydate'], function(){
     var admin = layui.admin
     ,router = layui.router()
     ,layer = layui.layer //弹层
@@ -86,14 +106,35 @@
     ,table = layui.table //表格
     ,upload = layui.upload //上传
     ,element = layui.element //元素操作
-    ,dropdown = layui.dropdown //下拉菜单
-    var $ = layui.$
-    var weburl="https://www.baidu.com/"
+    ,dropdown = layui.dropdown; //下拉菜单
+    var $ = layui.$;
+    var weburl="https://www.baidu.com/";
+
+
+
+
+    //测试页面跳转接受
+      function getParams(key) {
+            var reg = new RegExp("(^|&)" + key + "=([^&]*)(&|$)");
+            var r = window.location.search.substr(1).match(reg);
+            if (r != null) {
+                return unescape(r[2]);
+            }
+            return null;
+        };
+        console.log("参数param1:"+getParams("param1"));
+        console.log("参数param2:"+getParams("param2"));
+        console.log("参数param3:"+decodeURI(getParams("param3")));
+      {#URLDecoder.decode(request.getParameter("content"),"utf-8");#}
+        var params2 = getParams("param2");
+        document.getElementById('message').innerHTML = JSON.parse(JSON.stringify(params2));
+        console.log("待传递的id参数:"+params2);
 
     table.render({
       elem: '#test-table-onrow'
       {#,url:'/test/table/demo1.json'#}
       ,cellMinWidth: 50 //全局定义常规单元格的最小宽度，layui 2.2.1 新增
+      ,id:'table-reload'
 
       ,url: '/search_patient_reports_layui'
       ,request: {
@@ -120,6 +161,10 @@
       ,limits: [5,10,15,20,25]
       ,height: 650
       {#,width: 550#}
+        //传当前页面的id
+      ,where: {
+          pid:params2
+        }
       ,parseData: function (res) {
             return{
                 "code":res.code,
@@ -293,6 +338,40 @@
 
                         }
                     }
+
+                    if(data.report_type==='检验报告'){
+                            element.tabAdd('dynamicTab', {
+                            title: report_id,
+                            content:'<iframe src=http://127.0.0.1:8000/polls/jianyan_report width=100% height=650 id=if'+String(report_id)+'></iframe>',
+                            id: report_id
+                            });
+
+                            //
+                            console.log(result);
+                            let child = $('#child');
+                            let iframe = document.getElementById('if' + String(report_id));
+                            let iframeLoad = function(){
+                                window.setTimeout(function () {
+                                    console.log("检验报告加载完毕");
+                                    send_message();
+                                }, 100);
+                                //移除监听器
+                                iframe.removeEventListener("load", iframeLoad, true);
+                            };
+                            iframe.addEventListener('load', iframeLoad, true);
+                            function send_message(){
+                                let personInfo = {};
+                                //要发送的数据
+                                personInfo.name = 'Yuelu';
+                                personInfo.title = 'Hello';
+                                personInfo.info = 'World';
+                                //let str = JSON.stringify(personInfo);
+                                let str = result;
+                                document.getElementById('if'+String(report_id)).contentWindow.postMessage(str, "http://127.0.0.1:8000/polls/jianyan_report")
+                            }
+                            element.tabChange('dynamicTab',report_id)
+
+                        }
                     if (exist===1){
                         element.tabChange('dynamicTab',report_id)
                     }
@@ -303,6 +382,62 @@
         element.tabChange('tabCard',JSON.stringify(id));//切换tab
     });
     //wend
+
+
+
+          //报告筛选
+      var $ = layui.$, active = {
+      reload: function(){
+        var demoReload = $('#test-report-slec');
+        var demoId = $('#patient_id_search');
+
+        //执行重载
+        table.reload('table-reload', {
+          url:"/search_time_report",
+          page: {
+            curr: 1 //重新从第 1 页开始
+          }
+          ,where: {
+            hostname: demoReload.val(),
+            patid: demoId.val(),
+          }
+        },'data');
+      }
+    };
+
+    $('.test-table-reload-btn .layui-btn').on('click', function(){
+      var type = $(this).data('type');
+      active[type] ? active[type].call(this) : '';
+    });
+
+      //按日期筛选病人报告
+      var laydate = layui.laydate;
+        //时间选择器
+        laydate.render({
+          elem: '#test-laydate-type-time'
+          ,type: 'time'
+        });
+
+        //日期时间选择器
+        laydate.render({
+          elem: '#test-laydate-type-datetime'
+          ,type: 'datetime'
+        });
+
+        //日期范围
+        laydate.render({
+          elem: '#test-report-slec'
+          ,range: true
+        });
+
+        //日期选择器
+        laydate.render({
+          elem: '#test-laydate-type-date'
+          //,type: 'date' //type 默认为 date，所以可不填
+            ,range:true
+        });
+
+
 
 
 
